@@ -17,6 +17,7 @@ public class CorsConfig {
         config.setMaxAge(3600L);/*pre-flight 요청의 최대 유지 시간 설정*/
 
         source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/login", config);
         return new CorsFilter(source);
     }
 }

@@ -1,5 +1,8 @@
 package com.dongne.dongnebe.domain.user.security;
 
+import com.dongne.dongnebe.domain.user.jwt.JwtAuthenticationFilter;
+import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
+import com.dongne.dongnebe.domain.user.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +21,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CorsConfig corsConfig;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final RedisService redisService;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -38,7 +43,8 @@ public class SecurityConfig {
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             http
-                    .addFilter(corsConfig.corsFilter());
+                    .addFilter(corsConfig.corsFilter())
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager,jwtTokenProvider,redisService));
 
         }
     }
