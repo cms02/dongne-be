@@ -14,12 +14,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
     private final CorsConfig corsConfig;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisService redisService;
@@ -35,6 +35,8 @@ public class SecurityConfig {
                 .logout(LogoutConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequest) ->
                         authorizeRequest.anyRequest().permitAll())
+                .apply(new MyCustomDsl())
+                .and()/*Deprecate ,,,*/
                 .build();
     }
 
@@ -47,6 +49,7 @@ public class SecurityConfig {
                     .addFilter(new JwtAuthenticationFilter(authenticationManager,jwtTokenProvider,redisService));
 
         }
+
     }
 
     @Bean
