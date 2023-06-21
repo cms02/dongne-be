@@ -16,14 +16,10 @@ import org.hibernate.annotations.ColumnDefault;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue
-    private Long id;
-
     @Column(name = "user_id")
     private String userId;
-
-    private String username;
     private String password;
+    private String username;
     private String nickname;
 
     @Enumerated(EnumType.STRING)
