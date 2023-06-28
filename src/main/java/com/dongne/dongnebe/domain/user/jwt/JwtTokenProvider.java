@@ -23,6 +23,7 @@ public class JwtTokenProvider {
     public static final String JWT_SUBJECT = "JWT";
     public static final int ACCESS_TOKEN_EXPIRATION_TIME = 2 * 60 * 60 * 1000;/*2 HOURS*/
     public static final int REFRESH_TOKEN_EXPIRATION_TIME = 5 * 24 * 60 * 60 * 1000; /*5 DAYS*/
+    public static final String TOKEN_PREFIX = "Bearer ";
 
     public String responseRefreshToken(User user) {
         return createToken(user.getUserId(), REFRESH_TOKEN_EXPIRATION_TIME);
@@ -31,11 +32,11 @@ public class JwtTokenProvider {
         return createToken(user.getUserId(), ACCESS_TOKEN_EXPIRATION_TIME);
     }
 
-    public String requestAccessToken(HttpServletRequest request) {
+    public String getAccessTokenHeader(HttpServletRequest request) {
         return request.getHeader("A-AUTH_TOKEN");
     }
 
-    public String requestRefreshToken(HttpServletRequest request) {
+    public String getRefreshTokenHeader(HttpServletRequest request) {
         return request.getHeader("R-AUTH_TOKEN");
     }
 
@@ -45,5 +46,13 @@ public class JwtTokenProvider {
                 .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
                 .withClaim("userId", userId)
                 .sign(Algorithm.HMAC512(secretKey));
+    }
+
+    public String verifyToken(String jwtToken) {
+        return JWT.require(Algorithm.HMAC512(secretKey)).build().verify(jwtToken).getClaim("userId").asString();
+    }
+
+    public String getAccessTokenFromHeader(String jwtHeader) {
+        return jwtHeader.replace(TOKEN_PREFIX, "");
     }
 }
