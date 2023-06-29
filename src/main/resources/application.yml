@@ -34,14 +34,34 @@ jwt:
   secret:
     key: ddoonnggnnee
 
-#---
-#
+---
+
 #spring:
-#  config:
-#    activate:
-#      on-profile: local
-#
-#
+#  profiles:
+#    active: test
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#      path: /h2-console
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        #        show_sql: true
+#        format_sql: true
+#        use_sql_comments: true
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#  logging.level:
+#    org.hibernate.SQL: debug
+#  #  org.hibernate.type: trace
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+
 #---
 #
 #spring:
