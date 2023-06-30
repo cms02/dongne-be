@@ -3,7 +3,7 @@ package com.dongne.dongnebe.domain.user.controller;
 import com.dongne.dongnebe.domain.user.dto.SignUpRequestDto;
 import com.dongne.dongnebe.domain.user.service.UserService;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ class UserControllerTest {
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/users/sign-up")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new Gson().toJson(request))
+                        .content(new ObjectMapper().writeValueAsString(response))
         );
 
         //then
