@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Profile("local")
+@Profile({"local","dev"})
 @Component
 @RequiredArgsConstructor
 public class InitMember {
@@ -36,16 +36,18 @@ public class InitMember {
 
             User user1 = User.builder()
                     .userId("userId1")
+                    .username("홍길동")
                     .address("서울시 성동구")
                     .password(encPwd1)
-                    .nickname("성동구 깡패 김소연")
+                    .nickname("성동구깍두기")
                     .role(Role.USER)
                     .build();
             User user2 = User.builder()
                     .userId("userId2")
+                    .username("곽준빈")
                     .address("서울시 광진구")
                     .password(encPwd2)
-                    .nickname("광진구 찐따 김소연")
+                    .nickname("광진구날라리")
                     .role(Role.USER)
                     .build();
 
