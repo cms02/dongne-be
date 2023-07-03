@@ -56,4 +56,9 @@ public class ExceptionHandler {
     public ResponseEntity<ErrorResponseDto> profileUploadExceptionHandler(ProfileUploadException exception) {
         return new ResponseEntity<>(ErrorResponseDto.badRequest(exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> illegalArgumentExceptionHandler(IllegalArgumentException exception) {
+        return new ResponseEntity<>(ErrorResponseDto.badRequest(exception.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -116,7 +116,12 @@ public class UserService {
 
     private void uploadFile(MultipartFile file) {
         String imgFilePath = getImgFilePath(file);
-        Path path = Paths.get(imgFilePath);
+        Path path;
+        try {
+            path = Paths.get(imgFilePath);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
         try {
             Files.write(path, file.getBytes());
         } catch (IOException e) {
@@ -127,8 +132,7 @@ public class UserService {
     private String getImgFilePath(MultipartFile file) {
         UUID uuid = UUID.randomUUID();
         String imgFileName = uuid + "_" + file.getOriginalFilename();
-        String imgFilePath = uploadFolder + imgFileName;
-        return imgFilePath;
+        return uploadFolder + imgFileName;
     }
 
     private User findUser(String userId) {
