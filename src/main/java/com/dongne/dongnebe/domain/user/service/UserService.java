@@ -16,6 +16,7 @@ import com.dongne.dongnebe.global.exception.user.UserIdAlreadyExistException;
 import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisService redisService;
-    public void signUpUsers(SignUpRequestDto requestDto) {
+    public ResponseDto signUpUsers(SignUpRequestDto requestDto) {
         validateUser(requestDto);
 
         /*ID 중복 처리*/
@@ -45,6 +46,10 @@ public class UserService {
                         .address(requestDto.getAddress())
                         .role(Role.USER)
                         .build());
+        return ResponseDto.builder()
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("User Sign Up Success")
+                .build();
     }
 
     private void validateUser(SignUpRequestDto requestDto) {

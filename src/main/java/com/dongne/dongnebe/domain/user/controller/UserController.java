@@ -23,31 +23,29 @@ public class UserController {
 
     @PostMapping("/api/users/sign-up")
     public ResponseEntity<ResponseDto> signUpUsers(@RequestBody @Valid SignUpRequestDto requestDto) {
-        userService.signUpUsers(requestDto);
-        return ResponseEntity.ok().body(ResponseDto.builder()
-                .statusCode(HttpStatus.OK.value())
-                .responseMessage("User Sign Up Success")
-                .build());
+        ResponseDto result = userService.signUpUsers(requestDto);
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/api/users/login")
-    public ResponseEntity<ResponseDto> loginUsers(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<ResponseDto> loginUsers(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         LoginResponseDto result = userService.loginUsers(loginRequestDto);
         return ResponseEntity.ok().body(result);
     }
 
     @PatchMapping("/api/users-basic/{userId}")
     public ResponseEntity<ResponseDto> updateUsersBasic(@PathVariable String userId,
-                                                   @RequestBody UpdateRequestDto updateRequestDto,
-                                                   Authentication authentication) {
-        ResponseDto responseDto = userService.updateUsersBasic(userId, updateRequestDto, authentication);
-        return ResponseEntity.ok().body(responseDto);
+                                                        @RequestBody @Valid UpdateRequestDto updateRequestDto,
+                                                        Authentication authentication) {
+
+        ResponseDto result = userService.updateUsersBasic(userId, updateRequestDto, authentication);
+        return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("/api/users/{userId}")
     public ResponseEntity<ResponseDto> deleteUsers(@PathVariable String userId,
-                                                        Authentication authentication) {
-        ResponseDto responseDto = userService.deleteUsers(userId, authentication);
-        return ResponseEntity.ok().body(responseDto);
+                                                   Authentication authentication) {
+        ResponseDto result = userService.deleteUsers(userId, authentication);
+        return ResponseEntity.ok().body(result);
     }
 }
