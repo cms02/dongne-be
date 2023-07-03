@@ -1,10 +1,7 @@
 package com.dongne.dongnebe.global.handler;
 
 import com.dongne.dongnebe.global.dto.ErrorResponseDto;
-import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
-import com.dongne.dongnebe.global.exception.user.NicknameAlreadyExistException;
-import com.dongne.dongnebe.global.exception.user.UserIdAlreadyExistException;
-import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
+import com.dongne.dongnebe.global.exception.user.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -43,5 +40,15 @@ public class ExceptionHandler {
             errorMap.put(fe.getField(), fe.getDefaultMessage());
         }
         return new ResponseEntity<>(ErrorResponseDto.badRequest(errorMap.toString()), HttpStatus.BAD_REQUEST);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> forbiddenExceptionHandler(ForbiddenException exception) {
+        return new ResponseEntity<>(ErrorResponseDto.forbidden(exception.getMessage()), HttpStatus.FORBIDDEN);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> unAuthorizedExceptionHandler(UnAuthorizedException exception) {
+        return new ResponseEntity<>(ErrorResponseDto.unauthorized(exception.getMessage()), HttpStatus.UNAUTHORIZED);
     }
 }
