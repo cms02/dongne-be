@@ -99,8 +99,13 @@ public class UserService {
     public ResponseDto updateUsersBasic(String userId, MultipartFile file, BasicRequestDto requestDto, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
+
+        /*파일이 없다면 기본 프로필 적용*/
+
+
         if (requestDto.getIsProfileChanged()) {
             uploadFile(file);
+            user.updateProfileImg(getImgFilePath(file));
         }
         user.updateBasic(requestDto);
         return ResponseDto.builder()
@@ -110,15 +115,20 @@ public class UserService {
     }
 
     private void uploadFile(MultipartFile file) {
-        UUID uuid = UUID.randomUUID();
-        String imgFileName = uuid + "_" + file.getOriginalFilename();
-        Path imgFilePath = Paths.get(uploadFolder + imgFileName);
-
+        String imgFilePath = getImgFilePath(file);
+        Path path = Paths.get(imgFilePath);
         try {
-            Files.write(imgFilePath, file.getBytes());
+            Files.write(path, file.getBytes());
         } catch (IOException e) {
             throw new ProfileUploadException(e.getMessage());
         }
+    }
+
+    private String getImgFilePath(MultipartFile file) {
+        UUID uuid = UUID.randomUUID();
+        String imgFileName = uuid + "_" + file.getOriginalFilename();
+        String imgFilePath = uploadFolder + imgFileName;
+        return imgFilePath;
     }
 
     private User findUser(String userId) {
@@ -171,4 +181,17 @@ public class UserService {
     private boolean isPasswordMatch(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
+
+    public UsersBasicResponseDto findUsersBasic(String userId, Authentication authentication) {
+        validatePermission(userId, authentication);
+        User user = findUser(userId);
+        return UsersBasicResponseDto.builder()
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("Find Users Basic")
+                .profile_img(user.getProfileImg())
+                .address(user.getAddress())
+                .nickname(user.getNickname())
+                .build();
+    }
+
 }

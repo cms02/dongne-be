@@ -29,9 +29,15 @@ public class UserController {
         return ResponseEntity.ok().body(result);
     }
 
+    @GetMapping("/api/users-basic/{userId}")
+    public ResponseEntity<ResponseDto> findUsersBasic(@PathVariable String userId,
+                                                        Authentication authentication) {
+        UsersBasicResponseDto result = userService.findUsersBasic(userId, authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
     @PatchMapping("/api/users-basic/{userId}")
     public ResponseEntity<ResponseDto> updateUsersBasic(@PathVariable String userId,
-//                                                        @RequestBody @Valid BasicRequestDto basicRequestDto,
                                                         @RequestPart MultipartFile file,
                                                         @RequestPart @Valid BasicRequestDto basicRequestDto,
                                                         Authentication authentication) {
