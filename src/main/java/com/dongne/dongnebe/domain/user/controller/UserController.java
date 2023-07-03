@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,9 +31,11 @@ public class UserController {
 
     @PatchMapping("/api/users-basic/{userId}")
     public ResponseEntity<ResponseDto> updateUsersBasic(@PathVariable String userId,
-                                                        @RequestBody @Valid BasicRequestDto basicRequestDto,
+//                                                        @RequestBody @Valid BasicRequestDto basicRequestDto,
+                                                        @RequestPart MultipartFile file,
+                                                        @RequestPart @Valid BasicRequestDto basicRequestDto,
                                                         Authentication authentication) {
-        ResponseDto result = userService.updateUsersBasic(userId, basicRequestDto, authentication);
+        ResponseDto result = userService.updateUsersBasic(userId, file, basicRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 

@@ -7,18 +7,22 @@ import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
 import com.dongne.dongnebe.domain.user.redis.RedisService;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.exception.user.ForbiddenException;
-import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
-import com.dongne.dongnebe.global.exception.user.UserIdAlreadyExistException;
-import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
+import com.dongne.dongnebe.global.exception.user.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -29,6 +33,10 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisService redisService;
+
+    @Value("${file.path}")
+    private String uploadFolder;
+
     public ResponseDto signUpUsers(SignUpRequestDto requestDto) {
         validateUser(requestDto);
 
@@ -88,14 +96,29 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseDto updateUsersBasic(String userId, BasicRequestDto requestDto, Authentication authentication) {
+    public ResponseDto updateUsersBasic(String userId, MultipartFile file, BasicRequestDto requestDto, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
+        if (requestDto.getIsProfileChanged()) {
+            uploadFile(file);
+        }
         user.updateBasic(requestDto);
         return ResponseDto.builder()
                 .responseMessage("User Update Success")
                 .statusCode(HttpStatus.OK.value())
                 .build();
+    }
+
+    private void uploadFile(MultipartFile file) {
+        UUID uuid = UUID.randomUUID();
+        String imgFileName = uuid + "_" + file.getOriginalFilename();
+        Path imgFilePath = Paths.get(uploadFolder + imgFileName);
+
+        try {
+            Files.write(imgFilePath, file.getBytes());
+        } catch (IOException e) {
+            throw new ProfileUploadException(e.getMessage());
+        }
     }
 
     private User findUser(String userId) {

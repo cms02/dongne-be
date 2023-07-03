@@ -51,4 +51,9 @@ public class ExceptionHandler {
     public ResponseEntity<ErrorResponseDto> unAuthorizedExceptionHandler(UnAuthorizedException exception) {
         return new ResponseEntity<>(ErrorResponseDto.unauthorized(exception.getMessage()), HttpStatus.UNAUTHORIZED);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> profileUploadExceptionHandler(ProfileUploadException exception) {
+        return new ResponseEntity<>(ErrorResponseDto.badRequest(exception.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class LoginRequestDto {
     @Size(max = 10, message = "10 글자 이내의 ID를 입력하세요.")
     private String userId;
-    @Size(max = 10, message = "15 글자 이내의 비밀번호를 입력하세요.")
+    @Size(max = 15, message = "15 글자 이내의 비밀번호를 입력하세요.")
     private String password;
 }

@@ -16,4 +16,6 @@ public class BasicRequestDto {
     private String nickname;
 
     private String address;
+    private Boolean isProfileChanged;
+
 }
