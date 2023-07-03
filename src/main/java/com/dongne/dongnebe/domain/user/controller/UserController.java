@@ -3,16 +3,17 @@ package com.dongne.dongnebe.domain.user.controller;
 import com.dongne.dongnebe.domain.user.dto.LoginRequestDto;
 import com.dongne.dongnebe.domain.user.dto.LoginResponseDto;
 import com.dongne.dongnebe.domain.user.dto.SignUpRequestDto;
+import com.dongne.dongnebe.domain.user.dto.UpdateRequestDto;
 import com.dongne.dongnebe.domain.user.service.UserService;
 import com.dongne.dongnebe.global.dto.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +23,6 @@ public class UserController {
 
     @PostMapping("/api/users/sign-up")
     public ResponseEntity<ResponseDto> signUpUsers(@RequestBody @Valid SignUpRequestDto requestDto) {
-        //        Dto valid check 추가해야함
         userService.signUpUsers(requestDto);
         return ResponseEntity.ok().body(ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
@@ -32,9 +32,16 @@ public class UserController {
 
     @PostMapping("/api/users/login")
     public ResponseEntity<ResponseDto> loginUsers(@RequestBody LoginRequestDto loginRequestDto) {
-//        Dto valid check 추가해야함
-
         LoginResponseDto result = userService.loginUsers(loginRequestDto);
         return ResponseEntity.ok().body(result);
+    }
+
+    @PatchMapping("/api/users/{userId}")
+    public ResponseEntity<ResponseDto> updateUsers(@PathVariable String userId,
+                                                   @RequestBody UpdateRequestDto updateRequestDto,
+                                                   Authentication authentication) {
+
+        ResponseDto responseDto = userService.updateUsers(userId, updateRequestDto, authentication);
+        return ResponseEntity.ok().body(responseDto);
     }
 }

@@ -1,5 +1,6 @@
 package com.dongne.dongnebe.domain.user.entity;
 
+import com.dongne.dongnebe.domain.user.dto.UpdateRequestDto;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -42,5 +43,10 @@ public class User extends BaseEntity {
         this.nickname = nickname;
         this.role = role;
         this.address = address;
+    }
+
+    public void update(UpdateRequestDto requestDto) {
+        this.nickname = requestDto.getNickname();
+        this.address = requestDto.getAddress();
     }
 }
