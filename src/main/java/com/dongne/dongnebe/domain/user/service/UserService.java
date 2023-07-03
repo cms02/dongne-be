@@ -67,8 +67,7 @@ public class UserService {
     }
 
     public LoginResponseDto loginUsers(LoginRequestDto requestDto) {
-        User user = userRepository.findByUserId(requestDto.getUserId())
-                .orElseThrow(() -> new UserIdNotFoundException("User Id Not Found"));
+        User user = findUser(requestDto.getUserId());
 
         if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IncorrectPasswordException("Incorrect Password");
@@ -88,11 +87,9 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseDto updateUsers(String userId, UpdateRequestDto requestDto, Authentication authentication) {
+    public ResponseDto updateUsersBasic(String userId, UpdateRequestDto requestDto, Authentication authentication) {
         validatePermission(userId, authentication);
-        User user = userRepository.findByUserId(userId).orElseThrow(
-                () -> new UserIdNotFoundException("User Id Not Found")
-        );
+        User user = findUser(userId);
         user.update(requestDto);
         return ResponseDto.builder()
                 .responseMessage("User Update Success")
@@ -100,9 +97,27 @@ public class UserService {
                 .build();
     }
 
+    private User findUser(String userId) {
+        User user = userRepository.findByUserId(userId).orElseThrow(
+                () -> new UserIdNotFoundException("User Id Not Found")
+        );
+        return user;
+    }
+
     private static void validatePermission(String userId, Authentication authentication) {
         if (!authentication.getName().equals(userId)) {
             throw new ForbiddenException("Access is forbidden");
         }
+    }
+
+    @Transactional
+    public ResponseDto deleteUsers(String userId, Authentication authentication) {
+        validatePermission(userId, authentication);
+        User user = findUser(userId);
+        user.delete();
+        return ResponseDto.builder()
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("User Deleted")
+                .build();
     }
 }

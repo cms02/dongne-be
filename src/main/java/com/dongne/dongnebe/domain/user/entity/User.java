@@ -33,7 +33,7 @@ public class User extends BaseEntity {
 
     @Column(name = "is_deleted")
     @ColumnDefault("false")
-    private boolean isDeleted;
+    private Boolean isDeleted = false;
 
     @Builder
     public User(String userId, String username, String password, String nickname, Role role, String address) {
@@ -48,5 +48,9 @@ public class User extends BaseEntity {
     public void update(UpdateRequestDto requestDto) {
         this.nickname = requestDto.getNickname();
         this.address = requestDto.getAddress();
+    }
+
+    public void delete() {
+        this.isDeleted = true;
     }
 }

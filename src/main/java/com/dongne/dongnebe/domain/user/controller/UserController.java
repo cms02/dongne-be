@@ -36,12 +36,18 @@ public class UserController {
         return ResponseEntity.ok().body(result);
     }
 
-    @PatchMapping("/api/users/{userId}")
-    public ResponseEntity<ResponseDto> updateUsers(@PathVariable String userId,
+    @PatchMapping("/api/users-basic/{userId}")
+    public ResponseEntity<ResponseDto> updateUsersBasic(@PathVariable String userId,
                                                    @RequestBody UpdateRequestDto updateRequestDto,
                                                    Authentication authentication) {
+        ResponseDto responseDto = userService.updateUsersBasic(userId, updateRequestDto, authentication);
+        return ResponseEntity.ok().body(responseDto);
+    }
 
-        ResponseDto responseDto = userService.updateUsers(userId, updateRequestDto, authentication);
+    @DeleteMapping("/api/users/{userId}")
+    public ResponseEntity<ResponseDto> deleteUsers(@PathVariable String userId,
+                                                        Authentication authentication) {
+        ResponseDto responseDto = userService.deleteUsers(userId, authentication);
         return ResponseEntity.ok().body(responseDto);
     }
 }
