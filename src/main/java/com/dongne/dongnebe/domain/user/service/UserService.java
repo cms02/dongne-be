@@ -1,9 +1,6 @@
 package com.dongne.dongnebe.domain.user.service;
 
-import com.dongne.dongnebe.domain.user.dto.LoginRequestDto;
-import com.dongne.dongnebe.domain.user.dto.LoginResponseDto;
-import com.dongne.dongnebe.domain.user.dto.SignUpRequestDto;
-import com.dongne.dongnebe.domain.user.dto.UpdateRequestDto;
+import com.dongne.dongnebe.domain.user.dto.*;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
@@ -16,7 +13,6 @@ import com.dongne.dongnebe.global.exception.user.UserIdAlreadyExistException;
 import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -92,10 +88,10 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseDto updateUsersBasic(String userId, UpdateRequestDto requestDto, Authentication authentication) {
+    public ResponseDto updateUsersBasic(String userId, BasicRequestDto requestDto, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
-        user.update(requestDto);
+        user.updateBasic(requestDto);
         return ResponseDto.builder()
                 .responseMessage("User Update Success")
                 .statusCode(HttpStatus.OK.value())
@@ -103,15 +99,14 @@ public class UserService {
     }
 
     private User findUser(String userId) {
-        User user = userRepository.findByUserId(userId).orElseThrow(
+        return userRepository.findByUserId(userId).orElseThrow(
                 () -> new UserIdNotFoundException("User Id Not Found")
         );
-        return user;
     }
 
     private static void validatePermission(String userId, Authentication authentication) {
         if (!authentication.getName().equals(userId)) {
-            throw new ForbiddenException("Access is forbidden");
+            throw new ForbiddenException("Access Is Forbidden");
         }
     }
 
@@ -124,5 +119,33 @@ public class UserService {
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("User Deleted")
                 .build();
+    }
+
+    @Transactional
+    public ResponseDto updateUsersPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
+        validatePermission(userId, authentication);
+        User user = findUser(userId);
+        user.updatePassword(passwordEncoder.encode(passwordRequestDto.getPassword()));
+        return ResponseDto.builder()
+                .responseMessage("User Password Updated")
+                .statusCode(HttpStatus.OK.value())
+                .build();
+    }
+
+    public ResponseDto confirmUsersPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
+        validatePermission(userId, authentication);
+        User user = findUser(userId);
+        boolean isPasswordMatch = isPasswordMatch(passwordRequestDto.getPassword(), user.getPassword());
+        if (!isPasswordMatch) {
+            throw new IncorrectPasswordException("Incorrect Password");
+        }
+        return ResponseDto.builder()
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("Correct Password")
+                .build();
+    }
+
+    private boolean isPasswordMatch(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 }

@@ -33,7 +33,7 @@ public class JwtTokenProvider {
     }
 
     public String getAccessTokenHeader(HttpServletRequest request) {
-        return request.getHeader("A-AUTH_TOKEN");
+        return request.getHeader("A-AUTH-TOKEN");
     }
 
     public String getRefreshTokenHeader(HttpServletRequest request) {

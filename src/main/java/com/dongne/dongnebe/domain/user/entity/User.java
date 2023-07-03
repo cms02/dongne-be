@@ -1,10 +1,9 @@
 package com.dongne.dongnebe.domain.user.entity;
 
-import com.dongne.dongnebe.domain.user.dto.UpdateRequestDto;
+import com.dongne.dongnebe.domain.user.dto.BasicRequestDto;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,12 +44,16 @@ public class User extends BaseEntity {
         this.address = address;
     }
 
-    public void update(UpdateRequestDto requestDto) {
+    public void updateBasic(BasicRequestDto requestDto) {
         this.nickname = requestDto.getNickname();
         this.address = requestDto.getAddress();
     }
 
     public void delete() {
         this.isDeleted = true;
+    }
+
+    public void updatePassword(String newPassword) {
+        this.password = newPassword;
     }
 }
