@@ -109,7 +109,7 @@ public class UserService {
         }
         user.updateBasic(requestDto);
         return ResponseDto.builder()
-                .responseMessage("User Update Success")
+                .responseMessage("User Basic Update Success")
                 .statusCode(HttpStatus.OK.value())
                 .build();
     }
