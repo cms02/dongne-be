@@ -1,8 +1,11 @@
 package com.dongne.dongnebe.domain;
 
-import com.dongne.dongnebe.domain.category.entity.Category;
-import com.dongne.dongnebe.domain.category.enums.CategoryType;
-import com.dongne.dongnebe.domain.category.repository.CategoryRepository;
+import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
+import com.dongne.dongnebe.domain.category.main_category.enums.MainCategoryType;
+import com.dongne.dongnebe.domain.category.main_category.repository.MainCategoryRepository;
+import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
+import com.dongne.dongnebe.domain.category.sub_category.repository.SubCategoryQueryRepository;
+import com.dongne.dongnebe.domain.category.sub_category.repository.SubCategoryRepository;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.city.repository.CityRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
@@ -25,7 +28,9 @@ public class InitData {
     private final InitCityService initCityService;
     private final InitZoneService initZoneService;
     private final InitUserService initUserService;
-    private final InitCategoryService initCategoryService;
+    private final InitMainCategoryService initMainCategoryService;
+    private final InitSubCategoryService initSubCategoryService;
+
 
     @PostConstruct
     public void init() {
@@ -51,7 +56,9 @@ public class InitData {
 
         initUserService.initUser();
 
-        initCategoryService.initCategory();
+        initMainCategoryService.initMainCategory();
+
+        initSubCategoryService.initSubCategory();
     }
 
     @Component
@@ -62,107 +69,110 @@ public class InitData {
 
         @Transactional
         public void initCity() {
-            City city1 = City.builder()
-                    .cityCode("11")
-                    .name("서울특별시")
-                    .build();
-            cityRepository.save(city1);
+            if (cityRepository.findAll().isEmpty()) {
 
-            City city2 = City.builder()
-                    .cityCode("26")
-                    .name("부산광역시")
-                    .build();
-            cityRepository.save(city2);
+                City city1 = City.builder()
+                        .cityCode("11")
+                        .name("서울특별시")
+                        .build();
+                cityRepository.save(city1);
 
-            City city3 = City.builder()
-                    .cityCode("27")
-                    .name("대구광역시")
-                    .build();
-            cityRepository.save(city3);
+                City city2 = City.builder()
+                        .cityCode("26")
+                        .name("부산광역시")
+                        .build();
+                cityRepository.save(city2);
 
-            City city4 = City.builder()
-                    .cityCode("28")
-                    .name("인천광역시")
-                    .build();
-            cityRepository.save(city4);
+                City city3 = City.builder()
+                        .cityCode("27")
+                        .name("대구광역시")
+                        .build();
+                cityRepository.save(city3);
 
-            City city5 = City.builder()
-                    .cityCode("29")
-                    .name("광주광역시")
-                    .build();
-            cityRepository.save(city5);
+                City city4 = City.builder()
+                        .cityCode("28")
+                        .name("인천광역시")
+                        .build();
+                cityRepository.save(city4);
 
-            City city6 = City.builder()
-                    .cityCode("30")
-                    .name("대전광역시")
-                    .build();
-            cityRepository.save(city6);
+                City city5 = City.builder()
+                        .cityCode("29")
+                        .name("광주광역시")
+                        .build();
+                cityRepository.save(city5);
 
-            City city7 = City.builder()
-                    .cityCode("31")
-                    .name("울산광역시")
-                    .build();
-            cityRepository.save(city7);
+                City city6 = City.builder()
+                        .cityCode("30")
+                        .name("대전광역시")
+                        .build();
+                cityRepository.save(city6);
 
-            City city8 = City.builder()
-                    .cityCode("36")
-                    .name("세종특별자치시")
-                    .build();
-            cityRepository.save(city8);
+                City city7 = City.builder()
+                        .cityCode("31")
+                        .name("울산광역시")
+                        .build();
+                cityRepository.save(city7);
 
-            City city9 = City.builder()
-                    .cityCode("41")
-                    .name("경기도")
-                    .build();
-            cityRepository.save(city9);
+                City city8 = City.builder()
+                        .cityCode("36")
+                        .name("세종특별자치시")
+                        .build();
+                cityRepository.save(city8);
 
-            City city10 = City.builder()
-                    .cityCode("42")
-                    .name("강원도")
-                    .build();
-            cityRepository.save(city10);
+                City city9 = City.builder()
+                        .cityCode("41")
+                        .name("경기도")
+                        .build();
+                cityRepository.save(city9);
 
-            City city11 = City.builder()
-                    .cityCode("43")
-                    .name("충청북도")
-                    .build();
-            cityRepository.save(city11);
+                City city10 = City.builder()
+                        .cityCode("42")
+                        .name("강원도")
+                        .build();
+                cityRepository.save(city10);
 
-            City city12 = City.builder()
-                    .cityCode("44")
-                    .name("충청남도")
-                    .build();
-            cityRepository.save(city12);
+                City city11 = City.builder()
+                        .cityCode("43")
+                        .name("충청북도")
+                        .build();
+                cityRepository.save(city11);
 
-            City city13 = City.builder()
-                    .cityCode("45")
-                    .name("전라북도")
-                    .build();
-            cityRepository.save(city13);
+                City city12 = City.builder()
+                        .cityCode("44")
+                        .name("충청남도")
+                        .build();
+                cityRepository.save(city12);
 
-            City city14 = City.builder()
-                    .cityCode("46")
-                    .name("전라남도")
-                    .build();
-            cityRepository.save(city14);
+                City city13 = City.builder()
+                        .cityCode("45")
+                        .name("전라북도")
+                        .build();
+                cityRepository.save(city13);
 
-            City city15 = City.builder()
-                    .cityCode("47")
-                    .name("경상북도")
-                    .build();
-            cityRepository.save(city15);
+                City city14 = City.builder()
+                        .cityCode("46")
+                        .name("전라남도")
+                        .build();
+                cityRepository.save(city14);
 
-            City city16 = City.builder()
-                    .cityCode("48")
-                    .name("경상남도")
-                    .build();
-            cityRepository.save(city16);
+                City city15 = City.builder()
+                        .cityCode("47")
+                        .name("경상북도")
+                        .build();
+                cityRepository.save(city15);
 
-            City city17 = City.builder()
-                    .cityCode("50")
-                    .name("제주특별자치도")
-                    .build();
-            cityRepository.save(city17);
+                City city16 = City.builder()
+                        .cityCode("48")
+                        .name("경상남도")
+                        .build();
+                cityRepository.save(city16);
+
+                City city17 = City.builder()
+                        .cityCode("50")
+                        .name("제주특별자치도")
+                        .build();
+                cityRepository.save(city17);
+            }
         }
     }
     @Component
@@ -2064,162 +2074,295 @@ public class InitData {
     }
     @Component
     @RequiredArgsConstructor
-    static class InitCategoryService {
+    static class InitMainCategoryService {
 
-        private final CategoryRepository categoryRepository;
+        private final MainCategoryRepository mainCategoryRepository;
 
         @Transactional
-        public void initCategory() {
-            if (!categoryRepository.findAllByOrderByCategoryIdAsc().isEmpty()) {
-                categoryRepository.save(Category.builder()
+        public void initMainCategory() {
+            if (mainCategoryRepository.findAllByOrderByMainCategoryIdAsc().isEmpty()) {
+                mainCategoryRepository.save(MainCategory.builder()
+                        .mainCategoryType(MainCategoryType.STORY).build());
+
+                mainCategoryRepository.save(MainCategory.builder()
+                        .mainCategoryType(MainCategoryType.FUN).build());
+
+                mainCategoryRepository.save(MainCategory.builder()
+                        .mainCategoryType(MainCategoryType.LIFE).build());
+
+                mainCategoryRepository.save(MainCategory.builder()
+                        .mainCategoryType(MainCategoryType.NEWS).build());
+
+                mainCategoryRepository.save(MainCategory.builder()
+                        .mainCategoryType(MainCategoryType.WORK).build());
+
+                mainCategoryRepository.save(MainCategory.builder()
+                        .mainCategoryType(MainCategoryType.RELATIONSHIP).build());
+
+                mainCategoryRepository.save(MainCategory.builder()
+                        .mainCategoryType(MainCategoryType.MARRIAGE).build());
+
+            }
+        }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitSubCategoryService {
+
+        private final SubCategoryRepository subCategoryRepository;
+        private final MainCategoryRepository mainCategoryRepository;
+
+        @Transactional
+        public void initSubCategory() {
+            if (subCategoryRepository.findAll().isEmpty()) {
+                Long storyId  = mainCategoryRepository.findByMainCategoryType(MainCategoryType.STORY).getMainCategoryId();
+                Long newsId  = mainCategoryRepository.findByMainCategoryType(MainCategoryType.NEWS).getMainCategoryId();
+                Long funId  = mainCategoryRepository.findByMainCategoryType(MainCategoryType.FUN).getMainCategoryId();
+                Long marriageId  = mainCategoryRepository.findByMainCategoryType(MainCategoryType.MARRIAGE).getMainCategoryId();
+                Long lifeId  = mainCategoryRepository.findByMainCategoryType(MainCategoryType.LIFE).getMainCategoryId();
+                Long relationshipId  = mainCategoryRepository.findByMainCategoryType(MainCategoryType.RELATIONSHIP).getMainCategoryId();
+                Long workId  = mainCategoryRepository.findByMainCategoryType(MainCategoryType.WORK).getMainCategoryId();
+
+                subCategoryRepository.save(SubCategory.builder()
                         .name("사는얘기")
-                        .categoryType(CategoryType.STORY)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("10대 이야기")
-                        .categoryType(CategoryType.STORY)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("20대 이야기")
-                        .categoryType(CategoryType.STORY)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("30대 이야기")
-                        .categoryType(CategoryType.STORY)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("40대 이야기")
-                        .categoryType(CategoryType.STORY)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("50대 이야기")
-                        .categoryType(CategoryType.STORY)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
+                        .name("싱글톡")
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
+                        .build());
+
+                subCategoryRepository.save(SubCategory.builder()
                         .name("훈훈한 이야기")
-                        .categoryType(CategoryType.NEWS)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(storyId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
-                        .name("세상에 이런일이나")
-                        .categoryType(CategoryType.NEWS)
+                subCategoryRepository.save(SubCategory.builder()
+                        .name("세상에 이런일이")
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(newsId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
-                        .name("억울해요")
-                        .categoryType(CategoryType.NEWS)
+                subCategoryRepository.save(SubCategory.builder()
+                        .name("나억울해요")
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(newsId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("묻고 답하기")
-                        .categoryType(CategoryType.NEWS)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(newsId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
-                        .name("개념 상실한 사람들")
-                        .categoryType(CategoryType.NEWS)
-                        .build());
-
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("믿음과 신앙")
-                        .categoryType(CategoryType.NEWS)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(newsId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
+                        .name("개념 상실한 사람들")
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(newsId)
+                                        .build())
+                        .build());
+
+                subCategoryRepository.save(SubCategory.builder()
                         .name("배꼽조심")
-                        .categoryType(CategoryType.FUN)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(funId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("엽기&호러")
-                        .categoryType(CategoryType.FUN)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(funId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("남편 VS 아내")
-                        .categoryType(CategoryType.MARRIAGE)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(marriageId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("남자들끼리만")
-                        .categoryType(CategoryType.MARRIAGE)
-                        .build());
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(marriageId)
+                                        .build())
+                                .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("여자들끼리만")
-                        .categoryType(CategoryType.MARRIAGE)
-                        .build());
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(marriageId)
+                                        .build())
+                                .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("결혼/시집/친정")
-                        .categoryType(CategoryType.MARRIAGE)
-                        .build());
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(marriageId)
+                                        .build())
+                                .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("맞벌이 부부 이야기")
-                        .categoryType(CategoryType.MARRIAGE)
-                        .build());
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(marriageId)
+                                        .build())
+                                .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("임신/출산/육아")
-                        .categoryType(CategoryType.MARRIAGE)
-                        .build());
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(marriageId)
+                                        .build())
+                                .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("사랑과 이별")
-                        .categoryType(CategoryType.RELATIONSHIP)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(relationshipId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("해석 남/여")
-                        .categoryType(CategoryType.RELATIONSHIP)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(relationshipId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("회사생활")
-                        .categoryType(CategoryType.WORK)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(workId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("취업과 면접")
-                        .categoryType(CategoryType.WORK)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(workId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("알바 경험담")
-                        .categoryType(CategoryType.WORK)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(workId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("백수&백조이야기")
-                        .categoryType(CategoryType.WORK)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(workId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
-                        .name("동물")
-                        .categoryType(CategoryType.ETC)
+                subCategoryRepository.save(SubCategory.builder()
+                        .name("동물 사랑방")
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(lifeId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
-                        .name("사랑방")
-                        .categoryType(CategoryType.ETC)
-                        .build());
-
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("여행을 떠나요")
-                        .categoryType(CategoryType.ETC)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(lifeId)
+                                        .build())
                         .build());
 
-                categoryRepository.save(Category.builder()
+                subCategoryRepository.save(SubCategory.builder()
                         .name("포토스토리")
-                        .categoryType(CategoryType.ETC)
+                        .mainCategory(
+                                MainCategory.builder()
+                                        .mainCategoryId(lifeId)
+                                        .build())
                         .build());
+
             }
         }
     }
