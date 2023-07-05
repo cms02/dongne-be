@@ -1,5 +1,8 @@
-package com.dongne.dongnebe.domain.user.controller;
+package com.dongne.dongnebe.domain;
 
+import com.dongne.dongnebe.domain.category.entity.Category;
+import com.dongne.dongnebe.domain.category.enums.CategoryType;
+import com.dongne.dongnebe.domain.category.repository.CategoryRepository;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.city.repository.CityRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
@@ -17,69 +20,45 @@ import org.springframework.transaction.annotation.Transactional;
 @Profile({"local","dev"})
 @Component
 @RequiredArgsConstructor
-public class InitMember {
+public class InitData {
 
+    private final InitCityService initCityService;
+    private final InitZoneService initZoneService;
     private final InitUserService initUserService;
+    private final InitCategoryService initCategoryService;
 
     @PostConstruct
     public void init() {
+        initCityService.initCity();
+
+        initZoneService.initZone_서울특별시();
+        initZoneService.initZone_부산광역시();
+        initZoneService.initZone_대구광역시();
+        initZoneService.initZone_인천광역시();
+        initZoneService.initZone_광주광역시();
+        initZoneService.initZone_대전광역시();
+        initZoneService.initZone_울산광역시();
+        initZoneService.initZone_세종특별자치시();
+        initZoneService.initZone_경기도();
+        initZoneService.initZone_강원특별자치도();
+        initZoneService.initZone_충청북도();
+        initZoneService.initZone_충청남도();
+        initZoneService.initZone_전라북도();
+        initZoneService.initZone_전라남도();
+        initZoneService.initZone_경상북도();
+        initZoneService.initZone_경상남도();
+        initZoneService.initZone_제주특별자치도();
+
         initUserService.initUser();
-        initUserService.initCity();
-        initUserService.initZone_서울특별시();
-        initUserService.initZone_부산광역시();
-        initUserService.initZone_대구광역시();
-        initUserService.initZone_인천광역시();
-        initUserService.initZone_광주광역시();
-        initUserService.initZone_대전광역시();
-        initUserService.initZone_울산광역시();
-        initUserService.initZone_세종특별자치시();
-        initUserService.initZone_경기도();
-        initUserService.initZone_강원특별자치도();
-        initUserService.initZone_충청북도();
-        initUserService.initZone_충청남도();
-        initUserService.initZone_전라북도();
-        initUserService.initZone_전라남도();
-        initUserService.initZone_경상북도();
-        initUserService.initZone_경상남도();
-        initUserService.initZone_제주특별자치도();
+
+        initCategoryService.initCategory();
     }
 
     @Component
     @RequiredArgsConstructor
-    static class InitUserService {
+    static class InitCityService {
 
-        private final UserRepository memberRepository;
         private final CityRepository cityRepository;
-        private final ZoneRepository zoneRepository;
-        private final PasswordEncoder passwordEncoder;
-
-        @Transactional
-        public void initUser() {
-            String encPwd1 = passwordEncoder.encode("password1");
-            String encPwd2 = passwordEncoder.encode("password2");
-
-            User user1 = User.builder()
-                    .userId("userId1")
-                    .username("홍길동")
-                    .city(City.builder().cityCode("11").build())
-                    .zone(Zone.builder().zoneCode("11200").build())
-                    .password(encPwd1)
-                    .nickname("성동구깍두기")
-                    .role(Role.USER)
-                    .build();
-            User user2 = User.builder()
-                    .userId("userId2")
-                    .username("곽준빈")
-                    .city(City.builder().cityCode("11").build())
-                    .zone(Zone.builder().zoneCode("11170").build())
-                    .password(encPwd2)
-                    .nickname("용산구날라리")
-                    .role(Role.USER)
-                    .build();
-
-            memberRepository.save(user1);
-            memberRepository.save(user2);
-        }
 
         @Transactional
         public void initCity() {
@@ -185,6 +164,12 @@ public class InitMember {
                     .build();
             cityRepository.save(city17);
         }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitZoneService {
+
+        private final ZoneRepository zoneRepository;
 
         @Transactional
         public void initZone_서울특별시() {
@@ -2040,6 +2025,201 @@ public class InitMember {
                             .city(City.builder().cityCode("50").build())
                             .build()
             );
+        }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitUserService {
+
+        private final UserRepository memberRepository;
+        private final PasswordEncoder passwordEncoder;
+
+        @Transactional
+        public void initUser() {
+            String encPwd1 = passwordEncoder.encode("password1");
+            String encPwd2 = passwordEncoder.encode("password2");
+
+            User user1 = User.builder()
+                    .userId("userId1")
+                    .username("홍길동")
+                    .city(City.builder().cityCode("11").build())
+                    .zone(Zone.builder().zoneCode("11200").build())
+                    .password(encPwd1)
+                    .nickname("성동구깍두기")
+                    .role(Role.USER)
+                    .build();
+            User user2 = User.builder()
+                    .userId("userId2")
+                    .username("곽준빈")
+                    .city(City.builder().cityCode("11").build())
+                    .zone(Zone.builder().zoneCode("11170").build())
+                    .password(encPwd2)
+                    .nickname("용산구날라리")
+                    .role(Role.USER)
+                    .build();
+
+            memberRepository.save(user1);
+            memberRepository.save(user2);
+        }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitCategoryService {
+
+        private final CategoryRepository categoryRepository;
+
+        @Transactional
+        public void initCategory() {
+            categoryRepository.save(Category.builder()
+                    .name("사는얘기")
+                    .categoryType(CategoryType.STORY)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("10대 이야기")
+                    .categoryType(CategoryType.STORY)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("20대 이야기")
+                    .categoryType(CategoryType.STORY)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("30대 이야기")
+                    .categoryType(CategoryType.STORY)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("40대 이야기")
+                    .categoryType(CategoryType.STORY)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("50대 이야기")
+                    .categoryType(CategoryType.STORY)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("훈훈한 이야기")
+                    .categoryType(CategoryType.NEWS)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("세상에 이런일이나")
+                    .categoryType(CategoryType.NEWS)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("억울해요")
+                    .categoryType(CategoryType.NEWS)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("묻고 답하기")
+                    .categoryType(CategoryType.NEWS)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("개념 상실한 사람들")
+                    .categoryType(CategoryType.NEWS)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("믿음과 신앙")
+                    .categoryType(CategoryType.NEWS)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("배꼽조심")
+                    .categoryType(CategoryType.FUN)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("엽기&호러")
+                    .categoryType(CategoryType.FUN)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("남편 VS 아내")
+                    .categoryType(CategoryType.MARRIAGE)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("남자들끼리만")
+                    .categoryType(CategoryType.MARRIAGE)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("여자들끼리만")
+                    .categoryType(CategoryType.MARRIAGE)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("결혼/시집/친정")
+                    .categoryType(CategoryType.MARRIAGE)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("맞벌이 부부 이야기")
+                    .categoryType(CategoryType.MARRIAGE)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("임신/출산/육아")
+                    .categoryType(CategoryType.MARRIAGE)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("사랑과 이별")
+                    .categoryType(CategoryType.RELATIONSHIP)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("해석 남/여")
+                    .categoryType(CategoryType.RELATIONSHIP)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("회사생활")
+                    .categoryType(CategoryType.WORK)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("취업과 면접")
+                    .categoryType(CategoryType.WORK)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("알바 경험담")
+                    .categoryType(CategoryType.WORK)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("백수&백조이야기")
+                    .categoryType(CategoryType.WORK)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("동물")
+                    .categoryType(CategoryType.ETC)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("사랑방")
+                    .categoryType(CategoryType.ETC)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("여행을 떠나요")
+                    .categoryType(CategoryType.ETC)
+                    .build());
+
+            categoryRepository.save(Category.builder()
+                    .name("포토스토리")
+                    .categoryType(CategoryType.ETC)
+                    .build());
+
         }
     }
 }
