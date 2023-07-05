@@ -58,7 +58,8 @@ class UserControllerTest {
                 .username("홍길동")
                 .password("홍길동123")
                 .nickname("홍당무")
-                .address("서울시 성동구")
+                .zoneCode("11200")
+                .cityCode("11")
                 .build();
 
         ResponseDto response = ResponseDto.builder()
@@ -93,7 +94,8 @@ class UserControllerTest {
                 .username("홍길동")
                 .password("홍길동123")
                 .nickname("중복닉네임")
-                .address("서울시 성동구")
+                .zoneCode("11200")
+                .cityCode("11")
                 .build();
 
         doThrow(new NicknameAlreadyExistException(NICKNAME_ALREADY_EXIST_MSG)).when(userService).signUpUsers(any(SignUpRequestDto.class));
@@ -130,7 +132,8 @@ class UserControllerTest {
                 .username("홍길동")
                 .password("홍길동123")
                 .nickname("닉네임")
-                .address("서울시 성동구")
+                .zoneCode("11200")
+                .cityCode("11")
                 .build();
 
         doThrow(new UserIdAlreadyExistException(USERID_ALREADY_EXIST_MSG)).when(userService).signUpUsers(any(SignUpRequestDto.class));
@@ -163,7 +166,8 @@ class UserControllerTest {
                 .username("홍길동길동홍")/*5글자 이내로 입력*/
                 .password("비밀번호비밀번호비밀번호비밀번호")/*15글자 이내로 입력*/
                 .nickname("닉네임닉네임닉네임")/*7글자 이내로 입력*/
-                .address("서울시 성동구")
+                .zoneCode("11200")
+                .cityCode("11")
                 .build();
 
         //when

@@ -1,11 +1,13 @@
 package com.dongne.dongnebe.domain.user.service;
 
+import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.user.dto.*;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
 import com.dongne.dongnebe.domain.user.redis.RedisService;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
+import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.*;
 import lombok.RequiredArgsConstructor;
@@ -39,15 +41,14 @@ public class UserService {
 
     public ResponseDto signUpUsers(SignUpRequestDto requestDto) {
         validateUser(requestDto);
-
-        /*ID 중복 처리*/
         userRepository.save(
                 User.builder()
                         .userId(requestDto.getUserId())
                         .username(requestDto.getUsername())
                         .password(passwordEncoder.encode(requestDto.getPassword()))
                         .nickname(requestDto.getNickname())
-                        .address(requestDto.getAddress())
+                        .city(City.builder().cityCode(requestDto.getCityCode()).build())
+                        .zone(Zone.builder().zoneCode(requestDto.getZoneCode()).build())
                         .role(Role.USER)
                         .build());
         return ResponseDto.builder()
@@ -193,7 +194,8 @@ public class UserService {
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Find Users Basic")
                 .profile_img(user.getProfileImg())
-                .address(user.getAddress())
+                .cityName(user.getCity().getName())
+                .ZoneName(user.getZone().getName())
                 .nickname(user.getNickname())
                 .build();
     }

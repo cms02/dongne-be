@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class UsersBasicResponseDto extends ResponseDto {
     private String nickname;
-    private String address;
+    private String cityName;
+    private String ZoneName;
     private String profile_img;
 }

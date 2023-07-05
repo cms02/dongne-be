@@ -17,7 +17,7 @@ public class Zone {
     private String zoneCode;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_code")
     private City city;
 

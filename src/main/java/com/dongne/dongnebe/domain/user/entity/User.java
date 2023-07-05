@@ -1,7 +1,9 @@
 package com.dongne.dongnebe.domain.user.entity;
 
+import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.user.dto.BasicRequestDto;
 import com.dongne.dongnebe.domain.user.enums.Role;
+import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -24,7 +26,14 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    private String address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cityCode")
+    private City city;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "zoneCode")
+    private Zone zone;
 
     @Column(name = "profile_img")
     private String profileImg;
@@ -35,18 +44,19 @@ public class User extends BaseEntity {
     private Boolean isDeleted = false;
 
     @Builder
-    public User(String userId, String username, String password, String nickname, Role role, String address) {
+    public User(String userId, String username, String password, String nickname, Role role, City city, Zone zone) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.role = role;
-        this.address = address;
+        this.city = city;
+        this.zone = zone;
     }
 
     public void updateBasic(BasicRequestDto requestDto) {
         this.nickname = requestDto.getNickname();
-        this.address = requestDto.getAddress();
+        this.city = City.builder().cityCode(requestDto.getCityCode()).build();
     }
 
     public void delete() {

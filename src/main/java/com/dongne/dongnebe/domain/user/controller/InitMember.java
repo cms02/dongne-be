@@ -61,7 +61,8 @@ public class InitMember {
             User user1 = User.builder()
                     .userId("userId1")
                     .username("홍길동")
-                    .address("서울시 성동구")
+                    .city(City.builder().cityCode("11").build())
+                    .zone(Zone.builder().zoneCode("11200").build())
                     .password(encPwd1)
                     .nickname("성동구깍두기")
                     .role(Role.USER)
@@ -69,9 +70,10 @@ public class InitMember {
             User user2 = User.builder()
                     .userId("userId2")
                     .username("곽준빈")
-                    .address("서울시 광진구")
+                    .city(City.builder().cityCode("11").build())
+                    .zone(Zone.builder().zoneCode("11170").build())
                     .password(encPwd2)
-                    .nickname("광진구날라리")
+                    .nickname("용산구날라리")
                     .role(Role.USER)
                     .build();
 
