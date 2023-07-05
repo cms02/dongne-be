@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 public class UsersBasicResponseDto extends ResponseDto {
     private String nickname;
     private String cityName;
-    private String ZoneName;
-    private String profile_img;
+    private String zoneName;
+    private String profileImg;
 }

@@ -193,9 +193,9 @@ public class UserService {
         return UsersBasicResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Find Users Basic")
-                .profile_img(user.getProfileImg())
+                .profileImg(user.getProfileImg())
                 .cityName(user.getCity().getName())
-                .ZoneName(user.getZone().getName())
+                .zoneName(user.getZone().getName())
                 .nickname(user.getNickname())
                 .build();
     }
