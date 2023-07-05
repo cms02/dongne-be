@@ -2070,156 +2070,157 @@ public class InitData {
 
         @Transactional
         public void initCategory() {
-            categoryRepository.save(Category.builder()
-                    .name("사는얘기")
-                    .categoryType(CategoryType.STORY)
-                    .build());
+            if (!categoryRepository.findAllByOrderByCategoryIdAsc().isEmpty()) {
+                categoryRepository.save(Category.builder()
+                        .name("사는얘기")
+                        .categoryType(CategoryType.STORY)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("10대 이야기")
-                    .categoryType(CategoryType.STORY)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("10대 이야기")
+                        .categoryType(CategoryType.STORY)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("20대 이야기")
-                    .categoryType(CategoryType.STORY)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("20대 이야기")
+                        .categoryType(CategoryType.STORY)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("30대 이야기")
-                    .categoryType(CategoryType.STORY)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("30대 이야기")
+                        .categoryType(CategoryType.STORY)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("40대 이야기")
-                    .categoryType(CategoryType.STORY)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("40대 이야기")
+                        .categoryType(CategoryType.STORY)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("50대 이야기")
-                    .categoryType(CategoryType.STORY)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("50대 이야기")
+                        .categoryType(CategoryType.STORY)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("훈훈한 이야기")
-                    .categoryType(CategoryType.NEWS)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("훈훈한 이야기")
+                        .categoryType(CategoryType.NEWS)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("세상에 이런일이나")
-                    .categoryType(CategoryType.NEWS)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("세상에 이런일이나")
+                        .categoryType(CategoryType.NEWS)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("억울해요")
-                    .categoryType(CategoryType.NEWS)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("억울해요")
+                        .categoryType(CategoryType.NEWS)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("묻고 답하기")
-                    .categoryType(CategoryType.NEWS)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("묻고 답하기")
+                        .categoryType(CategoryType.NEWS)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("개념 상실한 사람들")
-                    .categoryType(CategoryType.NEWS)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("개념 상실한 사람들")
+                        .categoryType(CategoryType.NEWS)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("믿음과 신앙")
-                    .categoryType(CategoryType.NEWS)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("믿음과 신앙")
+                        .categoryType(CategoryType.NEWS)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("배꼽조심")
-                    .categoryType(CategoryType.FUN)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("배꼽조심")
+                        .categoryType(CategoryType.FUN)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("엽기&호러")
-                    .categoryType(CategoryType.FUN)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("엽기&호러")
+                        .categoryType(CategoryType.FUN)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("남편 VS 아내")
-                    .categoryType(CategoryType.MARRIAGE)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("남편 VS 아내")
+                        .categoryType(CategoryType.MARRIAGE)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("남자들끼리만")
-                    .categoryType(CategoryType.MARRIAGE)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("남자들끼리만")
+                        .categoryType(CategoryType.MARRIAGE)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("여자들끼리만")
-                    .categoryType(CategoryType.MARRIAGE)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("여자들끼리만")
+                        .categoryType(CategoryType.MARRIAGE)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("결혼/시집/친정")
-                    .categoryType(CategoryType.MARRIAGE)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("결혼/시집/친정")
+                        .categoryType(CategoryType.MARRIAGE)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("맞벌이 부부 이야기")
-                    .categoryType(CategoryType.MARRIAGE)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("맞벌이 부부 이야기")
+                        .categoryType(CategoryType.MARRIAGE)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("임신/출산/육아")
-                    .categoryType(CategoryType.MARRIAGE)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("임신/출산/육아")
+                        .categoryType(CategoryType.MARRIAGE)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("사랑과 이별")
-                    .categoryType(CategoryType.RELATIONSHIP)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("사랑과 이별")
+                        .categoryType(CategoryType.RELATIONSHIP)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("해석 남/여")
-                    .categoryType(CategoryType.RELATIONSHIP)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("해석 남/여")
+                        .categoryType(CategoryType.RELATIONSHIP)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("회사생활")
-                    .categoryType(CategoryType.WORK)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("회사생활")
+                        .categoryType(CategoryType.WORK)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("취업과 면접")
-                    .categoryType(CategoryType.WORK)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("취업과 면접")
+                        .categoryType(CategoryType.WORK)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("알바 경험담")
-                    .categoryType(CategoryType.WORK)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("알바 경험담")
+                        .categoryType(CategoryType.WORK)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("백수&백조이야기")
-                    .categoryType(CategoryType.WORK)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("백수&백조이야기")
+                        .categoryType(CategoryType.WORK)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("동물")
-                    .categoryType(CategoryType.ETC)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("동물")
+                        .categoryType(CategoryType.ETC)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("사랑방")
-                    .categoryType(CategoryType.ETC)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("사랑방")
+                        .categoryType(CategoryType.ETC)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("여행을 떠나요")
-                    .categoryType(CategoryType.ETC)
-                    .build());
+                categoryRepository.save(Category.builder()
+                        .name("여행을 떠나요")
+                        .categoryType(CategoryType.ETC)
+                        .build());
 
-            categoryRepository.save(Category.builder()
-                    .name("포토스토리")
-                    .categoryType(CategoryType.ETC)
-                    .build());
-
+                categoryRepository.save(Category.builder()
+                        .name("포토스토리")
+                        .categoryType(CategoryType.ETC)
+                        .build());
+            }
         }
     }
 }

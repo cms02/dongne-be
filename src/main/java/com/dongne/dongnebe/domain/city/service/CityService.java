@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CityService {
     private final CityRepository cityRepository;
     public CityResponseDto findAllCityOrderByCityCodeAsc() {
-        List<CityCodeNameDto> CityCodeNameDtos = cityRepository.findAllByOrderByCityCodeAsc().stream()
+        List<CityCodeNameDto> cityCodeNameDtos = cityRepository.findAllByOrderByCityCodeAsc().stream()
                 .map(c -> CityCodeNameDto.builder()
                         .cityCode(c.getCityCode())
                         .name(c.getName())
@@ -24,7 +24,7 @@ public class CityService {
                 .collect(Collectors.toList());
 
         return CityResponseDto.builder()
-                .cityCodeNames(CityCodeNameDtos)
+                .cityCodeNames(cityCodeNameDtos)
                 .responseMessage("Find City Codes And Names")
                 .statusCode(HttpStatus.OK.value())
                 .build();
