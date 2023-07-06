@@ -26,6 +26,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
+    public final EnumPath<com.dongne.dongnebe.domain.board.enums.BoardType> boardType = createEnum("boardType", com.dongne.dongnebe.domain.board.enums.BoardType.class);
+
     public final com.dongne.dongnebe.domain.category.channel.entity.QChannel channel;
 
     public final com.dongne.dongnebe.domain.city.entity.QCity city;
@@ -48,8 +50,6 @@ public class QBoard extends EntityPathBase<Board> {
     public final com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory subCategory;
 
     public final StringPath title = createString("title");
-
-    public final EnumPath<com.dongne.dongnebe.domain.board.enums.BoardType> type = createEnum("type", com.dongne.dongnebe.domain.board.enums.BoardType.class);
 
     public final com.dongne.dongnebe.domain.user.entity.QUser user;
 

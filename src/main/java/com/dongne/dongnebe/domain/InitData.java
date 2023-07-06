@@ -2437,7 +2437,7 @@ public class InitData {
                         Board.builder()
                                 .title("개발자분들 조언구해요~")
                                 .content("이런이런 이유로 고민이 있어요!")
-                                .type(BoardType.NORMAL)
+                                .boardType(BoardType.NORMAL)
                                 .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
                                 .subCategory(SubCategory.builder().subCategoryId(5L).build())
 //                                .channel(Channel.builder().channelId(1L).build()) 채널 X
@@ -2451,7 +2451,7 @@ public class InitData {
                         Board.builder()
                                 .title("개발자분들 조언구해요2~")
                                 .content("이런이런 이유로 고민이 있어요!")
-                                .type(BoardType.NORMAL)
+                                .boardType(BoardType.NORMAL)
                                 .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
                                 .subCategory(SubCategory.builder().subCategoryId(5L).build())
                                 .channel(Channel.builder().channelId(1L).build())

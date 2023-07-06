@@ -1,20 +1,19 @@
 package com.dongne.dongnebe.domain.board.service;
 
 
+import com.dongne.dongnebe.domain.board.dto.DeleteBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.UpdateBoardRequestDto;
 import com.dongne.dongnebe.domain.board.dto.WriteBoardRequestDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
 import com.dongne.dongnebe.domain.category.channel.entity.Channel;
 import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
-import com.dongne.dongnebe.domain.city.dto.CityCodeNameDto;
-import com.dongne.dongnebe.domain.city.dto.CityResponseDto;
 import com.dongne.dongnebe.domain.city.entity.City;
-import com.dongne.dongnebe.domain.city.repository.CityRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.service.GlobalService;
+import com.dongne.dongnebe.global.exception.user.BoardIdNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -24,8 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.dongne.dongnebe.global.service.GlobalService.*;
 
@@ -37,14 +34,13 @@ public class BoardService {
     @Transactional
     public ResponseDto writeBoard(MultipartFile file, WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
         validatePermission(writeBoardRequestDto.getUserId(), authentication);
-
         uploadFile(file);
         boardRepository.save(
                 Board.builder()
                         .title(writeBoardRequestDto.getTitle())
                         .content(writeBoardRequestDto.getContent())
                         .fileImg(getImgFilePath(file))
-                        .type(writeBoardRequestDto.getBoardType())
+                        .boardType(writeBoardRequestDto.getBoardType())
                         .mainCategory(MainCategory.builder().mainCategoryId(writeBoardRequestDto.getMainCategoryId()).build())
                         .subCategory(SubCategory.builder().subCategoryId(writeBoardRequestDto.getSubCategoryId()).build())
                         .channel(writeBoardRequestDto.getChannelId() == null ?
@@ -61,6 +57,33 @@ public class BoardService {
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Write Board")
+                .build();
+    }
+
+    @Transactional
+    public ResponseDto updateBoard(Long boardId, MultipartFile file, UpdateBoardRequestDto updateBoardRequestDto, Authentication authentication) {
+        validatePermission(updateBoardRequestDto.getUserId(), authentication);
+        uploadFile(file);
+
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new BoardIdNotFoundException("BoardId Not Found"));
+        board.update(updateBoardRequestDto, file);
+        return ResponseDto.builder()
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("Modify Board")
+                .build();
+    }
+
+    @Transactional
+    public ResponseDto deleteBoard(Long boardId, DeleteBoardRequestDto deleteBoardRequestDto, Authentication authentication) {
+        validatePermission(deleteBoardRequestDto.getUserId(), authentication);
+        Board board = boardRepository.findById(boardId).orElseThrow(
+                () -> new BoardIdNotFoundException("BoardId Not Found")
+        );
+        board.delete();
+
+        return ResponseDto.builder()
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("Delete Board")
                 .build();
     }
 }

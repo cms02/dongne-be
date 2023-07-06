@@ -24,23 +24,28 @@ public class GlobalService {
     }
 
     public static void uploadFile(MultipartFile file) {
-        String imgFilePath = getImgFilePath(file);
-        Path path;
-        try {
-            path = Paths.get(imgFilePath);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
-        try {
-            Files.write(path, file.getBytes());
-        } catch (IOException e) {
-            throw new ProfileUploadException(e.getMessage());
+        if (!file.isEmpty()) {
+            String imgFilePath = getImgFilePath(file);
+            Path path;
+            try {
+                path = Paths.get(imgFilePath);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(e);
+            }
+            try {
+                Files.write(path, file.getBytes());
+            } catch (IOException e) {
+                throw new ProfileUploadException(e.getMessage());
+            }
         }
     }
 
     public static String getImgFilePath(MultipartFile file) {
-        UUID uuid = UUID.randomUUID();
-        String imgFileName = uuid + "_" + file.getOriginalFilename();
-        return uploadFolder + imgFileName;
+        if (!file.isEmpty()) {
+            UUID uuid = UUID.randomUUID();
+            String imgFileName = uuid + "_" + file.getOriginalFilename();
+            return uploadFolder + imgFileName;
+        }
+        return null;
     }
 }

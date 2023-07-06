@@ -40,9 +40,9 @@ public class SecurityConfig {
                 .logout(LogoutConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequest) ->
                         authorizeRequest.requestMatchers(
-                                        "/api/users/login",
-                                        "/api/users/sign-up",
-                                        "/api/citiy",
+                                        "/api/user/login",
+                                        "/api/user/sign-up",
+                                        "/api/city",
                                         "/api/zone/**"
                                         ).permitAll()
                                 .anyRequest().authenticated())
