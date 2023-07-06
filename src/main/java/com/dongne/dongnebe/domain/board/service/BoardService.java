@@ -13,7 +13,7 @@ import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.exception.user.BoardIdNotFoundException;
+import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -65,11 +65,11 @@ public class BoardService {
         validatePermission(updateBoardRequestDto.getUserId(), authentication);
         uploadFile(file);
 
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> new BoardIdNotFoundException("BoardId Not Found"));
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("BoardId Not Found"));
         board.update(updateBoardRequestDto, file);
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
-                .responseMessage("Modify Board")
+                .responseMessage("Update Board")
                 .build();
     }
 
@@ -77,7 +77,7 @@ public class BoardService {
     public ResponseDto deleteBoard(Long boardId, DeleteBoardRequestDto deleteBoardRequestDto, Authentication authentication) {
         validatePermission(deleteBoardRequestDto.getUserId(), authentication);
         Board board = boardRepository.findById(boardId).orElseThrow(
-                () -> new BoardIdNotFoundException("BoardId Not Found")
+                () -> new ResourceNotFoundException("BoardId Not Found")
         );
         board.delete();
 

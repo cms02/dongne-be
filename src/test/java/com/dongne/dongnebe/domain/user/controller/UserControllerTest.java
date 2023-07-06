@@ -6,9 +6,8 @@ import com.dongne.dongnebe.domain.user.dto.SignUpRequestDto;
 import com.dongne.dongnebe.domain.user.service.UserService;
 import com.dongne.dongnebe.global.dto.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
-import com.dongne.dongnebe.global.exception.user.NicknameAlreadyExistException;
-import com.dongne.dongnebe.global.exception.user.UserIdAlreadyExistException;
-import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
+import com.dongne.dongnebe.global.exception.user.ResourceAlreadyExistException;
+import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -98,7 +97,7 @@ class UserControllerTest {
                 .cityCode("11")
                 .build();
 
-        doThrow(new NicknameAlreadyExistException(NICKNAME_ALREADY_EXIST_MSG)).when(userService).signUpUser(any(SignUpRequestDto.class));
+        doThrow(new ResourceAlreadyExistException(NICKNAME_ALREADY_EXIST_MSG)).when(userService).signUpUser(any(SignUpRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
@@ -113,7 +112,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andDo(print())
                 .andExpect(result ->
-                        Assertions.assertThat(getApiResultExceptionClass(result)).isEqualTo(NicknameAlreadyExistException.class))
+                        Assertions.assertThat(getApiResultExceptionClass(result)).isEqualTo(ResourceAlreadyExistException.class))
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.responseMessage").value(NICKNAME_ALREADY_EXIST_MSG));
     }
@@ -136,7 +135,7 @@ class UserControllerTest {
                 .cityCode("11")
                 .build();
 
-        doThrow(new UserIdAlreadyExistException(USERID_ALREADY_EXIST_MSG)).when(userService).signUpUser(any(SignUpRequestDto.class));
+        doThrow(new ResourceAlreadyExistException(USERID_ALREADY_EXIST_MSG)).when(userService).signUpUser(any(SignUpRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
@@ -151,7 +150,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andDo(print())
                 .andExpect(result ->
-                        Assertions.assertThat(getApiResultExceptionClass(result)).isEqualTo(UserIdAlreadyExistException.class))
+                        Assertions.assertThat(getApiResultExceptionClass(result)).isEqualTo(ResourceAlreadyExistException.class))
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.responseMessage").value(USERID_ALREADY_EXIST_MSG));
     }
@@ -234,7 +233,7 @@ class UserControllerTest {
                 .password("password1")
                 .build();
 
-        doThrow(new UserIdNotFoundException(USERID_NOT_FOUND_MSG)).when(userService).loginUser(any(LoginRequestDto.class));
+        doThrow(new ResourceNotFoundException(USERID_NOT_FOUND_MSG)).when(userService).loginUser(any(LoginRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
@@ -249,7 +248,7 @@ class UserControllerTest {
                 .andExpect(status().isNotFound())
                 .andDo(print())
                 .andExpect(result ->
-                        Assertions.assertThat(getApiResultExceptionClass(result)).isEqualTo(UserIdNotFoundException.class))
+                        Assertions.assertThat(getApiResultExceptionClass(result)).isEqualTo(ResourceNotFoundException.class))
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.NOT_FOUND.value()))
                 .andExpect(jsonPath("$.responseMessage").value(USERID_NOT_FOUND_MSG));
     }

@@ -4,7 +4,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
+import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,11 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -47,7 +45,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             if (userId != null) {
                 User user = userRepository.findByUserId(userId)
-                        .orElseThrow(() -> new UserIdNotFoundException("User Id Not Found"));
+                        .orElseThrow(() -> new ResourceNotFoundException("User Id Not Found"));
                 PrincipalDetails principalDetails = new PrincipalDetails(user);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
 

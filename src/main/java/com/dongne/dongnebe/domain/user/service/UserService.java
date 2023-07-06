@@ -10,8 +10,8 @@ import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
-import com.dongne.dongnebe.global.exception.user.UserIdAlreadyExistException;
-import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
+import com.dongne.dongnebe.global.exception.user.ResourceAlreadyExistException;
+import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -60,14 +60,14 @@ public class UserService {
     private void checkUserId(String userId) {
         Optional<User> findUser = userRepository.findByUserId(userId);
         if (findUser.isPresent()) {
-            throw new UserIdAlreadyExistException("UserId Already Exist");
+            throw new ResourceAlreadyExistException("UserId Already Exist");
         }
     }
 
     private void checkNickname(String nickname) {
         Optional<User> findUser = userRepository.findByNickname(nickname);
         if (findUser.isPresent()) {
-            throw new UserIdAlreadyExistException("Nickname Already Exist");
+            throw new ResourceAlreadyExistException("Nickname Already Exist");
         }
     }
 
@@ -113,7 +113,7 @@ public class UserService {
 
     private User findUser(String userId) {
         return userRepository.findByUserId(userId).orElseThrow(
-                () -> new UserIdNotFoundException("User Id Not Found")
+                () -> new ResourceNotFoundException("User Id Not Found")
         );
     }
 

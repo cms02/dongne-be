@@ -6,6 +6,7 @@ import com.dongne.dongnebe.domain.category.channel.entity.Channel;
 import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
+import com.dongne.dongnebe.domain.comment.board_comment.dto.UpdateBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.entity.BaseEntity;
@@ -55,5 +56,13 @@ public class BoardComment extends BaseEntity {
         this.user = user;
         this.likes = likes;
         this.isDeleted = isDeleted;
+    }
+
+    public void update(UpdateBoardCommentRequestDto updateBoardCommentRequestDto) {
+        this.content = updateBoardCommentRequestDto.getContent();
+    }
+
+    public void delete() {
+        this.isDeleted = true;
     }
 }
