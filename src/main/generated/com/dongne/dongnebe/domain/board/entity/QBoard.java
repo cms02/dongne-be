@@ -37,6 +37,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final DateTimePath<java.time.LocalDateTime> deadline_at = createDateTime("deadline_at", java.time.LocalDateTime.class);
 
+    public final StringPath fileImg = createString("fileImg");
+
     public final BooleanPath isDeleted = createBoolean("isDeleted");
 
     public final NumberPath<Long> likes = createNumber("likes", Long.class);

@@ -32,6 +32,9 @@ public class Board extends BaseEntity {
     private String title;
     private String content;
 
+    @Column(name = "file_img")
+    private String fileImg;
+
     @Enumerated(EnumType.STRING)
     private BoardType type;
 
@@ -69,9 +72,11 @@ public class Board extends BaseEntity {
     private LocalDateTime deadline_at;
 
     @Builder
-    public Board(String title, String content, BoardType type, MainCategory mainCategory, SubCategory subCategory, Channel channel, User user, City city, Zone zone, Long likes, Boolean isDeleted, LocalDateTime deadline_at) {
+    public Board(Long boardId, String title, String content, String fileImg, BoardType type, MainCategory mainCategory, SubCategory subCategory, Channel channel, User user, City city, Zone zone, Long likes, Boolean isDeleted, LocalDateTime deadline_at) {
+        this.boardId = boardId;
         this.title = title;
         this.content = content;
+        this.fileImg = fileImg;
         this.type = type;
         this.mainCategory = mainCategory;
         this.subCategory = subCategory;

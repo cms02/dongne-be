@@ -12,6 +12,10 @@ import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.category.sub_category.repository.SubCategoryRepository;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.city.repository.CityRepository;
+import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
+import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentRepository;
+import com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment;
+import com.dongne.dongnebe.domain.comment.reply_comment.repository.ReplyCommentRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
@@ -36,6 +40,8 @@ public class InitData {
     private final InitSubCategoryService initSubCategoryService;
     private final InitBoardService initBoardService;
     private final InitChannelService initChannelService;
+    private final InitBoardCommentService initBoardCommentService;
+    private final InitReplyCommentService initReplyCommentService;
 
 
     @PostConstruct
@@ -69,6 +75,10 @@ public class InitData {
         initChannelService.initChannel();
 
         initBoardService.initBoard();
+
+        initBoardCommentService.initBoardComment();
+
+        initReplyCommentService.initReplyComment();
     }
 
     @Component
@@ -2063,9 +2073,9 @@ public class InitData {
                     .userId("userId1")
                     .username("홍길동")
                     .city(City.builder().cityCode("11").build())
-                    .zone(Zone.builder().zoneCode("11200").build())
+                    .zone(Zone.builder().zoneCode("11170").build())
                     .password(encPwd1)
-                    .nickname("성동구깍두기")
+                    .nickname("용산구용가리")
                     .role(Role.USER)
                     .build();
             User user2 = User.builder()
@@ -2078,8 +2088,29 @@ public class InitData {
                     .role(Role.USER)
                     .build();
 
+            User user3 = User.builder()
+                    .userId("userId3")
+                    .username("동길홍")
+                    .city(City.builder().cityCode("11").build())
+                    .zone(Zone.builder().zoneCode("11170").build())
+                    .password(encPwd1)
+                    .nickname("용산구깍두기")
+                    .role(Role.USER)
+                    .build();
+            User user4 = User.builder()
+                    .userId("userId4")
+                    .username("장동건")
+                    .city(City.builder().cityCode("11").build())
+                    .zone(Zone.builder().zoneCode("11170").build())
+                    .password(encPwd2)
+                    .nickname("용산구날파리")
+                    .role(Role.USER)
+                    .build();
+
             memberRepository.save(user1);
             memberRepository.save(user2);
+            memberRepository.save(user3);
+            memberRepository.save(user4);
         }
     }
     @Component
@@ -2409,10 +2440,10 @@ public class InitData {
                                 .type(BoardType.NORMAL)
                                 .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
                                 .subCategory(SubCategory.builder().subCategoryId(5L).build())
-//                                .channel(Channel.builder().channelId(1L).build())
+//                                .channel(Channel.builder().channelId(1L).build()) 채널 X
                                 .user(User.builder().userId("userId1").build())
                                 .city(City.builder().cityCode("11").build())
-                                .zone(Zone.builder().zoneCode("11200").build())
+                                .zone(Zone.builder().zoneCode("11170").build())
                                 .build()
                 );
 
@@ -2424,11 +2455,108 @@ public class InitData {
                                 .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
                                 .subCategory(SubCategory.builder().subCategoryId(5L).build())
                                 .channel(Channel.builder().channelId(1L).build())
-                                .user(User.builder().userId("userId1").build())
+                                .user(User.builder().userId("userId2").build())
                                 .city(City.builder().cityCode("11").build())
-                                .zone(Zone.builder().zoneCode("11200").build())
+                                .zone(Zone.builder().zoneCode("11170").build())
                                 .build()
                 );
+            }
+        }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitBoardCommentService {
+
+        private final BoardCommentRepository boardCommentRepository;
+
+        @Transactional
+        public void initBoardComment() {
+            if (boardCommentRepository.findAll().isEmpty()) {
+                boardCommentRepository.save(
+                        BoardComment.builder()
+                                .board(Board.builder().boardId(1L).build())
+                                .content("제가 도와 드릴게요!")
+                                .user(User.builder().userId("userId2").build())
+                                .build()
+                );
+
+                boardCommentRepository.save(
+                        BoardComment.builder()
+                                .board(Board.builder().boardId(2L).build())
+                                .content("어떤 문제가 있나요?")
+                                .user(User.builder().userId("userId3").build())
+                                .build()
+                );
+
+
+            }
+        }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitReplyCommentService {
+
+        private final ReplyCommentRepository replyCommentRepository;
+
+        @Transactional
+        public void initReplyComment() {
+            if (replyCommentRepository.findAll().isEmpty()) {
+                replyCommentRepository.save(
+                        ReplyComment.builder()
+                                .content("Spring에 대해 알려줘요")
+                                .user(User.builder().userId("userId1").build())
+                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .build()
+                );
+
+                replyCommentRepository.save(
+                        ReplyComment.builder()
+                                .content("구체적으로 말해")
+                                .user(User.builder().userId("userId2").build())
+                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .build()
+                );
+
+                replyCommentRepository.save(
+                        ReplyComment.builder()
+                                .content("Spring 통신 과정!!")
+                                .user(User.builder().userId("userId1").build())
+                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .build()
+                );
+
+
+                replyCommentRepository.save(
+                        ReplyComment.builder()
+                                .content("이렇게하면 이렇게 되는거야~")
+                                .user(User.builder().userId("userId2").build())
+                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .build()
+                );
+                replyCommentRepository.save(
+                        ReplyComment.builder()
+                                .content("뭐가 고민인데~")
+                                .user(User.builder().userId("userId3").build())
+                                .boardComment(BoardComment.builder().commentId(2L).build())
+                                .build()
+                );
+
+                replyCommentRepository.save(
+                        ReplyComment.builder()
+                                .content("돈을 벌고싶어!")
+                                .user(User.builder().userId("userId2").build())
+                                .boardComment(BoardComment.builder().commentId(2L).build())
+                                .build()
+                );
+
+                replyCommentRepository.save(
+                        ReplyComment.builder()
+                                .content("나가서 벌어!")
+                                .user(User.builder().userId("userId3").build())
+                                .boardComment(BoardComment.builder().commentId(2L).build())
+                                .build()
+                );
+
             }
         }
     }
