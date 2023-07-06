@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CityController {
     private final CityService cityService;
-    @GetMapping("/api/cities")
-    public ResponseEntity<ResponseDto> findAllCities() {
+    @GetMapping("/api/city")
+    public ResponseEntity<ResponseDto> findAllCity() {
         CityResponseDto result = cityService.findAllCityOrderByCityCodeAsc();
         return ResponseEntity.ok().body(result);
 }}

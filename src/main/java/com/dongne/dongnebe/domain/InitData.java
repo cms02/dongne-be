@@ -2505,7 +2505,7 @@ public class InitData {
                         ReplyComment.builder()
                                 .content("Spring에 대해 알려줘요")
                                 .user(User.builder().userId("userId1").build())
-                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .boardComment(BoardComment.builder().boardCommentId(1L).build())
                                 .build()
                 );
 
@@ -2513,7 +2513,7 @@ public class InitData {
                         ReplyComment.builder()
                                 .content("구체적으로 말해")
                                 .user(User.builder().userId("userId2").build())
-                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .boardComment(BoardComment.builder().boardCommentId(1L).build())
                                 .build()
                 );
 
@@ -2521,7 +2521,7 @@ public class InitData {
                         ReplyComment.builder()
                                 .content("Spring 통신 과정!!")
                                 .user(User.builder().userId("userId1").build())
-                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .boardComment(BoardComment.builder().boardCommentId(1L).build())
                                 .build()
                 );
 
@@ -2530,14 +2530,14 @@ public class InitData {
                         ReplyComment.builder()
                                 .content("이렇게하면 이렇게 되는거야~")
                                 .user(User.builder().userId("userId2").build())
-                                .boardComment(BoardComment.builder().commentId(1L).build())
+                                .boardComment(BoardComment.builder().boardCommentId(1L).build())
                                 .build()
                 );
                 replyCommentRepository.save(
                         ReplyComment.builder()
                                 .content("뭐가 고민인데~")
                                 .user(User.builder().userId("userId3").build())
-                                .boardComment(BoardComment.builder().commentId(2L).build())
+                                .boardComment(BoardComment.builder().boardCommentId(2L).build())
                                 .build()
                 );
 
@@ -2545,7 +2545,7 @@ public class InitData {
                         ReplyComment.builder()
                                 .content("돈을 벌고싶어!")
                                 .user(User.builder().userId("userId2").build())
-                                .boardComment(BoardComment.builder().commentId(2L).build())
+                                .boardComment(BoardComment.builder().boardCommentId(2L).build())
                                 .build()
                 );
 
@@ -2553,7 +2553,7 @@ public class InitData {
                         ReplyComment.builder()
                                 .content("나가서 벌어!")
                                 .user(User.builder().userId("userId3").build())
-                                .boardComment(BoardComment.builder().commentId(2L).build())
+                                .boardComment(BoardComment.builder().boardCommentId(2L).build())
                                 .build()
                 );
 

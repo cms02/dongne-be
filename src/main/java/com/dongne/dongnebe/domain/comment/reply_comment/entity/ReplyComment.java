@@ -20,8 +20,8 @@ public class ReplyComment extends BaseEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "reply_id")
-    private Long replyId;
+    @Column(name = "reply_comment_id")
+    private Long replyCommentId;
 
     private String content;
 
@@ -41,8 +41,8 @@ public class ReplyComment extends BaseEntity {
     private Boolean isDeleted;
 
     @Builder
-    public ReplyComment(Long replyId, String content, BoardComment boardComment, User user, Long likes, Boolean isDeleted) {
-        this.replyId = replyId;
+    public ReplyComment(Long replyCommentId, String content, BoardComment boardComment, User user, Long likes, Boolean isDeleted) {
+        this.replyCommentId = replyCommentId;
         this.content = content;
         this.boardComment = boardComment;
         this.user = user;

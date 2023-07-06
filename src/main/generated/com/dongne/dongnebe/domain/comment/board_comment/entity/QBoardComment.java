@@ -26,7 +26,7 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
 
     public final com.dongne.dongnebe.domain.board.entity.QBoard board;
 
-    public final NumberPath<Long> commentId = createNumber("commentId", Long.class);
+    public final NumberPath<Long> boardCommentId = createNumber("boardCommentId", Long.class);
 
     public final StringPath content = createString("content");
 

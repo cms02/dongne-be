@@ -42,8 +42,8 @@ public class SecurityConfig {
                         authorizeRequest.requestMatchers(
                                         "/api/users/login",
                                         "/api/users/sign-up",
-                                        "/api/cities",
-                                        "/api/zones/**"
+                                        "/api/citiy",
+                                        "/api/zone/**"
                                         ).permitAll()
                                 .anyRequest().authenticated())
                 .cors(Customizer.withDefaults())

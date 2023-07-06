@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ZoneController {
     private final ZoneService zoneService;
-    @GetMapping("/api/zones/{cityCode}")
-    public ResponseEntity<ResponseDto> findAllZonesByCityCode(@PathVariable String cityCode) {
-        ZoneResponseDto result = zoneService.findAllZonesByCityCodeOrderByCityCodeAsc(cityCode);
+    @GetMapping("/api/zone/{cityCode}")
+    public ResponseEntity<ResponseDto> findAllZoneByCityCode(@PathVariable String cityCode) {
+        ZoneResponseDto result = zoneService.findAllZoneByCityCodeOrderByCityCodeAsc(cityCode);
         return ResponseEntity.ok().body(result);
 }
 }

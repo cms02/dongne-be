@@ -17,54 +17,54 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/api/users/sign-up")
-    public ResponseEntity<ResponseDto> signUpUsers(@RequestBody @Valid SignUpRequestDto requestDto) {
-        ResponseDto result = userService.signUpUsers(requestDto);
+    @PostMapping("/api/user/sign-up")
+    public ResponseEntity<ResponseDto> signUpUser(@RequestBody @Valid SignUpRequestDto requestDto) {
+        ResponseDto result = userService.signUpUser(requestDto);
         return ResponseEntity.ok().body(result);
     }
 
-    @PostMapping("/api/users/login")
-    public ResponseEntity<ResponseDto> loginUsers(@RequestBody @Valid LoginRequestDto loginRequestDto) {
-        LoginResponseDto result = userService.loginUsers(loginRequestDto);
+    @PostMapping("/api/user/login")
+    public ResponseEntity<ResponseDto> loginUser(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+        LoginResponseDto result = userService.loginUser(loginRequestDto);
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/users-basic/{userId}")
-    public ResponseEntity<ResponseDto> findUsersBasic(@PathVariable String userId,
+    @GetMapping("/api/user-basic/{userId}")
+    public ResponseEntity<ResponseDto> findUserBasic(@PathVariable String userId,
                                                         Authentication authentication) {
-        UsersBasicResponseDto result = userService.findUsersBasic(userId, authentication);
+        UsersBasicResponseDto result = userService.findUserBasic(userId, authentication);
         return ResponseEntity.ok().body(result);
     }
 
-    @PatchMapping("/api/users-basic/{userId}")
-    public ResponseEntity<ResponseDto> updateUsersBasic(@PathVariable String userId,
+    @PatchMapping("/api/user-basic/{userId}")
+    public ResponseEntity<ResponseDto> updateUsersasic(@PathVariable String userId,
                                                         @RequestPart MultipartFile file,
                                                         @RequestPart @Valid BasicRequestDto basicRequestDto,
                                                         Authentication authentication) {
-        ResponseDto result = userService.updateUsersBasic(userId, file, basicRequestDto, authentication);
+        ResponseDto result = userService.updateUserBasic(userId, file, basicRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 
-    @PostMapping("/api/users-password/confirm/{userId}")
-    public ResponseEntity<ResponseDto> confirmUsersPassword(@PathVariable String userId,
+    @PostMapping("/api/user-password/confirm/{userId}")
+    public ResponseEntity<ResponseDto> confirmUserPassword(@PathVariable String userId,
                                                             @RequestBody @Valid PasswordRequestDto passwordRequestDto,
                                                             Authentication authentication) {
-        ResponseDto result = userService.confirmUsersPassword(userId, passwordRequestDto, authentication);
+        ResponseDto result = userService.confirmUserPassword(userId, passwordRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 
-    @PatchMapping("/api/users-password/{userId}")
-    public ResponseEntity<ResponseDto> updateUsersPassword(@PathVariable String userId,
+    @PatchMapping("/api/user-password/{userId}")
+    public ResponseEntity<ResponseDto> updateUserPassword(@PathVariable String userId,
                                                         @RequestBody @Valid PasswordRequestDto passwordRequestDto,
                                                         Authentication authentication) {
-        ResponseDto result = userService.updateUsersPassword(userId, passwordRequestDto, authentication);
+        ResponseDto result = userService.updateUserPassword(userId, passwordRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 
-    @DeleteMapping("/api/users/{userId}")
-    public ResponseEntity<ResponseDto> deleteUsers(@PathVariable String userId,
+    @DeleteMapping("/api/user/{userId}")
+    public ResponseEntity<ResponseDto> deleteUser(@PathVariable String userId,
                                                    Authentication authentication) {
-        ResponseDto result = userService.deleteUsers(userId, authentication);
+        ResponseDto result = userService.deleteUser(userId, authentication);
         return ResponseEntity.ok().body(result);
     }
 }

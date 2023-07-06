@@ -67,11 +67,11 @@ class UserControllerTest {
                 .responseMessage(USER_SIGN_UP_SUCCESS_MSG)
                 .build();
 
-        doReturn(response).when(userService).signUpUsers(any(SignUpRequestDto.class));
+        doReturn(response).when(userService).signUpUser(any(SignUpRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/sign-up")
+                MockMvcRequestBuilders.post("/api/user/sign-up")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -98,11 +98,11 @@ class UserControllerTest {
                 .cityCode("11")
                 .build();
 
-        doThrow(new NicknameAlreadyExistException(NICKNAME_ALREADY_EXIST_MSG)).when(userService).signUpUsers(any(SignUpRequestDto.class));
+        doThrow(new NicknameAlreadyExistException(NICKNAME_ALREADY_EXIST_MSG)).when(userService).signUpUser(any(SignUpRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/sign-up")
+                MockMvcRequestBuilders.post("/api/user/sign-up")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -136,11 +136,11 @@ class UserControllerTest {
                 .cityCode("11")
                 .build();
 
-        doThrow(new UserIdAlreadyExistException(USERID_ALREADY_EXIST_MSG)).when(userService).signUpUsers(any(SignUpRequestDto.class));
+        doThrow(new UserIdAlreadyExistException(USERID_ALREADY_EXIST_MSG)).when(userService).signUpUser(any(SignUpRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/sign-up")
+                MockMvcRequestBuilders.post("/api/user/sign-up")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -172,7 +172,7 @@ class UserControllerTest {
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/sign-up")
+                MockMvcRequestBuilders.post("/api/user/sign-up")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -204,11 +204,11 @@ class UserControllerTest {
                 .refreshToken("refreshToken")
                 .build();
 
-        doReturn(response).when(userService).loginUsers(any(LoginRequestDto.class));
+        doReturn(response).when(userService).loginUser(any(LoginRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/login")
+                MockMvcRequestBuilders.post("/api/user/login")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -234,11 +234,11 @@ class UserControllerTest {
                 .password("password1")
                 .build();
 
-        doThrow(new UserIdNotFoundException(USERID_NOT_FOUND_MSG)).when(userService).loginUsers(any(LoginRequestDto.class));
+        doThrow(new UserIdNotFoundException(USERID_NOT_FOUND_MSG)).when(userService).loginUser(any(LoginRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/login")
+                MockMvcRequestBuilders.post("/api/user/login")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -265,11 +265,11 @@ class UserControllerTest {
                 .password("incorrect")
                 .build();
 
-        doThrow(new IncorrectPasswordException("Incorrect Password")).when(userService).loginUsers(any(LoginRequestDto.class));
+        doThrow(new IncorrectPasswordException("Incorrect Password")).when(userService).loginUser(any(LoginRequestDto.class));
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/login")
+                MockMvcRequestBuilders.post("/api/user/login")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -297,7 +297,7 @@ class UserControllerTest {
 
         //when
         ResultActions resultActions = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/users/login")
+                MockMvcRequestBuilders.post("/api/user/login")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(request))

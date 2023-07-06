@@ -9,9 +9,10 @@ import com.dongne.dongnebe.domain.user.redis.RedisService;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.exception.user.*;
+import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
+import com.dongne.dongnebe.global.exception.user.UserIdAlreadyExistException;
+import com.dongne.dongnebe.global.exception.user.UserIdNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,13 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import static com.dongne.dongnebe.global.service.GlobalService.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,10 +34,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisService redisService;
 
-    @Value("${file.path}")
-    private String uploadFolder;
-
-    public ResponseDto signUpUsers(SignUpRequestDto requestDto) {
+    public ResponseDto signUpUser(SignUpRequestDto requestDto) {
         validateUser(requestDto);
         userRepository.save(
                 User.builder()
@@ -76,7 +71,7 @@ public class UserService {
         }
     }
 
-    public LoginResponseDto loginUsers(LoginRequestDto requestDto) {
+    public LoginResponseDto loginUser(LoginRequestDto requestDto) {
         User user = findUser(requestDto.getUserId());
 
         if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
@@ -97,12 +92,11 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseDto updateUsersBasic(String userId, MultipartFile file, BasicRequestDto requestDto, Authentication authentication) {
+    public ResponseDto updateUserBasic(String userId, MultipartFile file, BasicRequestDto requestDto, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
 
         /*파일이 없다면 기본 프로필 적용*/
-
 
         if (requestDto.getIsProfileChanged()) {
             uploadFile(file);
@@ -115,26 +109,7 @@ public class UserService {
                 .build();
     }
 
-    private void uploadFile(MultipartFile file) {
-        String imgFilePath = getImgFilePath(file);
-        Path path;
-        try {
-            path = Paths.get(imgFilePath);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
-        try {
-            Files.write(path, file.getBytes());
-        } catch (IOException e) {
-            throw new ProfileUploadException(e.getMessage());
-        }
-    }
 
-    private String getImgFilePath(MultipartFile file) {
-        UUID uuid = UUID.randomUUID();
-        String imgFileName = uuid + "_" + file.getOriginalFilename();
-        return uploadFolder + imgFileName;
-    }
 
     private User findUser(String userId) {
         return userRepository.findByUserId(userId).orElseThrow(
@@ -142,14 +117,8 @@ public class UserService {
         );
     }
 
-    private static void validatePermission(String userId, Authentication authentication) {
-        if (!authentication.getName().equals(userId)) {
-            throw new ForbiddenException("Access Is Forbidden");
-        }
-    }
-
     @Transactional
-    public ResponseDto deleteUsers(String userId, Authentication authentication) {
+    public ResponseDto deleteUser(String userId, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
         user.delete();
@@ -160,7 +129,7 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseDto updateUsersPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
+    public ResponseDto updateUserPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
         user.updatePassword(passwordEncoder.encode(passwordRequestDto.getPassword()));
@@ -170,7 +139,7 @@ public class UserService {
                 .build();
     }
 
-    public ResponseDto confirmUsersPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
+    public ResponseDto confirmUserPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
         boolean isPasswordMatch = isPasswordMatch(passwordRequestDto.getPassword(), user.getPassword());
@@ -187,7 +156,7 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
-    public UsersBasicResponseDto findUsersBasic(String userId, Authentication authentication) {
+    public UsersBasicResponseDto findUserBasic(String userId, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
         return UsersBasicResponseDto.builder()

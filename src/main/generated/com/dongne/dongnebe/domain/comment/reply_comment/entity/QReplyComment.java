@@ -35,7 +35,7 @@ public class QReplyComment extends EntityPathBase<ReplyComment> {
 
     public final NumberPath<Long> likes = createNumber("likes", Long.class);
 
-    public final NumberPath<Long> replyId = createNumber("replyId", Long.class);
+    public final NumberPath<Long> replyCommentId = createNumber("replyCommentId", Long.class);
 
     public final com.dongne.dongnebe.domain.user.entity.QUser user;
 

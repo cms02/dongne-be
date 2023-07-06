@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class ZoneService {
     private final ZoneRepository zoneRepository;
     private final ZoneQueryRepository zoneQueryRepository;
-    public ZoneResponseDto findAllZonesByCityCodeOrderByCityCodeAsc(String cityCode) {
+    public ZoneResponseDto findAllZoneByCityCodeOrderByCityCodeAsc(String cityCode) {
         List<ZoneCodeNameDto> zoneCodeNameDtos = zoneQueryRepository.findAllByCityCodeOrderByZoneCodeAsc(cityCode).stream()
                 .map(z -> ZoneCodeNameDto.builder()
                         .zoneCode(z.getZoneCode())

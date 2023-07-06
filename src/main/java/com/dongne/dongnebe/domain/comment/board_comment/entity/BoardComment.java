@@ -27,8 +27,8 @@ public class BoardComment extends BaseEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "comment_id")
-    private Long commentId;
+    @Column(name = "board_comment_id")
+    private Long boardCommentId;
 
     private String content;
 
@@ -48,8 +48,8 @@ public class BoardComment extends BaseEntity {
     private Boolean isDeleted;
 
     @Builder
-    public BoardComment(Long commentId, String content, Board board, User user, Long likes, Boolean isDeleted) {
-        this.commentId = commentId;
+    public BoardComment(Long boardCommentId, String content, Board board, User user, Long likes, Boolean isDeleted) {
+        this.boardCommentId = boardCommentId;
         this.content = content;
         this.board = board;
         this.user = user;
