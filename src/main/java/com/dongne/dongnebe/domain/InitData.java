@@ -1,10 +1,14 @@
 package com.dongne.dongnebe.domain;
 
+import com.dongne.dongnebe.domain.board.entity.Board;
+import com.dongne.dongnebe.domain.board.enums.BoardType;
+import com.dongne.dongnebe.domain.board.repository.BoardRepository;
+import com.dongne.dongnebe.domain.category.channel.entity.Channel;
+import com.dongne.dongnebe.domain.category.channel.repository.ChannelRepository;
 import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.main_category.enums.MainCategoryType;
 import com.dongne.dongnebe.domain.category.main_category.repository.MainCategoryRepository;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
-import com.dongne.dongnebe.domain.category.sub_category.repository.SubCategoryQueryRepository;
 import com.dongne.dongnebe.domain.category.sub_category.repository.SubCategoryRepository;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.city.repository.CityRepository;
@@ -30,6 +34,8 @@ public class InitData {
     private final InitUserService initUserService;
     private final InitMainCategoryService initMainCategoryService;
     private final InitSubCategoryService initSubCategoryService;
+    private final InitBoardService initBoardService;
+    private final InitChannelService initChannelService;
 
 
     @PostConstruct
@@ -59,6 +65,10 @@ public class InitData {
         initMainCategoryService.initMainCategory();
 
         initSubCategoryService.initSubCategory();
+
+        initChannelService.initChannel();
+
+        initBoardService.initBoard();
     }
 
     @Component
@@ -2363,6 +2373,62 @@ public class InitData {
                                         .build())
                         .build());
 
+            }
+        }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitChannelService {
+
+        private final ChannelRepository channelRepository;
+
+        @Transactional
+        public void initChannel() {
+            if (channelRepository.findAll().isEmpty()) {
+                channelRepository.save(
+                        Channel.builder()
+                                .subCategory(SubCategory.builder().subCategoryId(1L).build())
+                                .name("개발자모여라")
+                                .build());
+            }
+        }
+    }
+    @Component
+    @RequiredArgsConstructor
+    static class InitBoardService {
+
+        private final BoardRepository boardRepository;
+
+        @Transactional
+        public void initBoard() {
+            if (boardRepository.findAll().isEmpty()) {
+                boardRepository.save(
+                        Board.builder()
+                                .title("개발자분들 조언구해요~")
+                                .content("이런이런 이유로 고민이 있어요!")
+                                .type(BoardType.NORMAL)
+                                .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                .subCategory(SubCategory.builder().subCategoryId(5L).build())
+//                                .channel(Channel.builder().channelId(1L).build())
+                                .user(User.builder().userId("userId1").build())
+                                .city(City.builder().cityCode("11").build())
+                                .zone(Zone.builder().zoneCode("11200").build())
+                                .build()
+                );
+
+                boardRepository.save(
+                        Board.builder()
+                                .title("개발자분들 조언구해요2~")
+                                .content("이런이런 이유로 고민이 있어요!")
+                                .type(BoardType.NORMAL)
+                                .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                .subCategory(SubCategory.builder().subCategoryId(5L).build())
+                                .channel(Channel.builder().channelId(1L).build())
+                                .user(User.builder().userId("userId1").build())
+                                .city(City.builder().cityCode("11").build())
+                                .zone(Zone.builder().zoneCode("11200").build())
+                                .build()
+                );
             }
         }
     }

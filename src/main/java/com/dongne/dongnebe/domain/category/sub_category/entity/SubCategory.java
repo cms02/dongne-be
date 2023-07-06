@@ -24,7 +24,8 @@ public class SubCategory {
     private MainCategory mainCategory;
 
     @Builder
-    public SubCategory(String name, MainCategory mainCategory) {
+    public SubCategory(Long subCategoryId, String name, MainCategory mainCategory) {
+        this.subCategoryId = subCategoryId;
         this.name = name;
         this.mainCategory = mainCategory;
     }

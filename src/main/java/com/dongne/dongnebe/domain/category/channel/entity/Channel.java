@@ -2,6 +2,7 @@ package com.dongne.dongnebe.domain.category.channel.entity;
 
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,10 @@ public class Channel {
     @JoinColumn(name = "sub_category_id")
     private SubCategory subCategory;
 
+    @Builder
+    public Channel(Long channelId, String name, SubCategory subCategory) {
+        this.channelId = channelId;
+        this.name = name;
+        this.subCategory = subCategory;
+    }
 }
