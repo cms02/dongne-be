@@ -41,20 +41,16 @@ public class BoardComment extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ColumnDefault("0")
-    private Long likes;
-
     @Column(name = "is_deleted")
     @ColumnDefault("false")
     private Boolean isDeleted;
 
     @Builder
-    public BoardComment(Long boardCommentId, String content, Board board, User user, Long likes, Boolean isDeleted) {
+    public BoardComment(Long boardCommentId, String content, Board board, User user, Boolean isDeleted) {
         this.boardCommentId = boardCommentId;
         this.content = content;
         this.board = board;
         this.user = user;
-        this.likes = likes;
         this.isDeleted = isDeleted;
     }
 

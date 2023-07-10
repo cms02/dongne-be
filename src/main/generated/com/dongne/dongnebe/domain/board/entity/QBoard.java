@@ -43,8 +43,6 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final BooleanPath isDeleted = createBoolean("isDeleted");
 
-    public final NumberPath<Long> likes = createNumber("likes", Long.class);
-
     public final com.dongne.dongnebe.domain.category.main_category.entity.QMainCategory mainCategory;
 
     public final com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory subCategory;

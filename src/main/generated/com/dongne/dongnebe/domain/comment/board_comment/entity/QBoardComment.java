@@ -35,8 +35,6 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
 
     public final BooleanPath isDeleted = createBoolean("isDeleted");
 
-    public final NumberPath<Long> likes = createNumber("likes", Long.class);
-
     public final com.dongne.dongnebe.domain.user.entity.QUser user;
 
     public QBoardComment(String variable) {

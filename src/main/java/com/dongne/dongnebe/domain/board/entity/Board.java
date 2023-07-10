@@ -17,7 +17,6 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -68,9 +67,6 @@ public class Board extends BaseEntity {
     @JoinColumn(name = "zone_code")
     private Zone zone;
 
-    @ColumnDefault("0")
-    private Long likes;
-
     @Column(name = "is_deleted")
     @ColumnDefault("false")
     private Boolean isDeleted;
@@ -78,7 +74,7 @@ public class Board extends BaseEntity {
     private LocalDateTime deadline_at;
 
     @Builder
-    public Board(Long boardId, String title, String content, String fileImg, BoardType boardType, MainCategory mainCategory, SubCategory subCategory, Channel channel, User user, City city, Zone zone, Long likes, Boolean isDeleted, LocalDateTime deadline_at) {
+    public Board(Long boardId, String title, String content, String fileImg, BoardType boardType, MainCategory mainCategory, SubCategory subCategory, Channel channel, User user, City city, Zone zone, Boolean isDeleted, LocalDateTime deadline_at) {
         this.boardId = boardId;
         this.title = title;
         this.content = content;
@@ -90,7 +86,6 @@ public class Board extends BaseEntity {
         this.user = user;
         this.city = city;
         this.zone = zone;
-        this.likes = likes;
         this.isDeleted = isDeleted;
         this.deadline_at = deadline_at;
     }
