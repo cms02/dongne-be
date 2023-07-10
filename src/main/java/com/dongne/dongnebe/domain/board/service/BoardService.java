@@ -33,7 +33,6 @@ public class BoardService {
 
     @Transactional
     public ResponseDto writeBoard(MultipartFile file, WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
-        validatePermission(writeBoardRequestDto.getUserId(), authentication);
         uploadFile(file);
         boardRepository.save(
                 Board.builder()
@@ -62,9 +61,8 @@ public class BoardService {
 
     @Transactional
     public ResponseDto updateBoard(Long boardId, MultipartFile file, UpdateBoardRequestDto updateBoardRequestDto, Authentication authentication) {
-        validatePermission(updateBoardRequestDto.getUserId(), authentication);
         uploadFile(file);
-
+        validatePermission(updateBoardRequestDto.getUserId(), authentication);
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("BoardId Not Found"));
         board.update(updateBoardRequestDto, file);
         return ResponseDto.builder()
@@ -75,7 +73,7 @@ public class BoardService {
 
     @Transactional
     public ResponseDto deleteBoard(Long boardId, DeleteBoardRequestDto deleteBoardRequestDto, Authentication authentication) {
-        validatePermission(deleteBoardRequestDto.getUserId(), authentication);
+        validatePermission(deleteBoardRequestDto.getUserId(),authentication);
         Board board = boardRepository.findById(boardId).orElseThrow(
                 () -> new ResourceNotFoundException("BoardId Not Found")
         );

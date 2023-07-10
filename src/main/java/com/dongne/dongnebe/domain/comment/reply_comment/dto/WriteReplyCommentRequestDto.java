@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class WriteReplyCommentRequestDto {
     private Long replyCommentId;
     private String content;
-    private String userId;
 }

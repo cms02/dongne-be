@@ -22,7 +22,6 @@ public class WriteBoardRequestDto {
     private String cityCode;
     private String zoneCode;
     private Long channelId;
-    private String userId;
     private String deadLineAt;
 
 }

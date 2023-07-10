@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class WriteBoardCommentRequestDto {
     private Long boardId;
     private String content;
-    private String userId;
 }

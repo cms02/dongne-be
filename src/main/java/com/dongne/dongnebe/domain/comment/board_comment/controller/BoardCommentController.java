@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class BoardCommentController {
     private final BoardCommentService boardCommentService;
+
     @PostMapping("/api/boardComment")
-    public ResponseEntity<ResponseDto> writeBoardComment(@RequestBody WriteBoardCommentRequestDto writeBoardCommentRequestDto) {
-        ResponseDto result = boardCommentService.writeBoardComment(writeBoardCommentRequestDto);
+    public ResponseEntity<ResponseDto> writeBoardComment(@RequestBody WriteBoardCommentRequestDto writeBoardCommentRequestDto,
+                                                         Authentication authentication) {
+        ResponseDto result = boardCommentService.writeBoardComment(writeBoardCommentRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 

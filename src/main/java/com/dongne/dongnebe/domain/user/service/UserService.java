@@ -113,7 +113,7 @@ public class UserService {
 
     private User findUser(String userId) {
         return userRepository.findByUserId(userId).orElseThrow(
-                () -> new ResourceNotFoundException("User Id Not Found")
+                () -> new ResourceNotFoundException("UserId Not Found")
         );
     }
 

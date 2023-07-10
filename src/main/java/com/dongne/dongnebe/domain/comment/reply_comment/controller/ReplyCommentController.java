@@ -16,8 +16,9 @@ public class ReplyCommentController {
     private final ReplyCommentService replyCommentService;
 
     @PostMapping("/api/replyComment")
-    public ResponseEntity<ResponseDto> writeReplyComment(@RequestBody WriteReplyCommentRequestDto writeReplyCommentRequestDto) {
-        ResponseDto result = replyCommentService.writeReplyComment(writeReplyCommentRequestDto);
+    public ResponseEntity<ResponseDto> writeReplyComment(@RequestBody WriteReplyCommentRequestDto writeReplyCommentRequestDto,
+                                                         Authentication authentication) {
+        ResponseDto result = replyCommentService.writeReplyComment(writeReplyCommentRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 

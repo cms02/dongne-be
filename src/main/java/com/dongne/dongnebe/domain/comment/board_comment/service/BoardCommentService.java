@@ -25,10 +25,11 @@ public class BoardCommentService {
     private final BoardCommentRepository boardCommentRepository;
 
     @Transactional
-    public ResponseDto writeBoardComment(WriteBoardCommentRequestDto writeBoardCommentRequestDto) {
+    public ResponseDto writeBoardComment(WriteBoardCommentRequestDto writeBoardCommentRequestDto,
+                                         Authentication authentication) {
         boardCommentRepository.save(BoardComment.builder()
                 .content(writeBoardCommentRequestDto.getContent())
-                .user(User.builder().userId(writeBoardCommentRequestDto.getUserId()).build())
+                .user(User.builder().userId(authentication.getName()).build())
                 .board(Board.builder().boardId(writeBoardCommentRequestDto.getBoardId()).build())
                 .build());
         return ResponseDto.builder()
