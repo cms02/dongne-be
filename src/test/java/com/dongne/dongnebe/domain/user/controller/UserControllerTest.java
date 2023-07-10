@@ -43,9 +43,9 @@ class UserControllerTest {
     private MockMvc mockMvc;
 
     private static final String NICKNAME_ALREADY_EXIST_MSG = "Nickname Already Exist";
-    private static final String USERID_ALREADY_EXIST_MSG = "UserId Already Exist";
+    private static final String USERID_ALREADY_EXIST_MSG = "User Id Already Exist";
     private static final String USER_SIGN_UP_SUCCESS_MSG = "User Sign Up Success";
-    private static final String USERID_NOT_FOUND_MSG= "UserId Not Found";
+    private static final String USERID_NOT_FOUND_MSG= "User Id Not Found";
 
     @Test
     @WithMockUser(username = "테스트_최고관리자",roles = {"SUPER"})

@@ -4,6 +4,7 @@ import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,11 @@ public class BoardCommentLikes {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_comment_id")
     private BoardComment boardComment;
+
+    @Builder
+    public BoardCommentLikes(Long boardCommentLikesId, User user, BoardComment boardComment) {
+        this.boardCommentLikesId = boardCommentLikesId;
+        this.user = user;
+        this.boardComment = boardComment;
+    }
 }

@@ -43,7 +43,7 @@ public class ReplyCommentService {
     public ResponseDto updateReplyComment(Long replyCommentId, UpdateReplyCommentRequestDto updateReplyCommentRequestDto, Authentication authentication) {
         validatePermission(updateReplyCommentRequestDto.getUserId(), authentication);
         ReplyComment replyComment = replyCommentRepository.findById(replyCommentId)
-                .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Board Comment Id Not Found"));
         replyComment.update(updateReplyCommentRequestDto);
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
@@ -55,7 +55,7 @@ public class ReplyCommentService {
     public ResponseDto deleteReplyComment(Long replyCommentId, DeleteReplyCommentRequestDto deleteReplyCommentRequestDto, Authentication authentication) {
         validatePermission(deleteReplyCommentRequestDto.getUserId(), authentication);
         ReplyComment replyComment = replyCommentRepository.findById(replyCommentId)
-                .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Board Comment Id Not Found"));
         replyComment.delete();
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())

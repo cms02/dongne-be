@@ -45,7 +45,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             if (userId != null) {
                 User user = userRepository.findByUserId(userId)
-                        .orElseThrow(() -> new ResourceNotFoundException("UserId Not Found"));
+                        .orElseThrow(() -> new ResourceNotFoundException("User Id Not Found"));
                 PrincipalDetails principalDetails = new PrincipalDetails(user);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
 

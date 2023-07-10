@@ -42,7 +42,7 @@ public class BoardCommentService {
     public ResponseDto updateBoardComment(Long boardCommentId, UpdateBoardCommentRequestDto updateBoardCommentRequestDto, Authentication authentication) {
         validatePermission(updateBoardCommentRequestDto.getUserId(), authentication);
         BoardComment boardComment = boardCommentRepository.findById(boardCommentId)
-                .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Board Comment Id Not Found"));
         boardComment.update(updateBoardCommentRequestDto);
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
@@ -54,7 +54,7 @@ public class BoardCommentService {
     public ResponseDto deleteBoardComment(Long boardCommentId, DeleteBoardCommentRequestDto deleteBoardCommentRequestDto, Authentication authentication) {
         validatePermission(deleteBoardCommentRequestDto.getUserId(), authentication);
         BoardComment boardComment = boardCommentRepository.findById(boardCommentId)
-                .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Board Comment Id Not Found"));
         boardComment.delete();
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())

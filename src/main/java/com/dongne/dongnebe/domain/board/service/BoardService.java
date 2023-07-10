@@ -75,7 +75,7 @@ public class BoardService {
     public ResponseDto deleteBoard(Long boardId, DeleteBoardRequestDto deleteBoardRequestDto, Authentication authentication) {
         validatePermission(deleteBoardRequestDto.getUserId(),authentication);
         Board board = boardRepository.findById(boardId).orElseThrow(
-                () -> new ResourceNotFoundException("BoardId Not Found")
+                () -> new ResourceNotFoundException("Board Id Not Found")
         );
         board.delete();
 

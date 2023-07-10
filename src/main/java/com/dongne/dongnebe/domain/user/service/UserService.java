@@ -60,7 +60,7 @@ public class UserService {
     private void checkUserId(String userId) {
         Optional<User> findUser = userRepository.findByUserId(userId);
         if (findUser.isPresent()) {
-            throw new ResourceAlreadyExistException("UserId Already Exist");
+            throw new ResourceAlreadyExistException("User Id Already Exist");
         }
     }
 
@@ -113,7 +113,7 @@ public class UserService {
 
     private User findUser(String userId) {
         return userRepository.findByUserId(userId).orElseThrow(
-                () -> new ResourceNotFoundException("UserId Not Found")
+                () -> new ResourceNotFoundException("User Id Not Found")
         );
     }
 
