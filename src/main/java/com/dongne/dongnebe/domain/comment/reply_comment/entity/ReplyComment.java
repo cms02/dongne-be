@@ -2,6 +2,7 @@ package com.dongne.dongnebe.domain.comment.reply_comment.entity;
 
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.UpdateReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -48,5 +49,13 @@ public class ReplyComment extends BaseEntity {
         this.user = user;
         this.likes = likes;
         this.isDeleted = isDeleted;
+    }
+
+    public void update(UpdateReplyCommentRequestDto updateReplyCommentRequestDto) {
+        this.content = updateReplyCommentRequestDto.getContent();
+    }
+
+    public void delete() {
+        this.isDeleted = true;
     }
 }
