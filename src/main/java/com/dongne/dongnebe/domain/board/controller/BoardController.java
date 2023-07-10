@@ -20,7 +20,6 @@ public class BoardController {
     public ResponseEntity<ResponseDto> writeBoard(@RequestPart MultipartFile file,
                                                   @RequestPart WriteBoardRequestDto writeBoardRequestDto,
                                                   Authentication authentication) {
-//        @valid 추가해야함
         ResponseDto result = boardService.writeBoard(file, writeBoardRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
@@ -30,8 +29,6 @@ public class BoardController {
                                                    @RequestPart MultipartFile file,
                                                    @RequestPart UpdateBoardRequestDto updateBoardRequestDto,
                                                    Authentication authentication) {
-
-//        @valid 추가해야함
         ResponseDto result = boardService.updateBoard(boardId, file, updateBoardRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }

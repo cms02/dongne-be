@@ -93,7 +93,7 @@ public class UserService {
 
     @Transactional
     public ResponseDto updateUserBasic(String userId, MultipartFile file, BasicRequestDto requestDto, Authentication authentication) {
-        validatePermission(userId, authentication);
+//        validatePermission(userId, authentication);
         User user = findUser(userId);
 
         /*파일이 없다면 기본 프로필 적용*/
@@ -119,7 +119,7 @@ public class UserService {
 
     @Transactional
     public ResponseDto deleteUser(String userId, Authentication authentication) {
-        validatePermission(userId, authentication);
+//        validatePermission(userId, authentication);
         User user = findUser(userId);
         user.delete();
         return ResponseDto.builder()
@@ -130,7 +130,7 @@ public class UserService {
 
     @Transactional
     public ResponseDto updateUserPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
-        validatePermission(userId, authentication);
+//        validatePermission(userId, authentication);
         User user = findUser(userId);
         user.updatePassword(passwordEncoder.encode(passwordRequestDto.getPassword()));
         return ResponseDto.builder()
@@ -140,7 +140,7 @@ public class UserService {
     }
 
     public ResponseDto confirmUserPassword(String userId, PasswordRequestDto passwordRequestDto, Authentication authentication) {
-        validatePermission(userId, authentication);
+//        validatePermission(userId, authentication);
         User user = findUser(userId);
         boolean isPasswordMatch = isPasswordMatch(passwordRequestDto.getPassword(), user.getPassword());
         if (!isPasswordMatch) {
@@ -157,7 +157,7 @@ public class UserService {
     }
 
     public UsersBasicResponseDto findUserBasic(String userId, Authentication authentication) {
-        validatePermission(userId, authentication);
+//        validatePermission(userId, authentication);
         User user = findUser(userId);
         return UsersBasicResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())

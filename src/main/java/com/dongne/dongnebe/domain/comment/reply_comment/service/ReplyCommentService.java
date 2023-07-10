@@ -1,12 +1,7 @@
 package com.dongne.dongnebe.domain.comment.reply_comment.service;
 
 
-import com.dongne.dongnebe.domain.board.entity.Board;
-import com.dongne.dongnebe.domain.comment.board_comment.dto.DeleteBoardCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.board_comment.dto.UpdateBoardCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.board_comment.dto.WriteBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
-import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentRepository;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.DeleteReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.UpdateReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.WriteReplyCommentRequestDto;
@@ -20,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +36,7 @@ public class ReplyCommentService {
 
     @Transactional
     public ResponseDto updateReplyComment(Long replyCommentId, UpdateReplyCommentRequestDto updateReplyCommentRequestDto, Authentication authentication) {
-        validatePermission(updateReplyCommentRequestDto.getUserId(), authentication);
+//        validatePermission(updateReplyCommentRequestDto.getUserId(), authentication);
         ReplyComment replyComment = replyCommentRepository.findById(replyCommentId)
                 .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
         replyComment.update(updateReplyCommentRequestDto);
@@ -55,7 +48,7 @@ public class ReplyCommentService {
 
     @Transactional
     public ResponseDto deleteReplyComment(Long replyCommentId, DeleteReplyCommentRequestDto deleteReplyCommentRequestDto, Authentication authentication) {
-        validatePermission(deleteReplyCommentRequestDto.getUserId(), authentication);
+//        validatePermission(deleteReplyCommentRequestDto.getUserId(), authentication);
         ReplyComment replyComment = replyCommentRepository.findById(replyCommentId)
                 .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
         replyComment.delete();
