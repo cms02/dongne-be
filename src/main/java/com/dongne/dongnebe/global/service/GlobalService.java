@@ -16,11 +16,11 @@ public class GlobalService {
 
     @Value("${file.path}")
     private static String uploadFolder;
-//    public static void validatePermission(String userId, Authentication authentication) {
-//        if (!authentication.getName().equals(userId)) {
-//            throw new ForbiddenException("Access Is Forbidden");
-//        }
-//    }
+    public static void validatePermission(String userId, Authentication authentication) {
+        if (!authentication.getName().equals(userId)) {
+            throw new ForbiddenException("Access Is Forbidden");
+        }
+    }
 
     public static void uploadFile(MultipartFile file) {
         if (!file.isEmpty()) {

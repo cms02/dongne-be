@@ -35,7 +35,7 @@ public class BoardController {
 
     @DeleteMapping("/api/board/{boardId}")
     public ResponseEntity<ResponseDto> deleteBoard(@PathVariable Long boardId,
-                                                   @RequestBody DeleteBoardRequestDto deleteBoardRequestDto,
+                                                   DeleteBoardRequestDto deleteBoardRequestDto,
                                                    Authentication authentication) {
         ResponseDto result = boardService.deleteBoard(boardId, deleteBoardRequestDto, authentication);
         return ResponseEntity.ok().body(result);

@@ -16,6 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
+
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +39,7 @@ public class BoardCommentService {
 
     @Transactional
     public ResponseDto updateBoardComment(Long boardCommentId, UpdateBoardCommentRequestDto updateBoardCommentRequestDto, Authentication authentication) {
-//        validatePermission(updateBoardCommentRequestDto.getUserId(), authentication);
+        validatePermission(updateBoardCommentRequestDto.getUserId(), authentication);
         BoardComment boardComment = boardCommentRepository.findById(boardCommentId)
                 .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
         boardComment.update(updateBoardCommentRequestDto);
@@ -49,7 +51,7 @@ public class BoardCommentService {
 
     @Transactional
     public ResponseDto deleteBoardComment(Long boardCommentId, DeleteBoardCommentRequestDto deleteBoardCommentRequestDto, Authentication authentication) {
-//        validatePermission(deleteBoardCommentRequestDto.getUserId(), authentication);
+        validatePermission(deleteBoardCommentRequestDto.getUserId(), authentication);
         BoardComment boardComment = boardCommentRepository.findById(boardCommentId)
                 .orElseThrow(() -> new ResourceNotFoundException("BoardCommentId Not Found"));
         boardComment.delete();

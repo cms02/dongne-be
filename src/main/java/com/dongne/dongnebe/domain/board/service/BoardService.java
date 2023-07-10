@@ -33,7 +33,7 @@ public class BoardService {
 
     @Transactional
     public ResponseDto writeBoard(MultipartFile file, WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
-//        validatePermission(writeBoardRequestDto.getUserId(), authentication);
+        validatePermission(writeBoardRequestDto.getUserId(), authentication);
         uploadFile(file);
         boardRepository.save(
                 Board.builder()
@@ -45,7 +45,7 @@ public class BoardService {
                         .subCategory(SubCategory.builder().subCategoryId(writeBoardRequestDto.getSubCategoryId()).build())
                         .channel(writeBoardRequestDto.getChannelId() == null ?
                                 null : Channel.builder().channelId(writeBoardRequestDto.getChannelId()).build())
-                        .user(User.builder().userId(writeBoardRequestDto.getUserId()).build())
+                        .user(User.builder().userId(authentication.getName()).build())
                         .city(City.builder().cityCode(writeBoardRequestDto.getCityCode()).build())
                         .zone(Zone.builder().zoneCode(writeBoardRequestDto.getZoneCode()).build())
                         .deadline_at(writeBoardRequestDto.getDeadLineAt() == null ?
@@ -62,7 +62,7 @@ public class BoardService {
 
     @Transactional
     public ResponseDto updateBoard(Long boardId, MultipartFile file, UpdateBoardRequestDto updateBoardRequestDto, Authentication authentication) {
-//        validatePermission(updateBoardRequestDto.getUserId(), authentication);
+        validatePermission(updateBoardRequestDto.getUserId(), authentication);
         uploadFile(file);
 
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("BoardId Not Found"));
@@ -75,7 +75,7 @@ public class BoardService {
 
     @Transactional
     public ResponseDto deleteBoard(Long boardId, DeleteBoardRequestDto deleteBoardRequestDto, Authentication authentication) {
-//        validatePermission(deleteBoardRequestDto.getUserId(), authentication);
+        validatePermission(deleteBoardRequestDto.getUserId(), authentication);
         Board board = boardRepository.findById(boardId).orElseThrow(
                 () -> new ResourceNotFoundException("BoardId Not Found")
         );
