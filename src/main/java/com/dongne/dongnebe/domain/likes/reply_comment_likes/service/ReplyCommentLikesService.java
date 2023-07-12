@@ -30,7 +30,7 @@ public class ReplyCommentLikesService {
                 .build());
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
-                .responseMessage("Check Board Likes")
+                .responseMessage("Check Reply Comment Likes")
                 .build();
     }
 
