@@ -7,6 +7,7 @@ import com.dongne.dongnebe.domain.category.main_category.repository.MainCategory
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class MainCategoryService {
     private final MainCategoryRepository mainCategoryRepository;
 
+    @Transactional(readOnly = true)
     public MainCategoryResponseDto findAllByOrderByMainCategoryIdAsc() {
         List<MainCategoryDto> mainCategoryDtos = mainCategoryRepository.findAllByOrderByMainCategoryIdAsc().stream()
                 .map(c -> MainCategoryDto.builder()

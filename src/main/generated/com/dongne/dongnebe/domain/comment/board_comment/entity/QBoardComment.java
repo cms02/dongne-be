@@ -35,6 +35,8 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
 
     public final BooleanPath isDeleted = createBoolean("isDeleted");
 
+    public final ListPath<com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment, com.dongne.dongnebe.domain.comment.reply_comment.entity.QReplyComment> replyComments = this.<com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment, com.dongne.dongnebe.domain.comment.reply_comment.entity.QReplyComment>createList("replyComments", com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment.class, com.dongne.dongnebe.domain.comment.reply_comment.entity.QReplyComment.class, PathInits.DIRECT2);
+
     public final com.dongne.dongnebe.domain.user.entity.QUser user;
 
     public QBoardComment(String variable) {

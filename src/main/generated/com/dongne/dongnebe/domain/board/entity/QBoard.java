@@ -24,6 +24,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final com.dongne.dongnebe.global.entity.QBaseEntity _super = new com.dongne.dongnebe.global.entity.QBaseEntity(this);
 
+    public final ListPath<com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment, com.dongne.dongnebe.domain.comment.board_comment.entity.QBoardComment> boardComments = this.<com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment, com.dongne.dongnebe.domain.comment.board_comment.entity.QBoardComment>createList("boardComments", com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment.class, com.dongne.dongnebe.domain.comment.board_comment.entity.QBoardComment.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> boardId = createNumber("boardId", Long.class);
 
     public final EnumPath<com.dongne.dongnebe.domain.board.enums.BoardType> boardType = createEnum("boardType", com.dongne.dongnebe.domain.board.enums.BoardType.class);
@@ -37,7 +39,7 @@ public class QBoard extends EntityPathBase<Board> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
 
-    public final DateTimePath<java.time.LocalDateTime> deadline_at = createDateTime("deadline_at", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.LocalDateTime> deadlineAt = createDateTime("deadlineAt", java.time.LocalDateTime.class);
 
     public final StringPath fileImg = createString("fileImg");
 
@@ -50,6 +52,8 @@ public class QBoard extends EntityPathBase<Board> {
     public final StringPath title = createString("title");
 
     public final com.dongne.dongnebe.domain.user.entity.QUser user;
+
+    public final NumberPath<Long> viewCnt = createNumber("viewCnt", Long.class);
 
     public final com.dongne.dongnebe.domain.zone.entity.QZone zone;
 

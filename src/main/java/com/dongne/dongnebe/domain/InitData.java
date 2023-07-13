@@ -199,6 +199,120 @@ public class InitData {
 //            "클라우드 보안을 위한 네트워크 구성"
     };
 
+    private static final String[] BOARD_TITLE_HORROR = {
+            "물레방아 소리가 들려오는 밤",
+            "어둠 속에서 미소짓는 그림자",
+            "길 잃은 자의 유령",
+            "저택의 비밀과 저주",
+            "실종된 아이의 비밀 일기",
+            "위험한 방의 뒷면",
+            "사라진 마을의 비밀",
+            "절망의 숲에서 들리는 속삭임",
+            "무덤에서 깨어난 어둠의 영혼",
+            "저주받은 인형의 기억",
+            "음산한 의문의 환영",
+            "흩어진 신비의 퍼즐 조각",
+            "어둠에 떠도는 눈빛",
+            "수수께끼의 사람들",
+            "끝없는 신비의 문",
+            "사라진 마법사의 책",
+            "어스름한 시간대의 초대장",
+            "괴담 속의 고요한 밤",
+            "잃어버린 시간의 미로",
+            "죽음의 방 청소부",
+            "고통과 광기의 병동",
+            "잊혀진 무덤에서 들려오는 불편한 소리",
+            "망가진 인형의 시선",
+            "헤어진 사랑의 저주",
+            "마법사의 저택에서 들리는 미친 웃음",
+            "깊은 숲 속 잊혀진 비밀",
+            "거울 속에 갇힌 영혼",
+            "소리 없는 발걸음의 주인",
+            "괴물의 그림자가 떠도는 밤",
+            "마법과 불안의 도서관"
+
+    };
+
+    private static final String[] BOARD_TITLE_DOG = {
+            "사랑스러운 포메라니안의 모험",
+            "활기찬 포메라니안과의 즐거운 시간",
+            "충실한 친구, 포메라니안",
+            "포메라니안의 사랑과 충성",
+            "포메라니안과 함께하는 행복한 일상",
+            "포메라니안의 애교와 재롱",
+            "소중한 가족, 포메라니안",
+            "포메라니안과의 귀여운 순간들",
+            "포메라니안과 함께하는 활동적인 놀이",
+            "포메라니안의 사랑스러운 미소",
+            "포메라니안의 건강과 행복을 위한 팁",
+            "포메라니안과 함께하는 산책의 기쁨",
+            "포메라니안의 활기찬 에너지",
+            "포메라니안의 아기자기한 매력",
+            "포메라니안의 사랑스러운 털빠짐",
+            "포메라니안과의 달콤한 시간",
+            "포메라니안의 귀여운 재롱과 장난",
+            "포메라니안의 애교와 사랑스러움",
+            "포메라니안과의 행복한 가정생활",
+            "포메라니안의 사랑과 보호의 역할",
+            "포메라니안과의 멋진 모델 라이프",
+            "포메라니안과의 여행과 모험",
+            "포메라니안의 사랑스러운 귀여움",
+            "포메라니안과의 행복한 추억 만들기",
+            "포메라니안의 건강과 관리 팁",
+            "포메라니안과의 사랑과 우정",
+            "포메라니안의 활기찬 생활과 놀이",
+            "포메라니안과 함께하는 펫 테라피",
+            "포메라니안의 귀여운 매력에 빠지다",
+            "포메라니안과의 행복한 일상 루틴",
+            "포메라니안의 애교와 사랑스러운 행동"
+    };
+
+    private static final String[] BOARD_TITLE_ISSUE = {
+            "용산구에서 벌어진 작은 교통사고",
+            "길거리에서 발생한 용산구의 작은 충돌 사건",
+            "용산구에서의 작은 화재 사고 이야기",
+            "밤길에서 벌어진 용산구의 사소한 도난 사건",
+            "작은 싸움이 일어난 용산구의 공원",
+            "용산구에서의 작은 건물 무너짐 사고",
+            "작은 가게에서 발생한 용산구의 금전 분실 사건",
+            "용산구에서의 작은 가로등 고장 사고",
+            "주차장에서 벌어진 용산구의 작은 사고",
+            "용산구에서의 작은 배낭 도난 사건",
+            "작은 폭력 사건이 일어난 용산구의 술집",
+            "용산구에서의 작은 자전거 추락 사고",
+            "길거리에서 발생한 용산구의 작은 추행 사건",
+            "용산구에서의 작은 미용실 화학 물질 사고",
+            "작은 무단횡단으로 일어난 용산구의 교통 사고",
+            "용산구에서의 작은 쇼핑몰 화재 사건",
+            "작은 습격 사건이 일어난 용산구의 은행",
+            "용산구에서의 작은 건물 낙하 사고",
+            "작은 동물 해방 시위가 벌어진 용산구의 공원",
+            "용산구에서의 작은 자전거 도난 사건",
+            "길거리에서 발생한 용산구의 작은 신고 사건",
+            "용산구에서의 작은 철도 사고 이야기",
+            "작은 싸움이 일어난 용산구의 학교",
+            "용산구에서의 작은 가로등 고장 사건",
+            "주차장에서 벌어진 용산구의 작은 사고",
+            "용산구에서의 작은 가방 분실 사건",
+            "작은 폭력 사건이 일어난 용산구의 클럽",
+            "용산구에서의 작은 자전거 사고 이야기",
+            "길거리에서 발생한 용산구의 작은 폭언 사건",
+            "용산구에서의 작은 식당 화재 사건"
+    };
+
+    private static final String[] BOARD_TITLE_EVENT = {
+            "우리 동네 축제에서의 즐거운 하루",
+            "동네 공원에서 열린 가족 피크닉 이벤트",
+            "동네 마트에서의 할인 행사 이야기",
+            "주민들과 함께하는 동네 청소 봉사 활동",
+            "동네 도서관에서 열린 독서 모임",
+            "동네 공원에서의 야간 커뮤니티 행사",
+            "동네 예술 센터에서 열린 작품 전시회",
+            "주민 참여형 동네 공연의 묘미",
+            "동네 마을 축제에서 만난 다양한 문화",
+            "동네 스포츠 클럽의 경기 관람 이벤트"
+    };
+
 
 
 
@@ -2553,6 +2667,24 @@ public class InitData {
                                 .subCategory(SubCategory.builder().subCategoryId(1L).build())
                                 .name("개발자모여라")
                                 .build());
+
+                channelRepository.save(
+                        Channel.builder()
+                                .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                .name("무서운이야기")
+                                .build());
+
+                channelRepository.save(
+                        Channel.builder()
+                                .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                .name("포메견주모여요")
+                                .build());
+
+                channelRepository.save(
+                        Channel.builder()
+                                .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                .name("이건좀아니죠")
+                                .build());
             }
         }
     }
@@ -2594,6 +2726,107 @@ public class InitData {
                                         .zone(Zone.builder().zoneCode("11170").build())
                                         .build()
                         ));
+
+                IntStream.range(0, 15)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index])
+                                        .content(BOARD_TITLE_HORROR[index] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+//                                .channel(Channel.builder().channelId(1L).build()) 채널 X
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
+
+                IntStream.range(15, 30)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index])
+                                        .content(BOARD_TITLE_HORROR[index] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .channel(Channel.builder().channelId(2L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
+
+                IntStream.range(30, 45)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index-30])
+                                        .content(BOARD_TITLE_DOG[index-30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+//                                        .channel(Channel.builder().channelId(2L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
+                IntStream.range(45, 60)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index-30])
+                                        .content(BOARD_TITLE_DOG[index-30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .channel(Channel.builder().channelId(3L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
+
+                IntStream.range(60, 75)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index-60])
+                                        .content(BOARD_TITLE_ISSUE[index-60] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+//                                        .channel(Channel.builder().channelId(4L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
+
+                IntStream.range(75, 90)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index-60])
+                                        .content(BOARD_TITLE_ISSUE[index-60] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .channel(Channel.builder().channelId(4L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
+
+                IntStream.range(90, 100)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_EVENT[index-90])
+                                        .content(BOARD_TITLE_EVENT[index-90] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
             }
         }
     }
@@ -2625,6 +2858,84 @@ public class InitData {
                                         .build());
                     }
                 }
+
+                for (int i = 0; i < BOARD_TITLE_HORROR.length; i++) {
+                    Set<Integer> numbers = new HashSet<>();
+                    Random random = new Random();
+                    while (numbers.size() < random.nextInt(7)) {/*댓글은 7개 미만 랜덤으로*/
+                        numbers.add(random.nextInt(NAMES.length)); /*댓글 작성자 랜덤*/
+                    }
+
+                    Iterator<Integer> iter = numbers.iterator();
+                    while (iter.hasNext()) {
+                        Integer next = iter.next();
+                        boardCommentRepository.save(
+                                BoardComment.builder()
+                                        .content(NAMES[next] + "의 댓글 입니다.")
+                                        .user(User.builder().userId("user" + next).build())
+                                        .board(Board.builder().boardId((long) i + 1 + 100).build())
+                                        .build());
+                    }
+                }
+
+                for (int i = 0; i < BOARD_TITLE_DOG.length; i++) {
+                    Set<Integer> numbers = new HashSet<>();
+                    Random random = new Random();
+                    while (numbers.size() < random.nextInt(7)) {/*댓글은 7개 미만 랜덤으로*/
+                        numbers.add(random.nextInt(NAMES.length)); /*댓글 작성자 랜덤*/
+                    }
+
+                    Iterator<Integer> iter = numbers.iterator();
+                    while (iter.hasNext()) {
+                        Integer next = iter.next();
+                        boardCommentRepository.save(
+                                BoardComment.builder()
+                                        .content(NAMES[next] + "의 댓글 입니다.")
+                                        .user(User.builder().userId("user" + next).build())
+                                        .board(Board.builder().boardId((long) i + 1 + 130).build())
+                                        .build());
+                    }
+                }
+
+                for (int i = 0; i < BOARD_TITLE_ISSUE.length; i++) {
+                    Set<Integer> numbers = new HashSet<>();
+                    Random random = new Random();
+                    while (numbers.size() < random.nextInt(7)) {/*댓글은 7개 미만 랜덤으로*/
+                        numbers.add(random.nextInt(NAMES.length)); /*댓글 작성자 랜덤*/
+                    }
+
+                    Iterator<Integer> iter = numbers.iterator();
+                    while (iter.hasNext()) {
+                        Integer next = iter.next();
+                        boardCommentRepository.save(
+                                BoardComment.builder()
+                                        .content(NAMES[next] + "의 댓글 입니다.")
+                                        .user(User.builder().userId("user" + next).build())
+                                        .board(Board.builder().boardId((long) i + 1 + 160).build())
+                                        .build());
+                    }
+                }
+
+                for (int i = 0; i < BOARD_TITLE_EVENT.length; i++) {
+                    Set<Integer> numbers = new HashSet<>();
+                    Random random = new Random();
+                    while (numbers.size() < random.nextInt(7)) {/*댓글은 7개 미만 랜덤으로*/
+                        numbers.add(random.nextInt(NAMES.length)); /*댓글 작성자 랜덤*/
+                    }
+
+                    Iterator<Integer> iter = numbers.iterator();
+                    while (iter.hasNext()) {
+                        Integer next = iter.next();
+                        boardCommentRepository.save(
+                                BoardComment.builder()
+                                        .content(NAMES[next] + "의 댓글 입니다.")
+                                        .user(User.builder().userId("user" + next).build())
+                                        .board(Board.builder().boardId((long) i + 1 + 190).build())
+                                        .build());
+                    }
+                }
+
+
             }
         }
     }
@@ -2668,6 +2979,23 @@ public class InitData {
                     Set<Integer> numbers = new HashSet<>();
                     Random random = new Random();
                     while (numbers.size() < random.nextInt(31)) {/*좋아요은 31개 미만 랜덤으로*/
+                        numbers.add(random.nextInt(NAMES.length)); /*좋아요 작성자 랜덤*/
+                    }
+                    Iterator<Integer> iter = numbers.iterator();
+                    while (iter.hasNext()) {
+                        Integer next = iter.next();
+                        boardLikesRepository.save(
+                                BoardLikes.builder()
+                                        .user(User.builder().userId("user" + next).build())
+                                        .board(Board.builder().boardId((long) i + 1).build())
+                                        .build());
+                    }
+                }
+
+                for (int i = 100; i < 200; i++) {
+                    Set<Integer> numbers = new HashSet<>();
+                    Random random = new Random();
+                    while (numbers.size() < random.nextInt(10)) {/*좋아요은 10개 미만 랜덤으로*/
                         numbers.add(random.nextInt(NAMES.length)); /*좋아요 작성자 랜덤*/
                     }
                     Iterator<Integer> iter = numbers.iterator();

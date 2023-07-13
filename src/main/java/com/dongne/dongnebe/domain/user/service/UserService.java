@@ -156,6 +156,7 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
+    @Transactional(readOnly = true)
     public UsersBasicResponseDto findUserBasic(String userId, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);

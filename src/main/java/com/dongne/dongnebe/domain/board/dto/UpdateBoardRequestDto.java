@@ -20,6 +20,6 @@ public class UpdateBoardRequestDto {
     private Long subCategoryId;
     private Long channelId;
     private String userId;
-    private String deadLineAt;
+    private String deadlineAt;
 
 }

@@ -7,6 +7,7 @@ import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.UpdateBoardCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.entity.BaseEntity;
@@ -18,6 +19,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "board_comment")
@@ -44,6 +47,9 @@ public class BoardComment extends BaseEntity {
     @Column(name = "is_deleted")
     @ColumnDefault("false")
     private Boolean isDeleted;
+
+    @OneToMany(mappedBy = "boardComment")
+    private List<ReplyComment> replyComments = new ArrayList<>();
 
     @Builder
     public BoardComment(Long boardCommentId, String content, Board board, User user, Boolean isDeleted) {
