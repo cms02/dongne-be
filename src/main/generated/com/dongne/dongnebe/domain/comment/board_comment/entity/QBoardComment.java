@@ -28,6 +28,8 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
 
     public final NumberPath<Long> boardCommentId = createNumber("boardCommentId", Long.class);
 
+    public final ListPath<com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes, com.dongne.dongnebe.domain.likes.board_comment_likes.entity.QBoardCommentLikes> boardCommentLikes = this.<com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes, com.dongne.dongnebe.domain.likes.board_comment_likes.entity.QBoardCommentLikes>createList("boardCommentLikes", com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes.class, com.dongne.dongnebe.domain.likes.board_comment_likes.entity.QBoardCommentLikes.class, PathInits.DIRECT2);
+
     public final StringPath content = createString("content");
 
     //inherited

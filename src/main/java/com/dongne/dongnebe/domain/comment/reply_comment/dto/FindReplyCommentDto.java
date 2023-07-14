@@ -1,26 +1,26 @@
 package com.dongne.dongnebe.domain.comment.reply_comment.dto;
 
 import com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment;
-import com.dongne.dongnebe.global.service.GlobalService;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 import static com.dongne.dongnebe.global.service.GlobalService.formatLocalDateTimeToString;
 
 @Getter
-public class ReplyCommentDto {
+
+public class FindReplyCommentDto {
     private Long replyCommentId;
-    private String userId;
     private String content;
+    private String userId;
     private String createDate;
+    private Boolean isLiked;
 
     @Builder
-    public ReplyCommentDto(ReplyComment replyComment) {
+    public FindReplyCommentDto(ReplyComment replyComment, Boolean isLiked) {
         this.replyCommentId = replyComment.getReplyCommentId();
-        this.userId = replyComment.getUser().getUserId();
         this.content = replyComment.getContent();
+        this.userId = replyComment.getUser().getUserId();
         this.createDate = formatLocalDateTimeToString(replyComment.getCreateDate());
+        this.isLiked = isLiked;
     }
 }

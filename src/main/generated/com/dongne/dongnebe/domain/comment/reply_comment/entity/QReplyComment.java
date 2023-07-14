@@ -35,6 +35,8 @@ public class QReplyComment extends EntityPathBase<ReplyComment> {
 
     public final NumberPath<Long> replyCommentId = createNumber("replyCommentId", Long.class);
 
+    public final ListPath<com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.ReplyCommentLikes, com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.QReplyCommentLikes> replyCommentLikes = this.<com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.ReplyCommentLikes, com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.QReplyCommentLikes>createList("replyCommentLikes", com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.ReplyCommentLikes.class, com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.QReplyCommentLikes.class, PathInits.DIRECT2);
+
     public final com.dongne.dongnebe.domain.user.entity.QUser user;
 
     public QReplyComment(String variable) {

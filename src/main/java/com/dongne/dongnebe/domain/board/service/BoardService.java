@@ -10,6 +10,9 @@ import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
+import com.dongne.dongnebe.domain.likes.board_likes.entity.BoardLikes;
+import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
+import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.ResponseDto;
@@ -35,6 +38,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardQueryRepository boardQueryRepository;
     private final BoardCommentQueryRepository boardCommentQueryRepository;
+    private final BoardLikesQueryRepository boardLikesQueryRepository;
+
 
     @Transactional
     public ResponseDto writeBoard(MultipartFile file, WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
@@ -98,10 +103,13 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public FindOneBoardResponseDto findOneBoard(Long boardId) {
+    public FindOneBoardResponseDto findOneBoard(Long boardId, Authentication authentication) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
-        return new FindOneBoardResponseDto(board);
+
+        boolean isLiked = boardLikesQueryRepository.findBoardLikesByBoardIdAndUserId(board.getBoardId(), authentication.getName()).isPresent();
+        return new FindOneBoardResponseDto(board, isLiked);
     }
+
 
 }

@@ -1,11 +1,14 @@
 package com.dongne.dongnebe.domain.comment.reply_comment.controller;
 
+import com.dongne.dongnebe.domain.comment.board_comment.dto.FindBoardCommentsResponseDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.DeleteReplyCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.FindReplyCommentsResponseDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.UpdateReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.WriteReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.service.ReplyCommentService;
 import com.dongne.dongnebe.global.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +38,14 @@ public class ReplyCommentController {
                                                           @RequestBody DeleteReplyCommentRequestDto deleteReplyCommentRequestDto,
                                                           Authentication authentication) {
         ResponseDto result = replyCommentService.deleteReplyComment(replyCommentId, deleteReplyCommentRequestDto,authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/api/replyComment/{boardCommentId}")
+    public ResponseEntity<ResponseDto> findReplyComments(@PathVariable Long boardCommentId,
+                                                         Pageable pageable,
+                                                         Authentication authentication) {
+        FindReplyCommentsResponseDto result = replyCommentService.findReplyComments(boardCommentId, pageable, authentication);
         return ResponseEntity.ok().body(result);
     }
 }

@@ -2,20 +2,29 @@ package com.dongne.dongnebe.domain.comment.board_comment.service;
 
 
 import com.dongne.dongnebe.domain.board.entity.Board;
-import com.dongne.dongnebe.domain.comment.board_comment.dto.DeleteBoardCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.board_comment.dto.UpdateBoardCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.board_comment.dto.WriteBoardCommentRequestDto;
+import com.dongne.dongnebe.domain.board.repository.BoardRepository;
+import com.dongne.dongnebe.domain.comment.board_comment.dto.*;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
+import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentRepository;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.FindReplyCommentDto;
+import com.dongne.dongnebe.domain.likes.board_comment_likes.repository.BoardCommentLikesQueryRepository;
+import com.dongne.dongnebe.domain.likes.reply_comment_likes.repository.ReplyCommentLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
+import com.dongne.dongnebe.global.service.GlobalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.dongne.dongnebe.global.service.GlobalService.formatLocalDateTimeToString;
 import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
 
 
@@ -23,8 +32,14 @@ import static com.dongne.dongnebe.global.service.GlobalService.validatePermissio
 @RequiredArgsConstructor
 public class BoardCommentService {
     private final BoardCommentRepository boardCommentRepository;
+    private final BoardCommentQueryRepository boardCommentQueryRepository;
+
+    private final BoardRepository boardRepository;
+    private final BoardCommentLikesQueryRepository boardCommentLikesQueryRepository;
+
 
     @Transactional
+
     public ResponseDto writeBoardComment(WriteBoardCommentRequestDto writeBoardCommentRequestDto,
                                          Authentication authentication) {
         boardCommentRepository.save(BoardComment.builder()
@@ -60,5 +75,22 @@ public class BoardCommentService {
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Delete Board Comment")
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public FindBoardCommentsResponseDto findBoardComments(Long boardId, Pageable pageable, Authentication authentication) {
+        List<BoardComment> boardComments = boardCommentQueryRepository.findBoardComments(boardId, pageable);
+        List<FindBoardCommentDto> findBoardCommentDtos = boardComments.stream()
+                .map(c -> FindBoardCommentDto.builder()
+                        .boardComment(c)
+                        .isLiked(checkUserBoardCommentLikes(authentication, c))
+                        .build())
+                .collect(Collectors.toList());
+        return new FindBoardCommentsResponseDto(findBoardCommentDtos);
+    }
+
+    private boolean checkUserBoardCommentLikes(Authentication authentication, BoardComment boardComment) {
+        return boardCommentLikesQueryRepository
+                .findBoardCommentLikesByBoardCommentIdAndUserId(boardComment.getBoardCommentId(), authentication.getName()).isPresent();
     }
 }

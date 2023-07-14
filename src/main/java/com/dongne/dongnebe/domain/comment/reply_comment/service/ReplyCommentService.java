@@ -2,28 +2,33 @@ package com.dongne.dongnebe.domain.comment.reply_comment.service;
 
 
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.DeleteReplyCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.UpdateReplyCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.WriteReplyCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.*;
 import com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment;
+import com.dongne.dongnebe.domain.comment.reply_comment.repository.ReplyCommentQueryRepository;
 import com.dongne.dongnebe.domain.comment.reply_comment.repository.ReplyCommentRepository;
+import com.dongne.dongnebe.domain.likes.reply_comment_likes.repository.ReplyCommentLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
 
-//import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
 
 @Service
 @RequiredArgsConstructor
 public class ReplyCommentService {
     private final ReplyCommentRepository replyCommentRepository;
+    private final ReplyCommentQueryRepository replyCommentQueryRepository;
+    private final ReplyCommentLikesQueryRepository replyCommentLikesQueryRepository;
 
     @Transactional
     public ResponseDto writeReplyComment(WriteReplyCommentRequestDto writeReplyCommentRequestDto,
@@ -64,4 +69,20 @@ public class ReplyCommentService {
     }
 
 
+    @Transactional(readOnly = true)
+    public FindReplyCommentsResponseDto findReplyComments(Long boardCommentId, Pageable pageable, Authentication authentication) {
+        List<ReplyComment> replyComments = replyCommentQueryRepository.findReplyComments(boardCommentId, pageable);
+        List<FindReplyCommentDto> replyCommentDtos = replyComments.stream()
+                .map(c -> FindReplyCommentDto.builder()
+                        .replyComment(c)
+                        .isLiked(checkUserReplyCommentLikes(authentication, c))
+                        .build())
+                .collect(Collectors.toList());
+
+        return new FindReplyCommentsResponseDto(replyCommentDtos);
+    }
+
+    private boolean checkUserReplyCommentLikes(Authentication authentication, ReplyComment replyComment) {
+        return replyCommentLikesQueryRepository.findBoardCommentLikesByBoardCommentIdAndUserId(replyComment.getReplyCommentId(), authentication.getName()).isPresent();
+    }
 }

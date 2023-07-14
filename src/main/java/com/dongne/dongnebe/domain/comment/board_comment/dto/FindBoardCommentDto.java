@@ -1,8 +1,7 @@
 package com.dongne.dongnebe.domain.comment.board_comment.dto;
 
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.ReplyCommentDto;
-import com.dongne.dongnebe.global.service.GlobalService;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.FindReplyCommentDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,19 +12,23 @@ import static com.dongne.dongnebe.global.service.GlobalService.formatLocalDateTi
 
 @Getter
 
-public class BoardCommentDto {
+public class FindBoardCommentDto {
     private Long boardCommentId;
     private String content;
     private String userId;
     private String createDate;
-    private List<ReplyCommentDto> replyCommentDtos;
+    private Long boardCommentLikesCount;
+    private Boolean isLiked;
+    private Long replyCommentCount;
 
     @Builder
-    public BoardCommentDto(BoardComment boardComment) {
+    public FindBoardCommentDto(BoardComment boardComment, Boolean isLiked) {
         this.boardCommentId = boardComment.getBoardCommentId();
         this.content = boardComment.getContent();
         this.userId = boardComment.getUser().getUserId();
         this.createDate = formatLocalDateTimeToString(boardComment.getCreateDate());
-        this.replyCommentDtos = boardComment.getReplyComments().stream().map(ReplyCommentDto::new).collect(Collectors.toList());
+        this.boardCommentLikesCount = boardComment.getBoardCommentLikes().stream().count();
+        this.replyCommentCount = boardComment.getReplyComments().stream().count();
+        this.isLiked = isLiked;
     }
 }

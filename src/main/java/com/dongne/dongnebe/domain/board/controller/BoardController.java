@@ -55,8 +55,9 @@ public class BoardController {
     }
 
     @GetMapping("/api/board/{boardId}")
-    public ResponseEntity<ResponseDto> findOneBoard(@PathVariable Long boardId) {
-        FindOneBoardResponseDto result = boardService.findOneBoard(boardId);
+    public ResponseEntity<ResponseDto> findOneBoard(@PathVariable Long boardId,
+                                                    Authentication authentication) {
+        FindOneBoardResponseDto result = boardService.findOneBoard(boardId, authentication);
         return ResponseEntity.ok().body(result);
     }
 }

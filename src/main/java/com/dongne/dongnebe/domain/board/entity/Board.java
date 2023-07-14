@@ -7,6 +7,7 @@ import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
+import com.dongne.dongnebe.domain.likes.board_likes.entity.BoardLikes;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.entity.BaseEntity;
@@ -82,6 +83,9 @@ public class Board extends BaseEntity {
 
     @OneToMany(mappedBy = "board")
     private List<BoardComment> boardComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board")
+    private List<BoardLikes> boardLikes = new ArrayList<>();
 
     @Builder
     public Board(Long boardId, String title, String content, String fileImg, BoardType boardType, MainCategory mainCategory, SubCategory subCategory, Channel channel, User user, City city, Zone zone, Boolean isDeleted, LocalDateTime deadlineAt) {
