@@ -41,14 +41,14 @@ public class BoardController {
     }
 
     @GetMapping("/api/board/latest-boards")
-    public ResponseEntity<ResponseDto> findLatestBoards(@RequestBody FindMainBoardsRequestDto findMainBoardsRequestDto,
+    public ResponseEntity<ResponseDto> findLatestBoards(@RequestBody FindLatestBoardsRequestDto findLatestBoardsRequestDto,
                                                          Pageable pageable) {
-        FindLatestBoardResponseDto result = boardService.findLatestBoards(findMainBoardsRequestDto, pageable);
+        FindLatestBoardResponseDto result = boardService.findLatestBoards(findLatestBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/api/board/hot-boards")
-    public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindMainBoardsRequestDto findMainBoardsRequestDto,
+    public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindLatestBoardsRequestDto findMainBoardsRequestDto,
                                                         Pageable pageable) {
         FindLatestBoardResponseDto result = boardService.findLatestBoards(findMainBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);

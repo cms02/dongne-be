@@ -10,9 +10,7 @@ import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
-import com.dongne.dongnebe.domain.likes.board_likes.entity.BoardLikes;
 import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
-import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.ResponseDto;
@@ -96,8 +94,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public FindLatestBoardResponseDto findLatestBoards(FindMainBoardsRequestDto findMainBoardsRequestDto, Pageable pageable) {
-        List<Board> boardList = boardQueryRepository.findLatestBoards(findMainBoardsRequestDto, pageable);
+    public FindLatestBoardResponseDto findLatestBoards(FindLatestBoardsRequestDto findLatestBoardsRequestDto, Pageable pageable) {
+        List<Board> boardList = boardQueryRepository.findLatestBoards(findLatestBoardsRequestDto, pageable);
         List<FindLatestBoardsDto> findLatestBoardsDtos = boardList.stream().map(FindLatestBoardsDto::new).collect(Collectors.toList());
         return new FindLatestBoardResponseDto(findLatestBoardsDtos);
     }

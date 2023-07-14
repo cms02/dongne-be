@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindMainBoardsRequestDto {
+public class FindLatestBoardsRequestDto {
     private String cityCode;
     private String zoneCode;
 }
