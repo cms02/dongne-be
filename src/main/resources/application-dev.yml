@@ -1,44 +1,4 @@
-jwt:
-  secret:
-    key: ddoonnggnnee
----
 spring:
-  profiles:
-    active: local
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-      path: /h2-console
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-#        show_sql: true
-        format_sql: true
-        use_sql_comments: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-  logging.level:
-    org.hibernate.SQL: debug
-  #  org.hibernate.type: trace
-  datasource:
-    url: jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC&characterEncoding=UTF-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 1234
-  data:
-    redis:
-      host: localhost
-      port: 6379
-server:
-  port: 8080
----
-
-spring:
-  profiles:
-    active: dev
   h2:
     console:
       enabled: true
@@ -75,3 +35,6 @@ server:
 file:
   path: src/main/resources/static/image
 #  path: D:/cms/lab/uploadfiles/
+jwt:
+  secret:
+    key: ddoonnggnnee

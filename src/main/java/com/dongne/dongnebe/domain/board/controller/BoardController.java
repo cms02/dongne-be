@@ -6,6 +6,7 @@ import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.WriteBoardRequestDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindTodayBestBoardsResponseDto;
 import com.dongne.dongnebe.domain.board.service.BoardService;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -45,14 +46,14 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/board/latest-boards")
+    @GetMapping("/api/board/latest")
     public ResponseEntity<ResponseDto> findLatestBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
                                                          Pageable pageable) {
         FindLatestBoardResponseDto result = boardService.findLatestBoards(findDefaultBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/board/hot-boards")
+    @GetMapping("/api/board/hot")
     public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindDefaultBoardsRequestDto findMainBoardsRequestDto,
                                                         Pageable pageable) {
         FindLatestBoardResponseDto result = boardService.findLatestBoards(findMainBoardsRequestDto, pageable);
@@ -65,6 +66,14 @@ public class BoardController {
         FindOneBoardResponseDto result = boardService.findOneBoard(boardId, authentication);
         return ResponseEntity.ok().body(result);
     }
+
+    @GetMapping("/api/board/today-best")
+    public ResponseEntity<ResponseDto> findTodayBestBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
+                                                           Pageable pageable) {
+        FindTodayBestBoardsResponseDto result = boardService.findTodayBestBoards(findDefaultBoardsRequestDto, pageable);
+        return ResponseEntity.ok().body(result);
+    }
+
 }
 
 
