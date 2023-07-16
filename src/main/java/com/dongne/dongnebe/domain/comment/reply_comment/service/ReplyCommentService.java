@@ -9,7 +9,7 @@ import com.dongne.dongnebe.domain.comment.reply_comment.repository.ReplyCommentR
 import com.dongne.dongnebe.domain.likes.reply_comment_likes.repository.ReplyCommentLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
+import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

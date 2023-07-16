@@ -1,14 +1,11 @@
 package com.dongne.dongnebe.domain.likes.board_comment_likes.service;
 
-import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.repository.BoardCommentLikesRepository;
-import com.dongne.dongnebe.domain.likes.board_likes.entity.BoardLikes;
-import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
+import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;

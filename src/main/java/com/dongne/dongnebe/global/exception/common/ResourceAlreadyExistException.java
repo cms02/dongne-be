@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.global.exception.user;
+package com.dongne.dongnebe.global.exception.common;
 
 public class ResourceAlreadyExistException extends RuntimeException{
     public ResourceAlreadyExistException(String message) {

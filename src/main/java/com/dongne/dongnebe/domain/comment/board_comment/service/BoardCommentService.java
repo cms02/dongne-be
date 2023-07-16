@@ -7,13 +7,10 @@ import com.dongne.dongnebe.domain.comment.board_comment.dto.*;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentRepository;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.FindReplyCommentDto;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.repository.BoardCommentLikesQueryRepository;
-import com.dongne.dongnebe.domain.likes.reply_comment_likes.repository.ReplyCommentLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.ResponseDto;
-import com.dongne.dongnebe.global.exception.user.ResourceNotFoundException;
-import com.dongne.dongnebe.global.service.GlobalService;
+import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.dongne.dongnebe.global.service.GlobalService.formatLocalDateTimeToString;
 import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
 
 
