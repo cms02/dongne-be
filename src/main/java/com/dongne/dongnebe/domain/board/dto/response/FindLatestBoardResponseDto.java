@@ -1,6 +1,7 @@
-package com.dongne.dongnebe.domain.board.dto;
+package com.dongne.dongnebe.domain.board.dto.response;
 
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.domain.board.dto.FindLatestBoardsDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;

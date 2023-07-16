@@ -2,6 +2,12 @@ package com.dongne.dongnebe.domain.board.service;
 
 
 import com.dongne.dongnebe.domain.board.dto.*;
+import com.dongne.dongnebe.domain.board.dto.request.DeleteBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.WriteBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
@@ -13,7 +19,7 @@ import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQ
 import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -94,8 +100,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public FindLatestBoardResponseDto findLatestBoards(FindLatestBoardsRequestDto findLatestBoardsRequestDto, Pageable pageable) {
-        List<Board> boardList = boardQueryRepository.findLatestBoards(findLatestBoardsRequestDto, pageable);
+    public FindLatestBoardResponseDto findLatestBoards(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+        List<Board> boardList = boardQueryRepository.findLatestBoards(findDefaultBoardsRequestDto, pageable);
         List<FindLatestBoardsDto> findLatestBoardsDtos = boardList.stream().map(FindLatestBoardsDto::new).collect(Collectors.toList());
         return new FindLatestBoardResponseDto(findLatestBoardsDtos);
     }

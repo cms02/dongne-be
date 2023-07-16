@@ -1,16 +1,10 @@
 package com.dongne.dongnebe.domain.comment.board_comment.entity;
 
 import com.dongne.dongnebe.domain.board.entity.Board;
-import com.dongne.dongnebe.domain.board.enums.BoardType;
-import com.dongne.dongnebe.domain.category.channel.entity.Channel;
-import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
-import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
-import com.dongne.dongnebe.domain.city.entity.City;
-import com.dongne.dongnebe.domain.comment.board_comment.dto.UpdateBoardCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.board_comment.dto.request.UpdateBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes;
 import com.dongne.dongnebe.domain.user.entity.User;
-import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -19,7 +13,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

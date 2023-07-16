@@ -1,8 +1,8 @@
 package com.dongne.dongnebe.domain.category.sub_category.controller;
 
-import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryResponseDto;
+import com.dongne.dongnebe.domain.category.sub_category.dto.response.SubCategoryResponseDto;
 import com.dongne.dongnebe.domain.category.sub_category.service.SubCategoryService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

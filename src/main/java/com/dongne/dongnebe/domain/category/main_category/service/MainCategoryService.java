@@ -2,7 +2,7 @@ package com.dongne.dongnebe.domain.category.main_category.service;
 
 
 import com.dongne.dongnebe.domain.category.main_category.dto.MainCategoryDto;
-import com.dongne.dongnebe.domain.category.main_category.dto.MainCategoryResponseDto;
+import com.dongne.dongnebe.domain.category.main_category.dto.response.MainCategoryResponseDto;
 import com.dongne.dongnebe.domain.category.main_category.repository.MainCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

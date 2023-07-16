@@ -1,6 +1,6 @@
 package com.dongne.dongnebe.domain.board.repository;
 
-import com.dongne.dongnebe.domain.board.dto.FindLatestBoardsRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.entity.QBoard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,7 +15,7 @@ import java.util.List;
 public class BoardQueryRepository {
     private final JPAQueryFactory queryFactory;
 
-    public List<Board> findLatestBoards(FindLatestBoardsRequestDto mainBoardsRequestDto, Pageable pageable) {
+    public List<Board> findLatestBoards(FindDefaultBoardsRequestDto mainBoardsRequestDto, Pageable pageable) {
         QBoard b = QBoard.board;
         return queryFactory
                 .selectFrom(b)

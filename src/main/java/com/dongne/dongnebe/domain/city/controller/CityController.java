@@ -1,8 +1,8 @@
 package com.dongne.dongnebe.domain.city.controller;
 
-import com.dongne.dongnebe.domain.city.dto.CityResponseDto;
+import com.dongne.dongnebe.domain.city.dto.response.CityResponseDto;
 import com.dongne.dongnebe.domain.city.service.CityService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

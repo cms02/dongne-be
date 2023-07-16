@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.domain.board.dto;
+package com.dongne.dongnebe.domain.board.dto.request;
 
 import com.dongne.dongnebe.domain.board.enums.BoardType;
 import lombok.AllArgsConstructor;

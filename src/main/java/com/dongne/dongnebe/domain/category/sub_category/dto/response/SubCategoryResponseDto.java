@@ -1,6 +1,7 @@
-package com.dongne.dongnebe.domain.category.sub_category.dto;
+package com.dongne.dongnebe.domain.category.sub_category.dto.response;
 
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 

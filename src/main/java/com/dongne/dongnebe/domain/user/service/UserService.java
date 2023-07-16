@@ -1,14 +1,19 @@
 package com.dongne.dongnebe.domain.user.service;
 
 import com.dongne.dongnebe.domain.city.entity.City;
-import com.dongne.dongnebe.domain.user.dto.*;
+import com.dongne.dongnebe.domain.user.dto.request.BasicRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.LoginRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.PasswordRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
+import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
+import com.dongne.dongnebe.domain.user.dto.response.UsersBasicResponseDto;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
 import com.dongne.dongnebe.domain.user.redis.RedisService;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
 import com.dongne.dongnebe.global.exception.common.ResourceAlreadyExistException;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;

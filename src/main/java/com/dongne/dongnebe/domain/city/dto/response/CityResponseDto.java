@@ -1,7 +1,7 @@
-package com.dongne.dongnebe.domain.city.dto;
+package com.dongne.dongnebe.domain.city.dto.response;
 
-import com.dongne.dongnebe.global.dto.ResponseDto;
-import lombok.Builder;
+import com.dongne.dongnebe.domain.city.dto.CityCodeNameDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 

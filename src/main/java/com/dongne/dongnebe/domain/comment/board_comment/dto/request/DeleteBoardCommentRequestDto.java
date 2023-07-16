@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.domain.board.dto;
+package com.dongne.dongnebe.domain.comment.board_comment.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindLatestBoardsRequestDto {
-    private String cityCode;
-    private String zoneCode;
+public class DeleteBoardCommentRequestDto {
+    private String userId;
 }

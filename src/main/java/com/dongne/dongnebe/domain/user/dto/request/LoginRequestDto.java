@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.domain.user.dto;
+package com.dongne.dongnebe.domain.user.dto.request;
 
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

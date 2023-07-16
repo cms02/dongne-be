@@ -4,7 +4,7 @@ import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.repository.BoardCommentLikesRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

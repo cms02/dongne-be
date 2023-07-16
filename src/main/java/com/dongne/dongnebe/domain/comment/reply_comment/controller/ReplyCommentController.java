@@ -1,12 +1,11 @@
 package com.dongne.dongnebe.domain.comment.reply_comment.controller;
 
-import com.dongne.dongnebe.domain.comment.board_comment.dto.FindBoardCommentsResponseDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.DeleteReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.FindReplyCommentsResponseDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.UpdateReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.dto.WriteReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.service.ReplyCommentService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

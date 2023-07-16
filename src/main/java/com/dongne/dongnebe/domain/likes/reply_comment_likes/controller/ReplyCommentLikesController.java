@@ -1,7 +1,7 @@
 package com.dongne.dongnebe.domain.likes.reply_comment_likes.controller;
 
 import com.dongne.dongnebe.domain.likes.reply_comment_likes.service.ReplyCommentLikesService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

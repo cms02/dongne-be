@@ -1,6 +1,6 @@
 package com.dongne.dongnebe.domain.comment.reply_comment.dto;
 
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;

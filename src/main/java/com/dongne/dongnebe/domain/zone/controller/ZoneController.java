@@ -1,8 +1,8 @@
 package com.dongne.dongnebe.domain.zone.controller;
 
-import com.dongne.dongnebe.domain.zone.dto.ZoneResponseDto;
+import com.dongne.dongnebe.domain.zone.dto.response.ZoneResponseDto;
 import com.dongne.dongnebe.domain.zone.service.ZoneService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

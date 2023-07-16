@@ -1,6 +1,6 @@
 package com.dongne.dongnebe.domain.board.entity;
 
-import com.dongne.dongnebe.domain.board.dto.UpdateBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
 import com.dongne.dongnebe.domain.board.enums.BoardType;
 import com.dongne.dongnebe.domain.category.channel.entity.Channel;
 import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;

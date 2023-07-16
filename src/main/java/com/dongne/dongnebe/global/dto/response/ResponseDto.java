@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.global.dto;
+package com.dongne.dongnebe.global.dto.response;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;

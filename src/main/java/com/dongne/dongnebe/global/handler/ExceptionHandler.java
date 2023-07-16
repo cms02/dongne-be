@@ -1,6 +1,6 @@
 package com.dongne.dongnebe.global.handler;
 
-import com.dongne.dongnebe.global.dto.ErrorResponseDto;
+import com.dongne.dongnebe.global.dto.response.ErrorResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceAlreadyExistException;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import com.dongne.dongnebe.global.exception.user.*;

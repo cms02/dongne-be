@@ -2,7 +2,7 @@ package com.dongne.dongnebe.domain.city.service;
 
 
 import com.dongne.dongnebe.domain.city.dto.CityCodeNameDto;
-import com.dongne.dongnebe.domain.city.dto.CityResponseDto;
+import com.dongne.dongnebe.domain.city.dto.response.CityResponseDto;
 import com.dongne.dongnebe.domain.city.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

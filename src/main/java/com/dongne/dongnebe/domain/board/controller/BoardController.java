@@ -1,8 +1,13 @@
 package com.dongne.dongnebe.domain.board.controller;
 
-import com.dongne.dongnebe.domain.board.dto.*;
+import com.dongne.dongnebe.domain.board.dto.request.DeleteBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.WriteBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
 import com.dongne.dongnebe.domain.board.service.BoardService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -41,14 +46,14 @@ public class BoardController {
     }
 
     @GetMapping("/api/board/latest-boards")
-    public ResponseEntity<ResponseDto> findLatestBoards(@RequestBody FindLatestBoardsRequestDto findLatestBoardsRequestDto,
+    public ResponseEntity<ResponseDto> findLatestBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
                                                          Pageable pageable) {
-        FindLatestBoardResponseDto result = boardService.findLatestBoards(findLatestBoardsRequestDto, pageable);
+        FindLatestBoardResponseDto result = boardService.findLatestBoards(findDefaultBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/api/board/hot-boards")
-    public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindLatestBoardsRequestDto findMainBoardsRequestDto,
+    public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindDefaultBoardsRequestDto findMainBoardsRequestDto,
                                                         Pageable pageable) {
         FindLatestBoardResponseDto result = boardService.findLatestBoards(findMainBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);

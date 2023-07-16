@@ -1,8 +1,13 @@
 package com.dongne.dongnebe.domain.user.controller;
 
-import com.dongne.dongnebe.domain.user.dto.*;
+import com.dongne.dongnebe.domain.user.dto.request.BasicRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.LoginRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.PasswordRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
+import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
+import com.dongne.dongnebe.domain.user.dto.response.UsersBasicResponseDto;
 import com.dongne.dongnebe.domain.user.service.UserService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

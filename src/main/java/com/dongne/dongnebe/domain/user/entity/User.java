@@ -1,7 +1,7 @@
 package com.dongne.dongnebe.domain.user.entity;
 
 import com.dongne.dongnebe.domain.city.entity.City;
-import com.dongne.dongnebe.domain.user.dto.BasicRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.BasicRequestDto;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.entity.BaseEntity;

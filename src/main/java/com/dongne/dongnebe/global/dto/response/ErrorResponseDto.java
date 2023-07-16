@@ -1,8 +1,7 @@
-package com.dongne.dongnebe.global.dto;
+package com.dongne.dongnebe.global.dto.response;
 
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 
 @Getter

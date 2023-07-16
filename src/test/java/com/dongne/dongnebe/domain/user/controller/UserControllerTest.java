@@ -1,10 +1,10 @@
 package com.dongne.dongnebe.domain.user.controller;
 
-import com.dongne.dongnebe.domain.user.dto.LoginRequestDto;
-import com.dongne.dongnebe.domain.user.dto.LoginResponseDto;
-import com.dongne.dongnebe.domain.user.dto.SignUpRequestDto;
+import com.dongne.dongnebe.domain.user.dto.request.LoginRequestDto;
+import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
+import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
 import com.dongne.dongnebe.domain.user.service.UserService;
-import com.dongne.dongnebe.global.dto.ResponseDto;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
 import com.dongne.dongnebe.global.exception.common.ResourceAlreadyExistException;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;

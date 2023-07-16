@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.domain.comment.board_comment.dto;
+package com.dongne.dongnebe.domain.board.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateBoardCommentRequestDto {
-    private String content;
-    private String userId;
+public class FindDefaultBoardsRequestDto {
+    private String cityCode;
+    private String zoneCode;
 }

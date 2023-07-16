@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.domain.comment.board_comment.dto;
+package com.dongne.dongnebe.domain.comment.board_comment.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeleteBoardCommentRequestDto {
+public class UpdateBoardCommentRequestDto {
+    private String content;
     private String userId;
 }

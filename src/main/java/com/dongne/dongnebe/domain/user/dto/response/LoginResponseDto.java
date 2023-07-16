@@ -1,7 +1,6 @@
-package com.dongne.dongnebe.domain.user.dto;
+package com.dongne.dongnebe.domain.user.dto.response;
 
-import com.dongne.dongnebe.global.dto.ResponseDto;
-import lombok.Builder;
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 

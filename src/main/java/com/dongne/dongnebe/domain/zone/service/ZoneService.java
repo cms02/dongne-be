@@ -1,11 +1,8 @@
 package com.dongne.dongnebe.domain.zone.service;
 
 
-import com.dongne.dongnebe.domain.city.dto.CityCodeNameDto;
-import com.dongne.dongnebe.domain.city.dto.CityResponseDto;
-import com.dongne.dongnebe.domain.city.repository.CityRepository;
 import com.dongne.dongnebe.domain.zone.dto.ZoneCodeNameDto;
-import com.dongne.dongnebe.domain.zone.dto.ZoneResponseDto;
+import com.dongne.dongnebe.domain.zone.dto.response.ZoneResponseDto;
 import com.dongne.dongnebe.domain.zone.repository.ZoneQueryRepository;
 import com.dongne.dongnebe.domain.zone.repository.ZoneRepository;
 import lombok.RequiredArgsConstructor;
