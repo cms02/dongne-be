@@ -1,19 +1,18 @@
 package com.dongne.dongnebe.domain.board.repository;
 
-import com.dongne.dongnebe.domain.board.dto.FindTodayBestBoardsDto;
+import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.entity.QBoard;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -33,11 +32,11 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
-    public List<FindTodayBestBoardsDto> findTodayBestBoards(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+    public List<FindBestBoardsByPeriodDto> findBestBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
         QBoard b = QBoard.board;
         QBoardLikes l = QBoardLikes.boardLikes;
-        List<FindTodayBestBoardsDto> result = queryFactory
-                .select(Projections.fields(FindTodayBestBoardsDto.class,
+        List<FindBestBoardsByPeriodDto> result = queryFactory
+                .select(Projections.fields(FindBestBoardsByPeriodDto.class,
                         b.boardId,
                         b.title,
                         l.count().as("boardLikesCount"),
@@ -45,9 +44,11 @@ public class BoardQueryRepository {
                 .from(b)
                 .where(
                         b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
-                                b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
+                        b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())).and(
+                        b.createDate.gt(LocalDateTime.now().minusDays(findDefaultBoardsRequestDto.getPeriod().getValue()))
+                        ))
                 .join(b.boardLikes, l)
-                .groupBy(b.boardId,b.channel.name)
+                .groupBy(b.boardId, b.channel.name)
                 .orderBy(l.count().desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

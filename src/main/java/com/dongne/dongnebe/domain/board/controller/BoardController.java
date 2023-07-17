@@ -6,7 +6,7 @@ import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.WriteBoardRequestDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindTodayBestBoardsResponseDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
 import com.dongne.dongnebe.domain.board.service.BoardService;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -67,10 +67,10 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/board/today-best")
-    public ResponseEntity<ResponseDto> findTodayBestBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
+    @GetMapping("/api/board/best")
+    public ResponseEntity<ResponseDto> findBestBoardsByPeriod(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
                                                            Pageable pageable) {
-        FindTodayBestBoardsResponseDto result = boardService.findTodayBestBoards(findDefaultBoardsRequestDto, pageable);
+        FindBestBoardsByPeriodResponseDto result = boardService.findBestBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 

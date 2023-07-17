@@ -8,7 +8,7 @@ import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.WriteBoardRequestDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindTodayBestBoardsResponseDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
@@ -22,7 +22,6 @@ import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
-import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -119,8 +118,8 @@ public class BoardService {
 
 
     @Transactional(readOnly = true)
-    public FindTodayBestBoardsResponseDto findTodayBestBoards(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
-        List<FindTodayBestBoardsDto> findTodayBestBoardsDtos = boardQueryRepository.findTodayBestBoards(findDefaultBoardsRequestDto, pageable);
-        return new FindTodayBestBoardsResponseDto(findTodayBestBoardsDtos);
+    public FindBestBoardsByPeriodResponseDto findBestBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+        List<FindBestBoardsByPeriodDto> findBestBoardsByPeriodDtos = boardQueryRepository.findBestBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
+        return new FindBestBoardsByPeriodResponseDto(findBestBoardsByPeriodDtos);
     }
 }

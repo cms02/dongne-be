@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindTodayBestBoardsDto {
+public class FindBestBoardsByPeriodDto {
     private Long boardId;
     private String title;
     private Long boardLikesCount;
