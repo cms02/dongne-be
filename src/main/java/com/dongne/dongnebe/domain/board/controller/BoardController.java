@@ -1,9 +1,7 @@
 package com.dongne.dongnebe.domain.board.controller;
 
-import com.dongne.dongnebe.domain.board.dto.request.DeleteBoardRequestDto;
-import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
-import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
-import com.dongne.dongnebe.domain.board.dto.request.WriteBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.*;
+import com.dongne.dongnebe.domain.board.dto.response.FindHotBoardsResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
@@ -54,9 +52,8 @@ public class BoardController {
     }
 
     @GetMapping("/api/board/hot")
-    public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindDefaultBoardsRequestDto findMainBoardsRequestDto,
-                                                        Pageable pageable) {
-        FindLatestBoardResponseDto result = boardService.findLatestBoards(findMainBoardsRequestDto, pageable);
+    public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindHotBoardsRequestDto findHotBoardsRequestDto) {
+        FindHotBoardsResponseDto result = boardService.findHotBoards(findHotBoardsRequestDto);
         return ResponseEntity.ok().body(result);
     }
 

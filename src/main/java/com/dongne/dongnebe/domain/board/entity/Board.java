@@ -78,6 +78,7 @@ public class Board extends BaseEntity {
     @Column(name = "deadline_at")
     private LocalDateTime deadlineAt;
 
+    @ColumnDefault("0")
     @Column(name = "view_cnt")
     private Long viewCnt;
 

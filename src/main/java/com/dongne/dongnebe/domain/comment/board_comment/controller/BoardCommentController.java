@@ -1,9 +1,12 @@
 package com.dongne.dongnebe.domain.comment.board_comment.controller;
 
+import com.dongne.dongnebe.domain.board.dto.request.FindHotBoardsRequestDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindHotBoardsResponseDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.request.DeleteBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.response.FindBoardCommentsResponseDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.request.UpdateBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.request.WriteBoardCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.board_comment.dto.response.FindHotBoardCommentsResponseDto;
 import com.dongne.dongnebe.domain.comment.board_comment.service.BoardCommentService;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +48,12 @@ public class BoardCommentController {
                                                     Pageable pageable,
                                                     Authentication authentication) {
         FindBoardCommentsResponseDto result = boardCommentService.findBoardComments(boardId, pageable, authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/api/boardComment/hot")
+    public ResponseEntity<ResponseDto> findHotBoardComments(@RequestBody FindHotBoardsRequestDto findHotBoardsRequestDto) {
+        FindHotBoardCommentsResponseDto result = boardCommentService.findHotBoardComments(findHotBoardsRequestDto);
         return ResponseEntity.ok().body(result);
     }
 

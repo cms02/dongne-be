@@ -14,7 +14,7 @@ public class FindBestBoardsByPeriodResponseDto extends ResponseDto {
     List<FindBestBoardsByPeriodDto> findBestBoardsByPeriodDtos;
 
     public FindBestBoardsByPeriodResponseDto(List<FindBestBoardsByPeriodDto> findBestBoardsByPeriodDtos) {
-        super(HttpStatus.OK.value(), "Find Today Best Boards");
+        super(HttpStatus.OK.value(), "Find Best Boards");
         this.findBestBoardsByPeriodDtos = findBestBoardsByPeriodDtos;
     }
 }

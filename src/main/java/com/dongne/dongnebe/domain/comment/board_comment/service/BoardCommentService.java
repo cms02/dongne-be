@@ -1,13 +1,20 @@
 package com.dongne.dongnebe.domain.comment.board_comment.service;
 
 
+import com.dongne.dongnebe.domain.board.dto.FindHotBoardsByCategoriesDto;
+import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
+import com.dongne.dongnebe.domain.board.dto.request.FindHotBoardsRequestDto;
+import com.dongne.dongnebe.domain.board.dto.response.FindHotBoardsResponseDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
+import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
+import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.*;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.request.DeleteBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.request.UpdateBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.request.WriteBoardCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.response.FindBoardCommentsResponseDto;
+import com.dongne.dongnebe.domain.comment.board_comment.dto.response.FindHotBoardCommentsResponseDto;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentRepository;
@@ -22,6 +29,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +42,7 @@ public class BoardCommentService {
     private final BoardCommentRepository boardCommentRepository;
     private final BoardCommentQueryRepository boardCommentQueryRepository;
 
-    private final BoardRepository boardRepository;
+    private final BoardQueryRepository boardQueryRepository;
     private final BoardCommentLikesQueryRepository boardCommentLikesQueryRepository;
 
 
@@ -92,5 +100,22 @@ public class BoardCommentService {
     private boolean checkUserBoardCommentLikes(Authentication authentication, BoardComment boardComment) {
         return boardCommentLikesQueryRepository
                 .findBoardCommentLikesByBoardCommentIdAndUserId(boardComment.getBoardCommentId(), authentication.getName()).isPresent();
+    }
+
+    @Transactional(readOnly = true)
+    public FindHotBoardCommentsResponseDto findHotBoardComments(FindHotBoardsRequestDto findHotBoardsRequestDto) {
+        List<SubCategoryDto> topNSubCategoryDtos = boardQueryRepository.findTopNSubCategoryIds(findHotBoardsRequestDto);
+        List<FindHotBoardCommentsByCategoriesDto> findHotBoardCommentsByCategoriesDtos = new ArrayList<>();
+
+        for (SubCategoryDto topNSubCategoryDto : topNSubCategoryDtos) {
+            List<FindHotBoardCommentsDto> findHotBoardCommentsDtos = boardCommentQueryRepository.findHotBoardCommentsBySubCategoryId(topNSubCategoryDto.getSubCategoryId(), findHotBoardsRequestDto);
+
+            findHotBoardCommentsByCategoriesDtos.add(FindHotBoardCommentsByCategoriesDto.builder()
+                    .subCategoryId(topNSubCategoryDto.getSubCategoryId())
+                    .subCategoryName(topNSubCategoryDto.getName())
+                    .findHotBoardCommentsDtos(findHotBoardCommentsDtos)
+                    .build());
+        }
+        return new FindHotBoardCommentsResponseDto(findHotBoardCommentsByCategoriesDtos);
     }
 }

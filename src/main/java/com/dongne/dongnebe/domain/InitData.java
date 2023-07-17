@@ -2704,7 +2704,7 @@ public class InitData {
                                         .content(BOARD_TITLE[index] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
-                                        .subCategory(SubCategory.builder().subCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
 //                                .channel(Channel.builder().channelId(1L).build()) 채널 X
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
@@ -2719,7 +2719,7 @@ public class InitData {
                                         .content(BOARD_TITLE[index] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
-                                        .subCategory(SubCategory.builder().subCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
                                         .channel(Channel.builder().channelId(1L).build())
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())

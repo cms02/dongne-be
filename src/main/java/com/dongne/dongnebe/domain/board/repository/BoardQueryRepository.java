@@ -1,9 +1,14 @@
 package com.dongne.dongnebe.domain.board.repository;
 
 import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
+import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.FindHotBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.entity.QBoard;
+import com.dongne.dongnebe.domain.board.enums.BoardType;
+import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
+import com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -25,7 +30,7 @@ public class BoardQueryRepository {
                 .selectFrom(b)
                 .where(
                         b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
-                        b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
+                                b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(b.createDate.desc(), b.boardId.desc())
@@ -44,8 +49,8 @@ public class BoardQueryRepository {
                 .from(b)
                 .where(
                         b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
-                        b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())).and(
-                        b.createDate.gt(LocalDateTime.now().minusDays(findDefaultBoardsRequestDto.getPeriod().getValue()))
+                                b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())).and(
+                                b.createDate.gt(LocalDateTime.now().minusDays(findDefaultBoardsRequestDto.getPeriod().getValue()))
                         ))
                 .join(b.boardLikes, l)
                 .groupBy(b.boardId, b.channel.name)
@@ -56,4 +61,48 @@ public class BoardQueryRepository {
 
         return result;
     }
+
+    public List<SubCategoryDto> findTopNSubCategoryIds(FindHotBoardsRequestDto findHotBoardsRequestDto) {
+        QBoard b = QBoard.board;
+        QBoardLikes l = QBoardLikes.boardLikes;
+        QSubCategory s = QSubCategory.subCategory;
+        List<SubCategoryDto> result = queryFactory.select(Projections.fields(SubCategoryDto.class,
+                        s.subCategoryId, s.name))
+                .from(s)
+                .join(b).on(s.subCategoryId.eq(b.subCategory.subCategoryId))
+                .join(l).on(l.board.boardId.eq(b.boardId))
+                .where(b.city.cityCode.eq(findHotBoardsRequestDto.getCityCode()).and(
+                        b.zone.zoneCode.eq(findHotBoardsRequestDto.getZoneCode())).and(
+                        b.boardType.eq(BoardType.NORMAL)).and(
+                        b.createDate.gt(LocalDateTime.now().minusDays(1)))
+                )
+                .groupBy(s.subCategoryId)
+                .orderBy(b.viewCnt.sum().add(l.boardLikesId.count()).desc())
+                .limit(findHotBoardsRequestDto.getCategoryCount())
+                .fetch();
+        return result;
+    }
+
+    public List<FindHotBoardsDto> findHotBoardsBySubCategoryId(long subCategoryId, FindHotBoardsRequestDto findHotBoardsRequestDto) {
+        QBoard b = QBoard.board;
+        QBoardLikes l = QBoardLikes.boardLikes;
+        return queryFactory.select(Projections.fields(FindHotBoardsDto.class,
+                        b.boardId,
+                        b.title,
+                        l.count().as("boardLikesCount")
+                ))
+                .from(b)
+                .join(b.boardLikes, l)
+                .where(b.subCategory.subCategoryId.eq(subCategoryId).and(
+                        b.city.cityCode.eq(findHotBoardsRequestDto.getCityCode())).and(
+                        b.zone.zoneCode.eq(findHotBoardsRequestDto.getZoneCode())).and(
+                        b.boardType.eq(BoardType.NORMAL)).and(
+                        b.createDate.gt(LocalDateTime.now().minusDays(1)))
+                )
+                .groupBy(b.boardId)
+                .orderBy(b.viewCnt.sum().add(l.boardLikesId.count()).desc())
+                .limit(findHotBoardsRequestDto.getDataCount())
+                .fetch();
+    }
+
 }

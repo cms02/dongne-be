@@ -2,10 +2,8 @@ package com.dongne.dongnebe.domain.board.service;
 
 
 import com.dongne.dongnebe.domain.board.dto.*;
-import com.dongne.dongnebe.domain.board.dto.request.DeleteBoardRequestDto;
-import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
-import com.dongne.dongnebe.domain.board.dto.request.UpdateBoardRequestDto;
-import com.dongne.dongnebe.domain.board.dto.request.WriteBoardRequestDto;
+import com.dongne.dongnebe.domain.board.dto.request.*;
+import com.dongne.dongnebe.domain.board.dto.response.FindHotBoardsResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
@@ -14,6 +12,7 @@ import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
 import com.dongne.dongnebe.domain.category.channel.entity.Channel;
 import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
+import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
@@ -32,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -121,5 +121,22 @@ public class BoardService {
     public FindBestBoardsByPeriodResponseDto findBestBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
         List<FindBestBoardsByPeriodDto> findBestBoardsByPeriodDtos = boardQueryRepository.findBestBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
         return new FindBestBoardsByPeriodResponseDto(findBestBoardsByPeriodDtos);
+    }
+
+    @Transactional(readOnly = true)
+    public FindHotBoardsResponseDto findHotBoards(FindHotBoardsRequestDto findHotBoardsRequestDto) {
+        List<SubCategoryDto> topNSubCategoryDtos = boardQueryRepository.findTopNSubCategoryIds(findHotBoardsRequestDto);
+        List<FindHotBoardsByCategoriesDto> findHotBoardsByCategoriesDtos = new ArrayList<>();
+
+        for (SubCategoryDto topNSubCategoryDto : topNSubCategoryDtos) {
+            List<FindHotBoardsDto> findHotBoardsDtos = boardQueryRepository.findHotBoardsBySubCategoryId(topNSubCategoryDto.getSubCategoryId(), findHotBoardsRequestDto);
+
+            findHotBoardsByCategoriesDtos.add(FindHotBoardsByCategoriesDto.builder()
+                    .subCategoryId(topNSubCategoryDto.getSubCategoryId())
+                    .subCategoryName(topNSubCategoryDto.getName())
+                    .findHotBoardsDtos(findHotBoardsDtos)
+                    .build());
+        }
+        return new FindHotBoardsResponseDto(findHotBoardsByCategoriesDtos);
     }
 }
