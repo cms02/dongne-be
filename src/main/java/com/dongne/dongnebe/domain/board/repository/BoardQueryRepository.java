@@ -47,7 +47,7 @@ public class BoardQueryRepository {
                         b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
                                 b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
                 .join(b.boardLikes, l)
-                .groupBy(b.boardId)
+                .groupBy(b.boardId,b.channel.name)
                 .orderBy(l.count().desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
