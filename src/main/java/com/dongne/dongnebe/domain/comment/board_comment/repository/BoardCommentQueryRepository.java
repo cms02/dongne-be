@@ -9,6 +9,8 @@ import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.QBoardComment;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.entity.QBoardCommentLikes;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
+import com.dongne.dongnebe.domain.user.dto.FindLatestBoardCommentsByUserDto;
+import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -59,4 +61,19 @@ public class BoardCommentQueryRepository {
                 .fetch();
     }
 
+    public List<FindLatestBoardCommentsByUserDto> findLatestBoardCommentsByUser(String name, Pageable pageable) {
+        QBoardComment c = QBoardComment.boardComment;
+        return queryFactory
+                .select(Projections.fields(FindLatestBoardCommentsByUserDto.class,
+                        c.board.boardId,
+                        c.boardCommentId,
+                        c.content
+                ))
+                .from(c)
+                .where(c.isDeleted.eq(Boolean.FALSE).and(c.user.userId.eq(name)))
+                .orderBy(c.createDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
 }

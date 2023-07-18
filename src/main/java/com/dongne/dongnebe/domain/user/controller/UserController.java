@@ -6,10 +6,12 @@ import com.dongne.dongnebe.domain.user.dto.request.PasswordRequestDto;
 import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
 import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
 import com.dongne.dongnebe.domain.user.dto.response.UsersBasicResponseDto;
+import com.dongne.dongnebe.domain.user.dto.response.UsersMainResponseDto;
 import com.dongne.dongnebe.domain.user.service.UserService;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,12 @@ public class UserController {
     public ResponseEntity<ResponseDto> findUserBasic(@PathVariable String userId,
                                                         Authentication authentication) {
         UsersBasicResponseDto result = userService.findUserBasic(userId, authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/api/user-main")
+    public ResponseEntity<ResponseDto> findUserMain(Authentication authentication, Pageable pageable) {
+        UsersMainResponseDto result = userService.findUserMain(authentication, pageable);
         return ResponseEntity.ok().body(result);
     }
 

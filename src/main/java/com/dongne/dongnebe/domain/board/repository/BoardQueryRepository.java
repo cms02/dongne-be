@@ -10,6 +10,7 @@ import com.dongne.dongnebe.domain.board.enums.BoardType;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
+import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -102,6 +103,21 @@ public class BoardQueryRepository {
                 .groupBy(b.boardId)
                 .orderBy(b.viewCnt.sum().add(l.boardLikesId.count()).desc(),b.boardId.desc())
                 .limit(findHotBoardsRequestDto.getDataCount())
+                .fetch();
+    }
+
+    public List<FindLatestBoardsByUserDto> findLatestBoardsByUser(String name, Pageable pageable) {
+        QBoard b = QBoard.board;
+        return queryFactory
+                .select(Projections.fields(FindLatestBoardsByUserDto.class,
+                        b.boardId,
+                        b.title
+                ))
+                .from(b)
+                .where(b.isDeleted.eq(Boolean.FALSE).and(b.user.userId.eq(name)))
+                .orderBy(b.createDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
     }
 

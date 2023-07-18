@@ -1,12 +1,18 @@
 package com.dongne.dongnebe.domain.user.service;
 
+import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.city.entity.City;
+import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
+import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
+import com.dongne.dongnebe.domain.user.dto.FindLatestBoardCommentsByUserDto;
+import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
 import com.dongne.dongnebe.domain.user.dto.request.BasicRequestDto;
 import com.dongne.dongnebe.domain.user.dto.request.LoginRequestDto;
 import com.dongne.dongnebe.domain.user.dto.request.PasswordRequestDto;
 import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
 import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
 import com.dongne.dongnebe.domain.user.dto.response.UsersBasicResponseDto;
+import com.dongne.dongnebe.domain.user.dto.response.UsersMainResponseDto;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
@@ -18,13 +24,17 @@ import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
 import com.dongne.dongnebe.global.exception.common.ResourceAlreadyExistException;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -35,9 +45,12 @@ import static com.dongne.dongnebe.global.service.GlobalService.*;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BoardQueryRepository boardQueryRepository;
+    private final BoardCommentQueryRepository boardCommentQueryRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisService redisService;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     public ResponseDto signUpUser(SignUpRequestDto requestDto) {
         validateUser(requestDto);
@@ -82,6 +95,11 @@ public class UserService {
         if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IncorrectPasswordException("Incorrect Password");
         }
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(requestDto.getUserId(), requestDto.getPassword());
+        // 2. 실제 검증 (사용자 비밀번호 체크)이 이루어지는 부분
+        // authenticate 매서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         String accessToken = jwtTokenProvider.responseAccessToken(user);
         String refreshToken = jwtTokenProvider.responseRefreshToken(user);
@@ -165,14 +183,16 @@ public class UserService {
     public UsersBasicResponseDto findUserBasic(String userId, Authentication authentication) {
         validatePermission(userId, authentication);
         User user = findUser(userId);
-        return UsersBasicResponseDto.builder()
-                .statusCode(HttpStatus.OK.value())
-                .responseMessage("Find Users Basic")
-                .profileImg(user.getProfileImg())
-                .cityName(user.getCity().getName())
-                .zoneName(user.getZone().getName())
-                .nickname(user.getNickname())
-                .build();
+        return new UsersBasicResponseDto(user);
+    }
+
+    @Transactional(readOnly = true)
+    public UsersMainResponseDto findUserMain(Authentication authentication, Pageable pageable) {
+        User user = findUser(authentication.getName());
+        List<FindLatestBoardsByUserDto> findLatestBoardsByUserDtos = boardQueryRepository.findLatestBoardsByUser(authentication.getName(), pageable);
+        List<FindLatestBoardCommentsByUserDto> findLatestBoardCommentsByUserDtos = boardCommentQueryRepository.findLatestBoardCommentsByUser(authentication.getName(), pageable);
+
+        return new UsersMainResponseDto(user, findLatestBoardsByUserDtos, findLatestBoardCommentsByUserDtos);
     }
 
 }
