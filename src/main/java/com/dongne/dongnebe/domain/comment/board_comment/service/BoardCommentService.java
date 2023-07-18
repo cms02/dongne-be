@@ -20,6 +20,7 @@ import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQ
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentRepository;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.repository.BoardCommentLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
+import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -45,9 +46,10 @@ public class BoardCommentService {
     private final BoardQueryRepository boardQueryRepository;
     private final BoardCommentLikesQueryRepository boardCommentLikesQueryRepository;
 
+    private final UserRepository userRepository;
+
 
     @Transactional
-
     public ResponseDto writeBoardComment(WriteBoardCommentRequestDto writeBoardCommentRequestDto,
                                          Authentication authentication) {
         boardCommentRepository.save(BoardComment.builder()
@@ -55,6 +57,11 @@ public class BoardCommentService {
                 .user(User.builder().userId(authentication.getName()).build())
                 .board(Board.builder().boardId(writeBoardCommentRequestDto.getBoardId()).build())
                 .build());
+
+        User user = userRepository.findByUserId(authentication.getName()).orElseThrow(
+                () -> new ResourceNotFoundException("User Not Found")
+        );
+        user.plusPointByComment();
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Write Board Comment")

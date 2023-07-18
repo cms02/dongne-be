@@ -19,6 +19,10 @@ import org.hibernate.annotations.DynamicInsert;
 @DynamicInsert /*@ColumnDefault Default 설정을 위해*/
 public class User extends BaseEntity {
 
+    final static int BOARD_POINT = 100;
+    final static int COMMENT_POINT = 50;
+    final static int LIKE_POINT = 20;
+
     @Id
     @Column(name = "user_id")
     private String userId;
@@ -73,5 +77,20 @@ public class User extends BaseEntity {
 
     public void updateProfileImg(String imgFilePath) {
         this.profileImg = imgFilePath;
+    }
+
+    public void plusPointByBoard() {
+        this.point += BOARD_POINT;
+    }
+
+    public void plusPointByComment() {
+        this.point += COMMENT_POINT;
+    }
+    public void plusPointByLike() {
+        this.point += LIKE_POINT;
+    }
+
+    public void minusPointByLike() {
+        this.point -= LIKE_POINT;
     }
 }

@@ -18,6 +18,7 @@ import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
+import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
@@ -42,8 +43,8 @@ import static com.dongne.dongnebe.global.service.GlobalService.*;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardQueryRepository boardQueryRepository;
-    private final BoardCommentQueryRepository boardCommentQueryRepository;
     private final BoardLikesQueryRepository boardLikesQueryRepository;
+    private final UserRepository userRepository;
 
 
     @Transactional
@@ -67,6 +68,10 @@ public class BoardService {
                         .build()
         );
 
+        User user = userRepository.findByUserId(authentication.getName()).orElseThrow(
+                () -> new ResourceNotFoundException("User Not Found")
+        );
+        user.plusPointByBoard();
 
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
