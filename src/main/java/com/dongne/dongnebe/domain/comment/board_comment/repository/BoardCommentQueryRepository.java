@@ -39,6 +39,7 @@ public class BoardCommentQueryRepository {
         QBoardCommentLikes l = QBoardCommentLikes.boardCommentLikes;
         QBoard b = QBoard.board;
         return queryFactory.select(Projections.fields(FindHotBoardCommentsDto.class,
+                        c.board.boardId,
                         c.boardCommentId,
                         c.content,
                         l.count().as("boardCommentLikesCount")
@@ -52,8 +53,8 @@ public class BoardCommentQueryRepository {
                         b.boardType.eq(BoardType.NORMAL)).and(
                         b.createDate.gt(LocalDateTime.now().minusDays(1)))
                 )
-                .groupBy(c.boardCommentId)
-                .orderBy(l.boardCommentLikesId.count().desc())
+                .groupBy(c.boardCommentId, c.board.boardId)
+                .orderBy(l.boardCommentLikesId.count().desc(),c.board.boardId.desc())
                 .limit(findHotBoardsRequestDto.getDataCount())
                 .fetch();
     }

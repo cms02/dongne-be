@@ -122,4 +122,8 @@ public class Board extends BaseEntity {
     public void delete() {
         this.isDeleted = true;
     }
+
+    public void plusViewCnt() {
+        this.viewCnt = viewCnt + 1;
+    }
 }

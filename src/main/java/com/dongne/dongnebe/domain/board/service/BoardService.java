@@ -107,11 +107,11 @@ public class BoardService {
         return new FindLatestBoardResponseDto(findLatestBoardsDtos);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public FindOneBoardResponseDto findOneBoard(Long boardId, Authentication authentication) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
-
+        board.plusViewCnt();
         boolean isLiked = boardLikesQueryRepository.findBoardLikesByBoardIdAndUserId(board.getBoardId(), authentication.getName()).isPresent();
         return new FindOneBoardResponseDto(board, isLiked);
     }

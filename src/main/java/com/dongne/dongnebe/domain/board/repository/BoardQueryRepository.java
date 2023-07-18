@@ -100,7 +100,7 @@ public class BoardQueryRepository {
                         b.createDate.gt(LocalDateTime.now().minusDays(1)))
                 )
                 .groupBy(b.boardId)
-                .orderBy(b.viewCnt.sum().add(l.boardLikesId.count()).desc())
+                .orderBy(b.viewCnt.sum().add(l.boardLikesId.count()).desc(),b.boardId.desc())
                 .limit(findHotBoardsRequestDto.getDataCount())
                 .fetch();
     }

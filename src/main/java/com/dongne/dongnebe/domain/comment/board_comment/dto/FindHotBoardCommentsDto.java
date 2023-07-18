@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class FindHotBoardCommentsDto {
+    private Long boardId;
     private Long boardCommentId;
     private String content;
     private Long boardCommentLikesCount;
