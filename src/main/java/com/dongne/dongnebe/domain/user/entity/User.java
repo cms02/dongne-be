@@ -65,6 +65,7 @@ public class User extends BaseEntity {
     public void updateBasic(BasicRequestDto requestDto) {
         this.nickname = requestDto.getNickname();
         this.city = City.builder().cityCode(requestDto.getCityCode()).build();
+        this.zone = Zone.builder().zoneCode(requestDto.getZoneCode()).build();
     }
 
     public void delete() {
