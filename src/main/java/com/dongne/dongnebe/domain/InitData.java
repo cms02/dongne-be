@@ -37,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.IntStream;
 
-@Profile({"local","dev"})
+@Profile({"local","dev","prod"})
 @Component
 @RequiredArgsConstructor
 public class InitData {
