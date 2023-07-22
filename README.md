@@ -55,8 +55,9 @@
 ---
 
 # Service Architecture
+<img width="812" alt="스크린샷 2023-07-22 오전 11 58 07" src="https://github.com/cms02/dongne-be/assets/66512686/406cf1a2-03ca-4561-8aa9-d50c5b4fc7d5">
 
-![](../../../Desktop/스크린샷 2023-07-22 오전 11.58.07.png)
+
 
 
 ---
