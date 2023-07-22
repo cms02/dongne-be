@@ -56,21 +56,23 @@
 
 # Service Architecture
 
+![](../../../Desktop/스크린샷 2023-07-22 오전 11.58.07.png)
 
 
 ---
 
 # ERD
+[<b>Dongne ERD ➜️](https://github.com/cms02/dongne-be/wiki/Dongne-ERD)
 
 ---
 
 # API Document
-
+[<b>API Document ➜️](https://documenter.getpostman.com/view/14101565/2s93zCagk4)
 
 ---
 
 # Frontend Repository
-
+[<b>Frontend Repository ➜️](https://github.com/arkhyeon/dongne-fe)
 
 
 
