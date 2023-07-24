@@ -16,7 +16,7 @@
 
 # Team Members
 
-**`Backend (Spring)`**
+**`Backend (Springboot)`**
 - 추민석
 
 **`Frontend (React)`**
