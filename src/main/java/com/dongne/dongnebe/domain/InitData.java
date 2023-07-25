@@ -2357,6 +2357,19 @@ public class InitData {
                                     .role(Role.USER)
                                     .build()
                     ));
+
+            IntStream.range(100, 1000)
+                    .forEach(index -> userRepository.save(
+                            User.builder()
+                                    .userId("user" + index)
+                                    .password(encPwd)
+                                    .username("유령회원"+index)
+                                    .nickname("유령회원"+index + "짱짱맨")
+                                    .city(City.builder().cityCode("11").build())
+                                    .zone(Zone.builder().zoneCode("11140").build())
+                                    .role(Role.USER)
+                                    .build()
+                    ));
         }
     }
     @Component
@@ -2825,6 +2838,18 @@ public class InitData {
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
                                         .zone(Zone.builder().zoneCode("11170").build())
+                                        .build()
+                        ));
+
+                IntStream.range(100, 1000)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11140").build())
                                         .build()
                         ));
             }
