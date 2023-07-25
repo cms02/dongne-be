@@ -1,1 +1,2 @@
-
+- name: Beanstalk Deploy
+  uses: einaregilsson/beanstalk-deploy@v21
