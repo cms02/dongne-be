@@ -39,13 +39,14 @@ public class SecurityConfig {
                 .httpBasic(HttpBasicConfigurer::disable) /*httpBasic은 요청헤더의 Authorization key 에 id,pw를 그대로 노출*/
                 .logout(LogoutConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequest) ->
-                        authorizeRequest.requestMatchers(
-                                        "/api/user/login",
-                                        "/api/user/sign-up",
-                                        "/api/city",
-                                        "/api/zone/**"
-                                        ).permitAll()
-                                .anyRequest().authenticated())
+//                        authorizeRequest.requestMatchers(
+//                                        "/api/user/login",
+//                                        "/api/user/sign-up",
+//                                        "/api/city",
+//                                        "/api/zone/**"
+//                                        ).permitAll()
+//                                .anyRequest().authenticated())
+                        authorizeRequest.anyRequest().permitAll())
                 .cors(Customizer.withDefaults())
                 .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider, userRepository), UsernamePasswordAuthenticationFilter.class)
                 .build();
