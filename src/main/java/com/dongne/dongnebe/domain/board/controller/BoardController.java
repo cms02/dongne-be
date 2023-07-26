@@ -6,9 +6,11 @@ import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
 import com.dongne.dongnebe.domain.board.service.BoardService;
+import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +71,11 @@ public class BoardController {
                                                            Pageable pageable) {
         FindBestBoardsByPeriodResponseDto result = boardService.findBestBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/api/action-test")
+    public ResponseEntity<ResponseDto> actionTest() {
+        return ResponseEntity.ok().body(ResponseDto.builder().responseMessage("성공적").statusCode(HttpStatus.OK.value()).build());
     }
 
 }
