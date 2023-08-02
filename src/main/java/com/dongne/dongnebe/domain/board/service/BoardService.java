@@ -1,12 +1,15 @@
 package com.dongne.dongnebe.domain.board.service;
 
 
-import com.dongne.dongnebe.domain.board.dto.*;
+import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
+import com.dongne.dongnebe.domain.board.dto.FindHotBoardsByCategoriesDto;
+import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
+import com.dongne.dongnebe.domain.board.dto.FindLatestBoardsDto;
 import com.dongne.dongnebe.domain.board.dto.request.*;
+import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindHotBoardsResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
 import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
@@ -15,7 +18,6 @@ import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
-import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
@@ -112,7 +114,7 @@ public class BoardService {
         return new FindLatestBoardResponseDto(findLatestBoardsDtos);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public FindOneBoardResponseDto findOneBoard(Long boardId, Authentication authentication) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));

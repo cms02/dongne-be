@@ -36,6 +36,12 @@ public class UserController {
         return ResponseEntity.ok().body(result);
     }
 
+    @PostMapping("/api/user/logout")
+    public ResponseEntity<ResponseDto> logoutUser(Authentication authentication) {
+        ResponseDto result = userService.logoutUser(authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
     @GetMapping("/api/user-basic/{userId}")
     public ResponseEntity<ResponseDto> findUserBasic(@PathVariable String userId,
                                                         Authentication authentication) {

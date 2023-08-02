@@ -2,7 +2,6 @@ package com.dongne.dongnebe.domain.user.service;
 
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.city.entity.City;
-import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardCommentsByUserDto;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
@@ -193,6 +192,15 @@ public class UserService {
         List<FindLatestBoardCommentsByUserDto> findLatestBoardCommentsByUserDtos = boardCommentQueryRepository.findLatestBoardCommentsByUser(authentication.getName(), pageable);
 
         return new UsersMainResponseDto(user, findLatestBoardsByUserDtos, findLatestBoardCommentsByUserDtos);
+    }
+
+    @Transactional
+    public ResponseDto logoutUser(Authentication authentication) {
+        redisService.deleteValues(authentication.getName());
+        return ResponseDto.builder()
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("Logout Success")
+                .build();
     }
 
 }
