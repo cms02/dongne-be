@@ -13,6 +13,7 @@ public class UsersBasicResponseDto extends ResponseDto {
     private String cityName;
     private String zoneName;
     private String profileImg;
+    private Long point;
 
     public UsersBasicResponseDto(User user) {
         super(HttpStatus.OK.value(), "Find Users Basic");
@@ -20,5 +21,6 @@ public class UsersBasicResponseDto extends ResponseDto {
         this.cityName = user.getCity().getName();
         this.zoneName = user.getZone().getName();
         this.profileImg = user.getProfileImg();
+        this.point = user.getPoint();
     }
 }

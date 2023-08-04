@@ -32,7 +32,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("Start JwtAuthorizationFilter");
-        String jwtHeader = jwtTokenProvider.getAccessTokenHeader(request);
+        String jwtHeader = jwtTokenProvider.getTokenHeader(request);
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
             /*에처 처리*/
             chain.doFilter(request, response);
@@ -40,7 +40,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
 
         try {
-            String jwtToken = jwtTokenProvider.getAccessTokenFromHeader(jwtHeader);
+            String jwtToken = jwtTokenProvider.getTokenFromHeader(jwtHeader);
             String userId = jwtTokenProvider.verifyToken(jwtToken);
 
             if (userId != null) {
@@ -54,15 +54,22 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             }
             chain.doFilter(request, response);
         } catch (TokenExpiredException e) {
-            log.error("{}", e.getMessage());
-            ResponseDto responseDto = ResponseDto.builder()
-                    .statusCode(HttpStatus.UNAUTHORIZED.value())
-                    .responseMessage("Token Has Expired")
-                    .build();
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(responseDto));
+            createRequest(request, "Token Has Expired", request.getRequestURI());
+            throw e;
+//            log.error("{}", e.getMessage());
+//            ResponseDto responseDto = ResponseDto.builder()
+//                    .statusCode(HttpStatus.UNAUTHORIZED.value())
+//                    .responseMessage("Token Has Expired")
+//                    .build();
+//
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write(objectMapper.writeValueAsString(responseDto));
         }
+    }
+
+    private void createRequest(HttpServletRequest request, String message, String clientRequestUri) {
+        request.setAttribute("message", message);
+        request.setAttribute("clientRequestUri", clientRequestUri);
     }
 }

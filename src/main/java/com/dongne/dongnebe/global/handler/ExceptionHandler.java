@@ -60,4 +60,9 @@ public class ExceptionHandler {
     public ResponseEntity<ErrorResponseDto> resourceAlreadyExistExceptionHandler(ResourceAlreadyExistException exception) {
         return new ResponseEntity<>(ErrorResponseDto.badRequest(exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<ErrorResponseDto> nullPointerExceptionHandler(NullPointerException exception) {
+        return new ResponseEntity<>(ErrorResponseDto.badRequest(exception.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -32,12 +32,8 @@ public class JwtTokenProvider {
         return createToken(user.getUserId(), ACCESS_TOKEN_EXPIRATION_TIME);
     }
 
-    public String getAccessTokenHeader(HttpServletRequest request) {
-        return request.getHeader("A-AUTH-TOKEN");
-    }
-
-    public String getRefreshTokenHeader(HttpServletRequest request) {
-        return request.getHeader("R-AUTH_TOKEN");
+    public String getTokenHeader(HttpServletRequest request) {
+        return request.getHeader("Authorization");
     }
 
     private String createToken(String userId, int expirationTime) {
@@ -52,7 +48,7 @@ public class JwtTokenProvider {
         return JWT.require(Algorithm.HMAC512(secretKey)).build().verify(jwtToken).getClaim("userId").asString();
     }
 
-    public String getAccessTokenFromHeader(String jwtHeader) {
+    public String getTokenFromHeader(String jwtHeader) {
         return jwtHeader.replace(TOKEN_PREFIX, "");
     }
 }

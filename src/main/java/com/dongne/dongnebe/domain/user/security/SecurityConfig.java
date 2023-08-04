@@ -1,6 +1,7 @@
 package com.dongne.dongnebe.domain.user.security;
 
 import com.dongne.dongnebe.domain.user.jwt.JwtAuthorizationFilter;
+import com.dongne.dongnebe.domain.user.jwt.JwtExceptionHandlerFilter;
 import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
 import com.dongne.dongnebe.domain.user.redis.RedisService;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
@@ -49,6 +50,7 @@ public class SecurityConfig {
                         authorizeRequest.anyRequest().permitAll())
                 .cors(Customizer.withDefaults())
                 .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider, userRepository), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtExceptionHandlerFilter(), JwtAuthorizationFilter.class)
                 .build();
     }
 
