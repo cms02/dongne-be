@@ -1,13 +1,8 @@
 package com.dongne.dongnebe.domain.user.controller;
 
-import com.dongne.dongnebe.domain.user.dto.request.BasicRequestDto;
-import com.dongne.dongnebe.domain.user.dto.request.LoginRequestDto;
-import com.dongne.dongnebe.domain.user.dto.request.PasswordRequestDto;
-import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
-import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
-import com.dongne.dongnebe.domain.user.dto.response.ReissueResponseDto;
-import com.dongne.dongnebe.domain.user.dto.response.UsersBasicResponseDto;
-import com.dongne.dongnebe.domain.user.dto.response.UsersMainResponseDto;
+import com.dongne.dongnebe.domain.user.dto.UserRankingDto;
+import com.dongne.dongnebe.domain.user.dto.request.*;
+import com.dongne.dongnebe.domain.user.dto.response.*;
 import com.dongne.dongnebe.domain.user.service.UserService;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import jakarta.validation.Valid;
@@ -91,6 +86,13 @@ public class UserController {
     public ResponseEntity<ResponseDto> deleteUser(@PathVariable String userId,
                                                    Authentication authentication) {
         ResponseDto result = userService.deleteUser(userId, authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/api/user/ranking")
+    public ResponseEntity<ResponseDto> findUserRanking(@RequestBody UserRankingRequestDto userRankingRequestDto,
+                                                       Pageable pageable) {
+        UserRankingResponseDto result = userService.findUserRanking(userRankingRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 }
