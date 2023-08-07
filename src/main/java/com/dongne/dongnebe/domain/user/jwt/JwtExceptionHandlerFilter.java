@@ -24,13 +24,12 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             chain.doFilter(request, response);
         } catch (RuntimeException e) {
-            String clientRequestUri = (String) request.getAttribute("clientRequestUri");
             String message = (String) request.getAttribute("message");
-            responseExceptionMessage(response, clientRequestUri, message);
+            responseExceptionMessage(response, message);
         }
     }
 
-    private void responseExceptionMessage(HttpServletResponse response, String clientRequestUri, String message) {
+    private void responseExceptionMessage(HttpServletResponse response, String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         response.setContentType("application/json");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
