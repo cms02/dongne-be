@@ -23,6 +23,7 @@ import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
 import com.dongne.dongnebe.global.exception.common.ResourceAlreadyExistException;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
+import com.dongne.dongnebe.global.service.GlobalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

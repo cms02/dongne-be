@@ -34,8 +34,7 @@ spring:
 server:
   port: 8787
 file:
-  path: src/main/resources/static/image
-#  path: D:/cms/lab/uploadfiles/
+  path: src/main/resources/static/image/
 jwt:
   secret:
     key: ddoonnggnnee

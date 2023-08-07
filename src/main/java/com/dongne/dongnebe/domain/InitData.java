@@ -29,11 +29,13 @@ import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.domain.zone.repository.ZoneRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -41,6 +43,9 @@ import java.util.stream.IntStream;
 @Component
 @RequiredArgsConstructor
 public class InitData {
+
+    private static final String UPLOAD_FOLDER = "src/main/resources/static/image/";
+    private static final String DEFAULT_IMG_NAME = "defualt_event.jpg";
 
     private final InitCityService initCityService;
     private final InitZoneService initZoneService;
@@ -2835,12 +2840,14 @@ public class InitData {
                 IntStream.range(90, 100)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_EVENT[index-90])
-                                        .content(BOARD_TITLE_EVENT[index-90] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_EVENT[index - 90])
+                                        .content(BOARD_TITLE_EVENT[index - 90] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.EVENT)
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
                                         .zone(Zone.builder().zoneCode("11170").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(5L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
                                         .build()
                         ));
 
@@ -2853,6 +2860,8 @@ public class InitData {
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
                                         .zone(Zone.builder().zoneCode("11140").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
                                         .build()
                         ));
             }

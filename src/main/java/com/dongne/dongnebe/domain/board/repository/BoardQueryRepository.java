@@ -1,6 +1,7 @@
 package com.dongne.dongnebe.domain.board.repository;
 
 import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
+import com.dongne.dongnebe.domain.board.dto.FindEventBoardsByPeriodDto;
 import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindHotBoardsRequestDto;
@@ -121,4 +122,21 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
+    public List<FindEventBoardsByPeriodDto> findEventBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+        QBoard b = QBoard.board;
+        return queryFactory
+                .select(Projections.fields(FindEventBoardsByPeriodDto.class,
+                        b.boardId,
+                        b.title,
+                        b.user.userId,
+                        b.fileImg,
+                        b.viewCnt
+                ))
+                .from(b)
+                .where(b.isDeleted.eq(Boolean.FALSE).and(b.boardType.eq(BoardType.EVENT)).and(b.deadlineAt.after(LocalDateTime.now())))
+                .orderBy(b.deadlineAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
 }

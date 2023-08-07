@@ -33,7 +33,7 @@ spring:
 server:
   port: 5000
 file:
-  path: src/main/resources/static/image
+  path: src/main/resources/static/image/
 
 jwt:
   secret:
