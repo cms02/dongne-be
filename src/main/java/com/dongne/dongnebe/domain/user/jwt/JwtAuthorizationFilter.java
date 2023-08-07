@@ -26,15 +26,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
-    private ObjectMapper objectMapper = new ObjectMapper();
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("Start JwtAuthorizationFilter");
         String jwtHeader = jwtTokenProvider.getTokenHeader(request);
+
         if (jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
-            /*에처 처리*/
             chain.doFilter(request, response);
             return;
         }
@@ -54,22 +52,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             }
             chain.doFilter(request, response);
         } catch (TokenExpiredException e) {
-            createRequest(request, "Token Has Expired", request.getRequestURI());
+            createRequest(request, "Token Has Expired");
             throw e;
-//            log.error("{}", e.getMessage());
-//            ResponseDto responseDto = ResponseDto.builder()
-//                    .statusCode(HttpStatus.UNAUTHORIZED.value())
-//                    .responseMessage("Token Has Expired")
-//                    .build();
-//
-//            response.setContentType("application/json");
-//            response.setCharacterEncoding("UTF-8");
-//            response.getWriter().write(objectMapper.writeValueAsString(responseDto));
         }
     }
 
-    private void createRequest(HttpServletRequest request, String message, String clientRequestUri) {
+    private void createRequest(HttpServletRequest request, String message) {
         request.setAttribute("message", message);
-        request.setAttribute("clientRequestUri", clientRequestUri);
     }
 }

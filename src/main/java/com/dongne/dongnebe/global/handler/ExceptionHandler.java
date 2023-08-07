@@ -63,6 +63,9 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     public ResponseEntity<ErrorResponseDto> nullPointerExceptionHandler(NullPointerException exception) {
+        if (exception.getMessage().contains("authentication")) {
+            return new ResponseEntity<>(ErrorResponseDto.unauthorized("No Authentication Header"), HttpStatus.UNAUTHORIZED);
+        }
         return new ResponseEntity<>(ErrorResponseDto.badRequest(exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

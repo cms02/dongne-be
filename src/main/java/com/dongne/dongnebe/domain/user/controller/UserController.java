@@ -5,6 +5,7 @@ import com.dongne.dongnebe.domain.user.dto.request.LoginRequestDto;
 import com.dongne.dongnebe.domain.user.dto.request.PasswordRequestDto;
 import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
 import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
+import com.dongne.dongnebe.domain.user.dto.response.ReissueResponseDto;
 import com.dongne.dongnebe.domain.user.dto.response.UsersBasicResponseDto;
 import com.dongne.dongnebe.domain.user.dto.response.UsersMainResponseDto;
 import com.dongne.dongnebe.domain.user.service.UserService;
@@ -33,6 +34,12 @@ public class UserController {
     @PostMapping("/api/user/login")
     public ResponseEntity<ResponseDto> loginUser(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         LoginResponseDto result = userService.loginUser(loginRequestDto);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping("/api/user/reissue")
+    public ResponseEntity<ResponseDto> reissue(Authentication authentication) {
+        ReissueResponseDto result = userService.reissue(authentication);
         return ResponseEntity.ok().body(result);
     }
 

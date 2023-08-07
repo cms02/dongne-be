@@ -2355,6 +2355,7 @@ public class InitData {
                                     .city(City.builder().cityCode("11").build())
                                     .zone(Zone.builder().zoneCode("11170").build())
                                     .role(Role.USER)
+                                    .point(index * 100L)
                                     .build()
                     ));
 
@@ -2363,13 +2364,15 @@ public class InitData {
                             User.builder()
                                     .userId("user" + index)
                                     .password(encPwd)
-                                    .username("유령회원"+index)
-                                    .nickname("유령회원"+index + "짱짱맨")
+                                    .username("유령회원" + index)
+                                    .nickname("유령회원" + index + "짱짱맨")
                                     .city(City.builder().cityCode("11").build())
                                     .zone(Zone.builder().zoneCode("11140").build())
                                     .role(Role.USER)
+                                    .point(index * 100L)
                                     .build()
                     ));
+
         }
     }
     @Component
