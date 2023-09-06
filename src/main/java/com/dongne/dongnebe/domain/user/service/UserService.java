@@ -5,29 +5,28 @@ import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardCommentsByUserDto;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
-import com.dongne.dongnebe.domain.user.dto.request.BasicRequestDto;
-import com.dongne.dongnebe.domain.user.dto.request.LoginRequestDto;
-import com.dongne.dongnebe.domain.user.dto.request.PasswordRequestDto;
-import com.dongne.dongnebe.domain.user.dto.request.SignUpRequestDto;
-import com.dongne.dongnebe.domain.user.dto.response.LoginResponseDto;
-import com.dongne.dongnebe.domain.user.dto.response.UsersBasicResponseDto;
-import com.dongne.dongnebe.domain.user.dto.response.UsersMainResponseDto;
+import com.dongne.dongnebe.domain.user.dto.UserRankingDto;
+import com.dongne.dongnebe.domain.user.dto.request.*;
+import com.dongne.dongnebe.domain.user.dto.response.*;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.enums.Role;
 import com.dongne.dongnebe.domain.user.jwt.JwtTokenProvider;
 import com.dongne.dongnebe.domain.user.redis.RedisService;
+import com.dongne.dongnebe.domain.user.repository.UserQueryRepository;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.user.IncorrectPasswordException;
 import com.dongne.dongnebe.global.exception.common.ResourceAlreadyExistException;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
+import com.dongne.dongnebe.global.service.GlobalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.dongne.dongnebe.global.service.GlobalService.*;
 
@@ -50,6 +50,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisService redisService;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final UserQueryRepository userQueryRepository;
 
     public ResponseDto signUpUser(SignUpRequestDto requestDto) {
         validateUser(requestDto);
@@ -203,4 +204,21 @@ public class UserService {
                 .build();
     }
 
+    public ReissueResponseDto reissue(Authentication authentication) {
+        User user = findUser(authentication.getName());
+        String accessToken = jwtTokenProvider.responseAccessToken(user);
+        return ReissueResponseDto.builder()
+                .accessToken(accessToken)
+                .statusCode(HttpStatus.OK.value())
+                .responseMessage("Reissue Success")
+                .build();
+    }
+
+    @Transactional(readOnly = true)
+    public UserRankingResponseDto findUserRanking(UserRankingRequestDto userRankingRequestDto, Pageable pageable) {
+        List<User> users = userQueryRepository.findUserRanking(userRankingRequestDto, pageable);
+        List<UserRankingDto> userRankingDtos = users.stream().map(UserRankingDto::new)
+                .collect(Collectors.toList());
+        return new UserRankingResponseDto(userRankingDtos);
+    }
 }

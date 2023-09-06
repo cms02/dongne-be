@@ -1,10 +1,7 @@
 package com.dongne.dongnebe.domain.board.controller;
 
 import com.dongne.dongnebe.domain.board.dto.request.*;
-import com.dongne.dongnebe.domain.board.dto.response.FindHotBoardsResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
+import com.dongne.dongnebe.domain.board.dto.response.*;
 import com.dongne.dongnebe.domain.board.service.BoardService;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
@@ -16,25 +13,27 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseEntity<ResponseDto> writeBoard(@RequestPart MultipartFile file,
-                                                  @RequestPart WriteBoardRequestDto writeBoardRequestDto,
+    public ResponseEntity<ResponseDto> writeBoard(@RequestPart(value = "files", required = false) List<MultipartFile> files,
+                                                  @RequestPart(value = "writeBoardRequestDto") WriteBoardRequestDto writeBoardRequestDto,
                                                   Authentication authentication) {
-        ResponseDto result = boardService.writeBoard(file, writeBoardRequestDto, authentication);
+        ResponseDto result = boardService.writeBoard(files, writeBoardRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 
     @PatchMapping("/api/board/{boardId}")
     public ResponseEntity<ResponseDto> updateBoard(@PathVariable Long boardId,
-                                                   @RequestPart MultipartFile file,
+                                                   @RequestPart(value = "files", required = false) List<MultipartFile> files,
                                                    @RequestPart UpdateBoardRequestDto updateBoardRequestDto,
                                                    Authentication authentication) {
-        ResponseDto result = boardService.updateBoard(boardId, file, updateBoardRequestDto, authentication);
+        ResponseDto result = boardService.updateBoard(boardId, files, updateBoardRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 
@@ -76,6 +75,13 @@ public class BoardController {
     @GetMapping("/api/action-test")
     public ResponseEntity<ResponseDto> actionTest() {
         return ResponseEntity.ok().body(ResponseDto.builder().responseMessage("성공적").statusCode(HttpStatus.OK.value()).build());
+    }
+
+    @GetMapping("/api/board/event")
+    public ResponseEntity<ResponseDto> findEventBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
+                                                              Pageable pageable) {
+        FindEventBoardsByPeriodResponseDto result = boardService.findEventBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
+        return ResponseEntity.ok().body(result);
     }
 
 }

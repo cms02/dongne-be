@@ -31,4 +31,4 @@ jwt:
   secret:
     key: ddoonnggnnee
 file:
-  path: src/main/resources/static/image
+  path: src/main/resources/static/image/

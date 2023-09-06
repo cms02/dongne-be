@@ -1,6 +1,7 @@
 package com.dongne.dongnebe.domain.user.jwt;
 
-import com.dongne.dongnebe.domain.user.jwt.dto.JwtExceptionDto;
+
+import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,20 +24,18 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             chain.doFilter(request, response);
         } catch (RuntimeException e) {
-            String clientRequestUri = (String) request.getAttribute("clientRequestUri");
             String message = (String) request.getAttribute("message");
-            responseExceptionMessage(response, clientRequestUri, message);
+            responseExceptionMessage(response, message);
         }
     }
 
-    private void responseExceptionMessage(HttpServletResponse response, String clientRequestUri, String message) {
+    private void responseExceptionMessage(HttpServletResponse response, String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         response.setContentType("application/json");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setCharacterEncoding("UTF-8");
-        ResponseEntity<JwtExceptionDto> errorResponse = ResponseEntity.ok(JwtExceptionDto.builder()
+        ResponseEntity<ResponseDto> errorResponse = ResponseEntity.ok(ResponseDto.builder()
                 .responseMessage(message)
-                .clientRequestUri(clientRequestUri)
                 .statusCode(HttpStatus.UNAUTHORIZED.value())
                 .build());
         try {

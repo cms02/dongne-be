@@ -1,15 +1,9 @@
 package com.dongne.dongnebe.domain.board.service;
 
 
-import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
-import com.dongne.dongnebe.domain.board.dto.FindHotBoardsByCategoriesDto;
-import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
-import com.dongne.dongnebe.domain.board.dto.FindLatestBoardsDto;
+import com.dongne.dongnebe.domain.board.dto.*;
 import com.dongne.dongnebe.domain.board.dto.request.*;
-import com.dongne.dongnebe.domain.board.dto.response.FindBestBoardsByPeriodResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindHotBoardsResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindLatestBoardResponseDto;
-import com.dongne.dongnebe.domain.board.dto.response.FindOneBoardResponseDto;
+import com.dongne.dongnebe.domain.board.dto.response.*;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
@@ -24,6 +18,7 @@ import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
+import com.dongne.dongnebe.global.service.GlobalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -47,16 +42,24 @@ public class BoardService {
     private final BoardQueryRepository boardQueryRepository;
     private final BoardLikesQueryRepository boardLikesQueryRepository;
     private final UserRepository userRepository;
+    private final GlobalService globalService;
 
 
     @Transactional
-    public ResponseDto writeBoard(MultipartFile file, WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
-        uploadFile(file);
+    public ResponseDto writeBoard(List<MultipartFile> files, WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
+        String imgFilePath= null;
+        if (!files.isEmpty()) {
+            files.forEach(GlobalService::uploadFile);
+
+            imgFilePath = files.stream().map(f -> getImgFilePath(f))
+                    .collect(Collectors.joining(","));
+        }
+
         boardRepository.save(
                 Board.builder()
                         .title(writeBoardRequestDto.getTitle())
                         .content(writeBoardRequestDto.getContent())
-                        .fileImg(getImgFilePath(file))
+                        .fileImg(imgFilePath)
                         .boardType(writeBoardRequestDto.getBoardType())
                         .mainCategory(MainCategory.builder().mainCategoryId(writeBoardRequestDto.getMainCategoryId()).build())
                         .subCategory(SubCategory.builder().subCategoryId(writeBoardRequestDto.getSubCategoryId()).build())
@@ -82,11 +85,16 @@ public class BoardService {
     }
 
     @Transactional
-    public ResponseDto updateBoard(Long boardId, MultipartFile file, UpdateBoardRequestDto updateBoardRequestDto, Authentication authentication) {
-        uploadFile(file);
+    public ResponseDto updateBoard(Long boardId, List<MultipartFile> files, UpdateBoardRequestDto updateBoardRequestDto, Authentication authentication) {
+        String imgFilePath= null;
+        if (!files.isEmpty()) {
+            files.forEach(GlobalService::uploadFile);
+            imgFilePath = files.stream().map(f -> getImgFilePath(f))
+                    .collect(Collectors.joining(","));
+        }
         validatePermission(updateBoardRequestDto.getUserId(), authentication);
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("BoardId Not Found"));
-        board.update(updateBoardRequestDto, file);
+        board.update(updateBoardRequestDto, imgFilePath);
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Update Board")
@@ -145,5 +153,11 @@ public class BoardService {
                     .build());
         }
         return new FindHotBoardsResponseDto(findHotBoardsByCategoriesDtos);
+    }
+
+    @Transactional(readOnly = true)
+    public FindEventBoardsByPeriodResponseDto findEventBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+        List<FindEventBoardsByPeriodDto> findEventBoardsByPeriodDtos = boardQueryRepository.findEventBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
+        return new FindEventBoardsByPeriodResponseDto(findEventBoardsByPeriodDtos);
     }
 }

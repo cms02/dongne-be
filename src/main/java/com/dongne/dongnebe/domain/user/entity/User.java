@@ -52,7 +52,7 @@ public class User extends BaseEntity {
     private Boolean isDeleted;
 
     @Builder
-    public User(String userId, String username, String password, String nickname, Role role, City city, Zone zone) {
+    public User(String userId, String username, String password, String nickname, Role role, City city, Zone zone, Long point) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -60,6 +60,7 @@ public class User extends BaseEntity {
         this.role = role;
         this.city = city;
         this.zone = zone;
+        this.point = point;
     }
 
     public void updateBasic(BasicRequestDto requestDto) {
