@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 public class UsersBasicResponseDto extends ResponseDto {
     private String nickname;
     private String cityName;
+    private String cityCode;
     private String zoneName;
+    private String zoneCode;
     private String profileImg;
     private Long point;
 
@@ -19,6 +21,8 @@ public class UsersBasicResponseDto extends ResponseDto {
         super(HttpStatus.OK.value(), "Find Users Basic");
         this.nickname = user.getNickname();
         this.cityName = user.getCity().getName();
+        this.cityCode = user.getCity().getCityCode();
+        this.zoneCode = user.getZone().getZoneCode();
         this.zoneName = user.getZone().getName();
         this.profileImg = user.getProfileImg();
         this.point = user.getPoint();

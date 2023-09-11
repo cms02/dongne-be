@@ -89,7 +89,7 @@ public class UserController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/user/ranking")
+    @PostMapping("/api/user/ranking")
     public ResponseEntity<ResponseDto> findUserRanking(@RequestBody UserRankingRequestDto userRankingRequestDto,
                                                        Pageable pageable) {
         UserRankingResponseDto result = userService.findUserRanking(userRankingRequestDto, pageable);

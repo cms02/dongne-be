@@ -45,14 +45,14 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/board/latest")
+    @PostMapping("/api/board/latest")
     public ResponseEntity<ResponseDto> findLatestBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
                                                          Pageable pageable) {
         FindLatestBoardResponseDto result = boardService.findLatestBoards(findDefaultBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/board/hot")
+    @PostMapping("/api/board/hot")
     public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindHotBoardsRequestDto findHotBoardsRequestDto) {
         FindHotBoardsResponseDto result = boardService.findHotBoards(findHotBoardsRequestDto);
         return ResponseEntity.ok().body(result);
@@ -65,7 +65,7 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/board/best")
+    @PostMapping("/api/board/best")
     public ResponseEntity<ResponseDto> findBestBoardsByPeriod(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
                                                            Pageable pageable) {
         FindBestBoardsByPeriodResponseDto result = boardService.findBestBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
@@ -77,7 +77,7 @@ public class BoardController {
         return ResponseEntity.ok().body(ResponseDto.builder().responseMessage("성공적").statusCode(HttpStatus.OK.value()).build());
     }
 
-    @GetMapping("/api/board/event")
+    @PostMapping("/api/board/event")
     public ResponseEntity<ResponseDto> findEventBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
                                                               Pageable pageable) {
         FindEventBoardsByPeriodResponseDto result = boardService.findEventBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
