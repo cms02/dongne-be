@@ -1,15 +1,13 @@
 package com.dongne.dongnebe.domain.user.dto.request;
 
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
 public class SignUpRequestDto {
     @Size(max = 10, message = "10 글자 이내의 ID를 입력하세요.")
     private String userId;
