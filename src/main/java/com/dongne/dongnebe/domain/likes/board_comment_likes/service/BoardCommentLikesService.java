@@ -2,6 +2,7 @@ package com.dongne.dongnebe.domain.likes.board_comment_likes.service;
 
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes;
+import com.dongne.dongnebe.domain.likes.board_comment_likes.repository.BoardCommentLikesQueryRepository;
 import com.dongne.dongnebe.domain.likes.board_comment_likes.repository.BoardCommentLikesRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
@@ -19,6 +20,7 @@ import static com.dongne.dongnebe.global.service.GlobalService.validatePermissio
 @RequiredArgsConstructor
 public class BoardCommentLikesService {
     private final BoardCommentLikesRepository boardCommentLikesRepository;
+    private final BoardCommentLikesQueryRepository boardCommentLikesQueryRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -41,11 +43,11 @@ public class BoardCommentLikesService {
     }
 
     @Transactional
-    public ResponseDto cancelBoardCommentLikes(Long boardCommentLikesId, Authentication authentication) {
-        BoardCommentLikes boardCommentLikes = boardCommentLikesRepository.findById(boardCommentLikesId)
-                .orElseThrow(() -> new ResourceNotFoundException("Board Comment Likes Id Not Found"));
+    public ResponseDto cancelBoardCommentLikes(Long boardCommentId, Authentication authentication) {
+        BoardCommentLikes boardCommentLikes = boardCommentLikesQueryRepository.findBoardCommentLikesByBoardCommentIdAndUserId(boardCommentId, authentication.getName())
+                .orElseThrow(() -> new ResourceNotFoundException("Board Comment Id, UserId Not Found"));
         validatePermission(boardCommentLikes.getUser().getUserId(), authentication);
-        boardCommentLikesRepository.deleteById(boardCommentLikesId);
+        boardCommentLikesRepository.deleteById(boardCommentLikes.getBoardCommentLikesId());
 
         User user = userRepository.findByUserId(authentication.getName()).orElseThrow(
                 () -> new ResourceNotFoundException("User Not Found")

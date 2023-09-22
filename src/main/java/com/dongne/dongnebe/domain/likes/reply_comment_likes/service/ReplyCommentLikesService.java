@@ -46,7 +46,7 @@ public class ReplyCommentLikesService {
         User user = userRepository.findByUserId(authentication.getName()).orElseThrow(
                 () -> new ResourceNotFoundException("User Not Found")
         );
-        user.plusPointByLike();
+        user.minusPointByLike();
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Cancel Reply Comment Likes")

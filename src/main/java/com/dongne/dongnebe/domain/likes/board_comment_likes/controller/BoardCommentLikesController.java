@@ -21,10 +21,10 @@ public class BoardCommentLikesController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/api/boardCommentLikes/cancel/{boardCommentLikesId}")
-    public ResponseEntity<ResponseDto> cancelBoardCommentLikes(@PathVariable Long boardCommentLikesId,
+    @PostMapping("/api/boardCommentLikes/cancel/{boardCommentId}")
+    public ResponseEntity<ResponseDto> cancelBoardCommentLikes(@PathVariable Long boardCommentId,
                                                         Authentication authentication) {
-        ResponseDto result = boardCommentLikesService.cancelBoardCommentLikes(boardCommentLikesId, authentication);
+        ResponseDto result = boardCommentLikesService.cancelBoardCommentLikes(boardCommentId, authentication);
         return ResponseEntity.ok(result);
     }
 }
