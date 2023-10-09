@@ -3,11 +3,9 @@ package com.dongne.dongnebe.domain.board.controller;
 import com.dongne.dongnebe.domain.board.dto.request.*;
 import com.dongne.dongnebe.domain.board.dto.response.*;
 import com.dongne.dongnebe.domain.board.service.BoardService;
-import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -72,15 +70,17 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/action-test")
-    public ResponseEntity<ResponseDto> actionTest() {
-        return ResponseEntity.ok().body(ResponseDto.builder().responseMessage("성공적").statusCode(HttpStatus.OK.value()).build());
-    }
-
     @PostMapping("/api/board/event")
     public ResponseEntity<ResponseDto> findEventBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
                                                               Pageable pageable) {
         FindEventBoardsByPeriodResponseDto result = boardService.findEventBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping("/api/board/search")
+    public ResponseEntity<ResponseDto> findBoardsSearch(@RequestBody FindSearchBoardsRequestDto findSearchBoardsRequestDto
+            , Pageable pageable) {
+        FindSearchBoardsResponseDto result = boardService.findSearchBoards(findSearchBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 

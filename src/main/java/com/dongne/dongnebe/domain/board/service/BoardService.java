@@ -160,4 +160,10 @@ public class BoardService {
         List<FindEventBoardsByPeriodDto> findEventBoardsByPeriodDtos = boardQueryRepository.findEventBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
         return new FindEventBoardsByPeriodResponseDto(findEventBoardsByPeriodDtos);
     }
+
+    @Transactional(readOnly = true)
+    public FindSearchBoardsResponseDto findSearchBoards(FindSearchBoardsRequestDto findSearchBoardsRequestDto, Pageable pageable) {
+        List<FindSearchBoardsDto> findSearchBoardsDtos = boardQueryRepository.findSearchBoards(findSearchBoardsRequestDto, pageable);
+        return new FindSearchBoardsResponseDto(findSearchBoardsDtos);
+    }
 }
