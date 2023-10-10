@@ -49,6 +49,17 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
+    public int findLatestBoardsSize(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto) {
+        QBoard b = board;
+        return queryFactory
+                .selectFrom(b)
+                .where(
+                        b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
+                                b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
+                .fetch()
+                .size();
+    }
+
     public List<FindBestBoardsByPeriodDto> findBestBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
         QBoard b = board;
         QBoardLikes l = QBoardLikes.boardLikes;

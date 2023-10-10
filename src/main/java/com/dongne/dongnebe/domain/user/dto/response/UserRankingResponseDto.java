@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @SuperBuilder
 public class UserRankingResponseDto extends ResponseDto {
-    List<UserRankingDto> userRankingDtos;
+    private List<UserRankingDto> userRankingDtos;
     public UserRankingResponseDto(List<UserRankingDto> userRankingDtos) {
         super(HttpStatus.OK.value(), "User Ranking");
         this.userRankingDtos = userRankingDtos;

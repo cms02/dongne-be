@@ -11,10 +11,12 @@ import java.util.List;
 @Getter
 @SuperBuilder
 public class FindLatestBoardResponseDto extends ResponseDto {
-    List<FindLatestBoardsDto> findLatestBoardsDtos;
+    private List<FindLatestBoardsDto> findLatestBoardsDtos;
+    private int totalPageCount;
 
-    public FindLatestBoardResponseDto(List<FindLatestBoardsDto> findLatestBoardsDtos) {
+    public FindLatestBoardResponseDto(List<FindLatestBoardsDto> findLatestBoardsDtos, int totalPageCount) {
         super(HttpStatus.OK.value(), "Find Latest Boards");
         this.findLatestBoardsDtos = findLatestBoardsDtos;
+        this.totalPageCount = totalPageCount;
     }
 }

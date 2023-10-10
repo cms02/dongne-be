@@ -118,8 +118,11 @@ public class BoardService {
     @Transactional(readOnly = true)
     public FindLatestBoardResponseDto findLatestBoards(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
         List<Board> boardList = boardQueryRepository.findLatestBoards(findDefaultBoardsRequestDto, pageable);
+        int boardSize = boardQueryRepository.findLatestBoardsSize(findDefaultBoardsRequestDto);
         List<FindLatestBoardsDto> findLatestBoardsDtos = boardList.stream().map(FindLatestBoardsDto::new).collect(Collectors.toList());
-        return new FindLatestBoardResponseDto(findLatestBoardsDtos);
+        int totalPageCount = (boardSize % pageable.getPageSize()) == 0 ?
+                (boardSize / pageable.getPageSize()) : (boardSize % pageable.getPageSize()) + 1;
+        return new FindLatestBoardResponseDto(findLatestBoardsDtos, totalPageCount);
     }
 
     @Transactional(readOnly = true)
