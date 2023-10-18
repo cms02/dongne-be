@@ -45,7 +45,7 @@ public class BoardQueryRepository {
                                 b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(b.createDate.desc(), b.boardId.desc())
+                .orderBy(sortCondition(pageable))
                 .fetch();
     }
 
@@ -150,11 +150,15 @@ public class BoardQueryRepository {
                         b.boardId,
                         b.title,
                         b.user.userId,
+                        b.user.nickname,
+                        b.user.point,
                         b.fileImg,
                         b.viewCnt
                 ))
                 .from(b)
-                .where(b.isDeleted.eq(Boolean.FALSE).and(b.boardType.eq(BoardType.EVENT)).and(b.deadlineAt.after(LocalDateTime.now())))
+                .where(b.isDeleted.eq(Boolean.FALSE).and(b.boardType.eq(BoardType.EVENT)).and(b.deadlineAt.after(LocalDateTime.now()))
+                        .and(b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()))
+                        .and(b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
                 .orderBy(b.deadlineAt.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

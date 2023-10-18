@@ -39,6 +39,8 @@ public class Board extends BaseEntity {
     private Long boardId;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "file_img")
