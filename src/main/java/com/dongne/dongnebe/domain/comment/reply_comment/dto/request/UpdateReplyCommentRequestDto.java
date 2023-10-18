@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.domain.comment.reply_comment.dto;
+package com.dongne.dongnebe.domain.comment.reply_comment.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

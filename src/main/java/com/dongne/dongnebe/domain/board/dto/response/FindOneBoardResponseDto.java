@@ -17,6 +17,8 @@ public class FindOneBoardResponseDto extends ResponseDto {
     private String createDate;
     private String deadlineAt;
     private String userId;
+    private String nickname;
+    private Long point;
     private String fileImg;
     private Long viewCnt;
     private Long boardCommentCount;
@@ -32,10 +34,12 @@ public class FindOneBoardResponseDto extends ResponseDto {
         this.createDate = formatLocalDateTimeToString(board.getCreateDate());
         this.deadlineAt = formatLocalDateTimeToString(board.getDeadlineAt());
         this.userId = board.getUser().getUserId();
+        this.nickname = board.getUser().getNickname();
+        this.point = board.getUser().getPoint();
         this.fileImg = board.getFileImg();
         this.viewCnt = board.getViewCnt();
-        this.boardCommentCount = board.getBoardComments().stream().count();
-        this.boardLikesCount = board.getBoardLikes().stream().count();
+        this.boardCommentCount = (long) board.getBoardComments().size();
+        this.boardLikesCount = (long) board.getBoardLikes().size();
         this.channelName = board.getChannel() == null ? null : board.getChannel().getName();
         this.isLiked = isLiked;
     }

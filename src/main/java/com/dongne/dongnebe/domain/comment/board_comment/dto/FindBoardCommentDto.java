@@ -16,6 +16,8 @@ public class FindBoardCommentDto {
     private Long boardCommentId;
     private String content;
     private String userId;
+    private String nickname;
+    private Long point;
     private String createDate;
     private Long boardCommentLikesCount;
     private Boolean isLiked;
@@ -26,9 +28,11 @@ public class FindBoardCommentDto {
         this.boardCommentId = boardComment.getBoardCommentId();
         this.content = boardComment.getContent();
         this.userId = boardComment.getUser().getUserId();
+        this.nickname = boardComment.getUser().getNickname();
+        this.point = boardComment.getUser().getPoint();
         this.createDate = formatLocalDateTimeToString(boardComment.getCreateDate());
-        this.boardCommentLikesCount = boardComment.getBoardCommentLikes().stream().count();
-        this.replyCommentCount = boardComment.getReplyComments().stream().count();
+        this.boardCommentLikesCount = (long) boardComment.getBoardCommentLikes().size();
+        this.replyCommentCount = (long) boardComment.getReplyComments().size();
         this.isLiked = isLiked;
     }
 }

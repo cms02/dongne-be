@@ -1,9 +1,7 @@
 package com.dongne.dongnebe.domain.comment.reply_comment.entity;
 
-import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.UpdateReplyCommentRequestDto;
-import com.dongne.dongnebe.domain.likes.board_comment_likes.entity.BoardCommentLikes;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.request.UpdateReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.ReplyCommentLikes;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.entity.BaseEntity;

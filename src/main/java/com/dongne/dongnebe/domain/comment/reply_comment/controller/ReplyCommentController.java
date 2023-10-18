@@ -1,9 +1,9 @@
 package com.dongne.dongnebe.domain.comment.reply_comment.controller;
 
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.DeleteReplyCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.FindReplyCommentsResponseDto;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.UpdateReplyCommentRequestDto;
-import com.dongne.dongnebe.domain.comment.reply_comment.dto.WriteReplyCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.request.DeleteReplyCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.response.FindReplyCommentsResponseDto;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.request.UpdateReplyCommentRequestDto;
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.request.WriteReplyCommentRequestDto;
 import com.dongne.dongnebe.domain.comment.reply_comment.service.ReplyCommentService;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;

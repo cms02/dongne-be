@@ -1,5 +1,6 @@
-package com.dongne.dongnebe.domain.comment.reply_comment.dto;
+package com.dongne.dongnebe.domain.comment.reply_comment.dto.response;
 
+import com.dongne.dongnebe.domain.comment.reply_comment.dto.FindReplyCommentDto;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
