@@ -1,6 +1,7 @@
 package com.dongne.dongnebe.domain.board.dto.response;
 
 import com.dongne.dongnebe.domain.board.entity.Board;
+import com.dongne.dongnebe.domain.board.enums.BoardType;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
@@ -12,6 +13,7 @@ import static com.dongne.dongnebe.global.service.GlobalService.formatLocalDateTi
 @SuperBuilder
 public class FindOneBoardResponseDto extends ResponseDto {
     private Long boardId;
+    private String boardType;
     private String title;
     private String content;
     private String createDate;
@@ -26,9 +28,11 @@ public class FindOneBoardResponseDto extends ResponseDto {
     private String channelName;
     private Boolean isLiked;
 
+
     public FindOneBoardResponseDto(Board board, Boolean isLiked) {
         super(HttpStatus.OK.value(), "Find One Board");
         this.boardId = board.getBoardId();
+        this.boardType = board.getBoardType().getValue();
         this.title = board.getTitle();
         this.content = board.getContent();
         this.createDate = formatLocalDateTimeToString(board.getCreateDate());

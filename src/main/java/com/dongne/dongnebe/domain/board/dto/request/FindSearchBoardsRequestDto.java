@@ -14,6 +14,5 @@ public class FindSearchBoardsRequestDto {
     private String zoneCode;
     private String title;
     private String userId;
-    private Long mainCategoryId;
     private Long subCategoryId;
 }

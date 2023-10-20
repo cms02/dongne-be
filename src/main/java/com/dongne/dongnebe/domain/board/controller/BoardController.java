@@ -18,11 +18,17 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
 
-    @PostMapping("/api/board")
-    public ResponseEntity<ResponseDto> writeBoard(@RequestPart(value = "files", required = false) List<MultipartFile> files,
-                                                  @RequestPart(value = "writeBoardRequestDto") WriteBoardRequestDto writeBoardRequestDto,
+    @PostMapping("/api/board/upload")
+    public ResponseEntity<ResponseDto> uploadBoardImages(@RequestPart(value = "files", required = false) List<MultipartFile> files,
                                                   Authentication authentication) {
-        ResponseDto result = boardService.writeBoard(files, writeBoardRequestDto, authentication);
+        FindUploadBoardImagesResponseDto result = boardService.uploadBoardImages(files, authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping("/api/board")
+    public ResponseEntity<ResponseDto> writeBoard(@RequestBody WriteBoardRequestDto writeBoardRequestDto,
+                                                  Authentication authentication) {
+        ResponseDto result = boardService.writeBoard(writeBoardRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 

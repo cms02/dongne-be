@@ -51,7 +51,7 @@ public class BoardCommentController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/api/boardComment/hot")
+    @PostMapping("/api/boardComment/hot")
     public ResponseEntity<ResponseDto> findHotBoardComments(@RequestBody FindHotBoardsRequestDto findHotBoardsRequestDto) {
         FindHotBoardCommentsResponseDto result = boardCommentService.findHotBoardComments(findHotBoardsRequestDto);
         return ResponseEntity.ok().body(result);

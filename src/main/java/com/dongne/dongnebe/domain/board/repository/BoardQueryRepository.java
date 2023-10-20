@@ -174,8 +174,7 @@ public class BoardQueryRepository {
                         b.boardLikes.size().longValue().as("boardLikesCount"),
                         b.channel.name.as("channelName")))
                 .from(b)
-                .where(mainCategoryIdEq(findSearchBoardsRequestDto.getMainCategoryId())
-                        .and(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId()))
+                .where(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId())
                         .and(titleEq(findSearchBoardsRequestDto.getTitle()))
                         .and(userIdEq(findSearchBoardsRequestDto.getUserId()))
                 )
@@ -183,10 +182,6 @@ public class BoardQueryRepository {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-    }
-
-    private BooleanExpression mainCategoryIdEq(Long mainCategoryId) {
-        return mainCategoryId == null ? null : board.mainCategory.mainCategoryId.eq(mainCategoryId);
     }
 
     private BooleanExpression subCategoryIdEq(Long subCategoryId) {

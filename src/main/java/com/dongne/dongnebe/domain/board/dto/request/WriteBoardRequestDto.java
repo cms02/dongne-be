@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WriteBoardRequestDto {
 
-//    @Size(max = 10, message = "7 글자 이내의 닉네임을 입력하세요.")
     private String title;
     private String content;
     private BoardType boardType;
@@ -21,7 +20,8 @@ public class WriteBoardRequestDto {
     private Long subCategoryId;
     private String cityCode;
     private String zoneCode;
-    private Long channelId;
+    private String channelName;
     private String deadlineAt;
+    private String fileImg;
 
 }

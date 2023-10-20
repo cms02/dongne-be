@@ -8,6 +8,8 @@ import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
 import com.dongne.dongnebe.domain.category.channel.entity.Channel;
+import com.dongne.dongnebe.domain.category.channel.repository.ChannelQueryRepository;
+import com.dongne.dongnebe.domain.category.channel.repository.ChannelRepository;
 import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
@@ -31,9 +33,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.dongne.dongnebe.global.service.GlobalService.*;
+import static io.micrometer.common.util.StringUtils.isEmpty;
 
 @Service
 @RequiredArgsConstructor
@@ -42,37 +46,37 @@ public class BoardService {
     private final BoardQueryRepository boardQueryRepository;
     private final BoardLikesQueryRepository boardLikesQueryRepository;
     private final UserRepository userRepository;
-    private final GlobalService globalService;
+    private final ChannelRepository channelRepository;
+    private final ChannelQueryRepository channelQueryRepository;
 
 
     @Transactional
-    public ResponseDto writeBoard(List<MultipartFile> files, WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
-        String imgFilePath= null;
-        if (!files.isEmpty()) {
-            files.forEach(GlobalService::uploadFile);
+    public ResponseDto writeBoard(WriteBoardRequestDto writeBoardRequestDto, Authentication authentication) {
+        Channel channel = null;
 
-            imgFilePath = files.stream().map(f -> getImgFilePath(f))
-                    .collect(Collectors.joining(","));
+        if (!isEmpty(writeBoardRequestDto.getChannelName())){
+            channel = channelQueryRepository.findChannelBySubCategoryIdAndName(writeBoardRequestDto.getSubCategoryId(), writeBoardRequestDto.getChannelName());
+            if (channel == null) {
+                channel = makeChannel(writeBoardRequestDto.getSubCategoryId(), writeBoardRequestDto.getChannelName());
+            }
         }
 
         boardRepository.save(
-                Board.builder()
-                        .title(writeBoardRequestDto.getTitle())
-                        .content(writeBoardRequestDto.getContent())
-                        .fileImg(imgFilePath)
-                        .boardType(writeBoardRequestDto.getBoardType())
-                        .mainCategory(MainCategory.builder().mainCategoryId(writeBoardRequestDto.getMainCategoryId()).build())
-                        .subCategory(SubCategory.builder().subCategoryId(writeBoardRequestDto.getSubCategoryId()).build())
-                        .channel(writeBoardRequestDto.getChannelId() == null ?
-                                null : Channel.builder().channelId(writeBoardRequestDto.getChannelId()).build())
-                        .user(User.builder().userId(authentication.getName()).build())
-                        .city(City.builder().cityCode(writeBoardRequestDto.getCityCode()).build())
-                        .zone(Zone.builder().zoneCode(writeBoardRequestDto.getZoneCode()).build())
-                        .deadlineAt(writeBoardRequestDto.getDeadlineAt() == null ?
-                                null : LocalDateTime.parse(writeBoardRequestDto.getDeadlineAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                        .build()
-        );
-
+                        Board.builder()
+                                .title(writeBoardRequestDto.getTitle())
+                                .content(writeBoardRequestDto.getContent())
+                                .fileImg(writeBoardRequestDto.getFileImg())
+                                .boardType(writeBoardRequestDto.getBoardType())
+                                .mainCategory(MainCategory.builder().mainCategoryId(writeBoardRequestDto.getMainCategoryId()).build())
+                                .subCategory(SubCategory.builder().subCategoryId(writeBoardRequestDto.getSubCategoryId()).build())
+                                .channel(channel)
+                                .user(User.builder().userId(authentication.getName()).build())
+                                .city(City.builder().cityCode(writeBoardRequestDto.getCityCode()).build())
+                                .zone(Zone.builder().zoneCode(writeBoardRequestDto.getZoneCode()).build())
+                                .deadlineAt(writeBoardRequestDto.getDeadlineAt() == null ?
+                                        null : LocalDateTime.parse(writeBoardRequestDto.getDeadlineAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                                .build()
+                );
         User user = userRepository.findByUserId(authentication.getName()).orElseThrow(
                 () -> new ResourceNotFoundException("User Not Found")
         );
@@ -82,6 +86,15 @@ public class BoardService {
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Write Board")
                 .build();
+    }
+
+    private Channel makeChannel(Long subCategoryId, String channelName) {
+        return channelRepository.save(
+                Channel.builder()
+                        .subCategory(SubCategory.builder().subCategoryId(subCategoryId).build())
+                        .name(channelName)
+                        .build()
+        );
     }
 
     @Transactional
@@ -168,5 +181,20 @@ public class BoardService {
     public FindSearchBoardsResponseDto findSearchBoards(FindSearchBoardsRequestDto findSearchBoardsRequestDto, Pageable pageable) {
         List<FindSearchBoardsDto> findSearchBoardsDtos = boardQueryRepository.findSearchBoards(findSearchBoardsRequestDto, pageable);
         return new FindSearchBoardsResponseDto(findSearchBoardsDtos);
+    }
+    @Transactional
+    public FindUploadBoardImagesResponseDto uploadBoardImages(List<MultipartFile> files, Authentication authentication) {
+        String imgFilePath= null;
+        if (!files.isEmpty()) {
+            files.forEach(GlobalService::uploadFile);
+
+            imgFilePath = files.stream().map(f -> getImgFilePath(f))
+                    .collect(Collectors.joining(","));
+        }
+        return FindUploadBoardImagesResponseDto.builder()
+                .responseMessage("Upload Images")
+                .statusCode(HttpStatus.OK.value())
+                .fileImg(imgFilePath)
+                .build();
     }
 }
