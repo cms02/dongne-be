@@ -34,10 +34,9 @@ public class BoardController {
 
     @PatchMapping("/api/board/{boardId}")
     public ResponseEntity<ResponseDto> updateBoard(@PathVariable Long boardId,
-                                                   @RequestPart(value = "files", required = false) List<MultipartFile> files,
-                                                   @RequestPart UpdateBoardRequestDto updateBoardRequestDto,
+                                                   @RequestBody UpdateBoardRequestDto updateBoardRequestDto,
                                                    Authentication authentication) {
-        ResponseDto result = boardService.updateBoard(boardId, files, updateBoardRequestDto, authentication);
+        ResponseDto result = boardService.updateBoard(boardId, updateBoardRequestDto, authentication);
         return ResponseEntity.ok().body(result);
     }
 

@@ -98,16 +98,10 @@ public class BoardService {
     }
 
     @Transactional
-    public ResponseDto updateBoard(Long boardId, List<MultipartFile> files, UpdateBoardRequestDto updateBoardRequestDto, Authentication authentication) {
-        String imgFilePath= null;
-        if (!files.isEmpty()) {
-            files.forEach(GlobalService::uploadFile);
-            imgFilePath = files.stream().map(f -> getImgFilePath(f))
-                    .collect(Collectors.joining(","));
-        }
+    public ResponseDto updateBoard(Long boardId, UpdateBoardRequestDto updateBoardRequestDto, Authentication authentication) {
         validatePermission(updateBoardRequestDto.getUserId(), authentication);
         Board board = boardRepository.findById(boardId).orElseThrow(() -> new ResourceNotFoundException("BoardId Not Found"));
-        board.update(updateBoardRequestDto, imgFilePath);
+        board.update(updateBoardRequestDto);
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
                 .responseMessage("Update Board")

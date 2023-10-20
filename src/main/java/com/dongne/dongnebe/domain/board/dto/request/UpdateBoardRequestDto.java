@@ -21,5 +21,6 @@ public class UpdateBoardRequestDto {
     private Long channelId;
     private String userId;
     private String deadlineAt;
+    private String fileImg;
 
 }

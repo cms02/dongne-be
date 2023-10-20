@@ -107,11 +107,11 @@ public class Board extends BaseEntity {
         this.deadlineAt = deadlineAt;
     }
 
-    public void update(UpdateBoardRequestDto updateBoardRequestDto, String imgFilePath) {
+    public void update(UpdateBoardRequestDto updateBoardRequestDto) {
         this.title = updateBoardRequestDto.getTitle();
         this.content = updateBoardRequestDto.getContent();
         this.boardType = updateBoardRequestDto.getBoardType();
-        this.fileImg = imgFilePath;
+        this.fileImg = updateBoardRequestDto.getFileImg();
         this.mainCategory = MainCategory.builder().mainCategoryId(updateBoardRequestDto.getMainCategoryId()).build();
         this.subCategory = SubCategory.builder().subCategoryId(updateBoardRequestDto.getSubCategoryId()).build();
         this.channel = updateBoardRequestDto.getChannelId() == null ?
