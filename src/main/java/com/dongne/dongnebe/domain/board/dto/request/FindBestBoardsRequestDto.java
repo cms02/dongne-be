@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindDefaultBoardsRequestDto {
+public class FindBestBoardsRequestDto {
     private String cityCode;
     private String zoneCode;
+    private Period period;
 }

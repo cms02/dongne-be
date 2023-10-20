@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -14,5 +16,10 @@ public class FindSearchBoardsDto {
     private String title;
     private Long boardLikesCount;
     private String channelName;
+    private String userId;
+    private String nickname;
+    private Long point;
+    private LocalDateTime createDate;
+    private String fileImg;
 
 }

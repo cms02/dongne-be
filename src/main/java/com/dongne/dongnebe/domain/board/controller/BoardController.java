@@ -47,13 +47,6 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
-    @PostMapping("/api/board/latest")
-    public ResponseEntity<ResponseDto> findLatestBoards(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
-                                                         Pageable pageable) {
-        FindLatestBoardResponseDto result = boardService.findLatestBoards(findDefaultBoardsRequestDto, pageable);
-        return ResponseEntity.ok().body(result);
-    }
-
     @PostMapping("/api/board/hot")
     public ResponseEntity<ResponseDto> findHotBoards(@RequestBody FindHotBoardsRequestDto findHotBoardsRequestDto) {
         FindHotBoardsResponseDto result = boardService.findHotBoards(findHotBoardsRequestDto);
@@ -68,9 +61,9 @@ public class BoardController {
     }
 
     @PostMapping("/api/board/best")
-    public ResponseEntity<ResponseDto> findBestBoardsByPeriod(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
+    public ResponseEntity<ResponseDto> findBestBoardsByPeriod(@RequestBody FindBestBoardsRequestDto findBestBoardsRequestDto,
                                                            Pageable pageable) {
-        FindBestBoardsByPeriodResponseDto result = boardService.findBestBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
+        FindBestBoardsByPeriodResponseDto result = boardService.findBestBoardsByPeriod(findBestBoardsRequestDto, pageable);
         return ResponseEntity.ok().body(result);
     }
 

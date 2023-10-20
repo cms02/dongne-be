@@ -4,6 +4,7 @@ import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
 import com.dongne.dongnebe.domain.board.dto.FindEventBoardsByPeriodDto;
 import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
 import com.dongne.dongnebe.domain.board.dto.FindSearchBoardsDto;
+import com.dongne.dongnebe.domain.board.dto.request.FindBestBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindHotBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindSearchBoardsRequestDto;
@@ -49,18 +50,18 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
-    public int findLatestBoardsSize(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto) {
+    public int findSearchBoardsSize(FindSearchBoardsRequestDto findSearchBoardsRequestDto) {
         QBoard b = board;
         return queryFactory
                 .selectFrom(b)
                 .where(
-                        b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
-                                b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
+                        b.city.cityCode.eq(findSearchBoardsRequestDto.getCityCode()).and(
+                                b.zone.zoneCode.eq(findSearchBoardsRequestDto.getZoneCode())))
                 .fetch()
                 .size();
     }
 
-    public List<FindBestBoardsByPeriodDto> findBestBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+    public List<FindBestBoardsByPeriodDto> findBestBoardsByPeriod(FindBestBoardsRequestDto findBestBoardsRequestDto, Pageable pageable) {
         QBoard b = board;
         QBoardLikes l = QBoardLikes.boardLikes;
         List<FindBestBoardsByPeriodDto> result = queryFactory
@@ -71,9 +72,9 @@ public class BoardQueryRepository {
                         b.channel.name.as("channelName")))
                 .from(b)
                 .where(
-                        b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
-                                b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())).and(
-                                b.createDate.gt(LocalDateTime.now().minusDays(findDefaultBoardsRequestDto.getPeriod().getValue()))
+                        b.city.cityCode.eq(findBestBoardsRequestDto.getCityCode()).and(
+                                b.zone.zoneCode.eq(findBestBoardsRequestDto.getZoneCode())).and(
+                                b.createDate.gt(LocalDateTime.now().minusDays(findBestBoardsRequestDto.getPeriod().getValue()))
                         ))
                 .join(b.boardLikes, l)
                 .groupBy(b.boardId, b.channel.name)
@@ -172,9 +173,18 @@ public class BoardQueryRepository {
                         b.boardId,
                         b.title,
                         b.boardLikes.size().longValue().as("boardLikesCount"),
-                        b.channel.name.as("channelName")))
+                        b.channel.name.as("channelName"),
+                        b.user.userId,
+                        b.user.nickname,
+                        b.user.point,
+                        b.createDate,
+                        b.fileImg
+                        )
+                )
                 .from(b)
-                .where(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId())
+                .where(b.city.cityCode.eq(findSearchBoardsRequestDto.getCityCode())
+                        .and(b.zone.zoneCode.eq(findSearchBoardsRequestDto.getZoneCode()))
+                        .and(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId()))
                         .and(channelIdEq(findSearchBoardsRequestDto.getChannelId()))
                         .and(titleEq(findSearchBoardsRequestDto.getTitle()))
                         .and(userIdEq(findSearchBoardsRequestDto.getUserId()))

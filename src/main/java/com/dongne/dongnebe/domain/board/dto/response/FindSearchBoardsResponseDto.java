@@ -12,10 +12,12 @@ import java.util.List;
 @Getter
 @SuperBuilder
 public class FindSearchBoardsResponseDto extends ResponseDto {
-    List<FindSearchBoardsDto> findSearchBoardsDtos;
+    private List<FindSearchBoardsDto> findSearchBoardsDtos;
+    private int totalPageCount;
 
-    public FindSearchBoardsResponseDto(List<FindSearchBoardsDto> findSearchBoardsDtos) {
+    public FindSearchBoardsResponseDto(List<FindSearchBoardsDto> findSearchBoardsDtos, int totalPageCount) {
         super(HttpStatus.OK.value(), "Find Search Boards");
         this.findSearchBoardsDtos = findSearchBoardsDtos;
+        this.totalPageCount = totalPageCount;
     }
 }

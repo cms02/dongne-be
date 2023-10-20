@@ -123,16 +123,6 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public FindLatestBoardResponseDto findLatestBoards(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
-        List<Board> boardList = boardQueryRepository.findLatestBoards(findDefaultBoardsRequestDto, pageable);
-        int boardSize = boardQueryRepository.findLatestBoardsSize(findDefaultBoardsRequestDto);
-        List<FindLatestBoardsDto> findLatestBoardsDtos = boardList.stream().map(FindLatestBoardsDto::new).collect(Collectors.toList());
-        int totalPageCount = (boardSize % pageable.getPageSize()) == 0 ?
-                (boardSize / pageable.getPageSize()) : (boardSize % pageable.getPageSize()) + 1;
-        return new FindLatestBoardResponseDto(findLatestBoardsDtos, totalPageCount);
-    }
-
-    @Transactional(readOnly = true)
     public FindOneBoardResponseDto findOneBoard(Long boardId, Authentication authentication) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
@@ -143,8 +133,8 @@ public class BoardService {
 
 
     @Transactional(readOnly = true)
-    public FindBestBoardsByPeriodResponseDto findBestBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
-        List<FindBestBoardsByPeriodDto> findBestBoardsByPeriodDtos = boardQueryRepository.findBestBoardsByPeriod(findDefaultBoardsRequestDto, pageable);
+    public FindBestBoardsByPeriodResponseDto findBestBoardsByPeriod(FindBestBoardsRequestDto findBestBoardsRequestDto, Pageable pageable) {
+        List<FindBestBoardsByPeriodDto> findBestBoardsByPeriodDtos = boardQueryRepository.findBestBoardsByPeriod(findBestBoardsRequestDto, pageable);
         return new FindBestBoardsByPeriodResponseDto(findBestBoardsByPeriodDtos);
     }
 
@@ -174,7 +164,10 @@ public class BoardService {
     @Transactional(readOnly = true)
     public FindSearchBoardsResponseDto findSearchBoards(FindSearchBoardsRequestDto findSearchBoardsRequestDto, Pageable pageable) {
         List<FindSearchBoardsDto> findSearchBoardsDtos = boardQueryRepository.findSearchBoards(findSearchBoardsRequestDto, pageable);
-        return new FindSearchBoardsResponseDto(findSearchBoardsDtos);
+        int boardSize = boardQueryRepository.findSearchBoardsSize(findSearchBoardsRequestDto);
+        int totalPageCount = (boardSize % pageable.getPageSize()) == 0 ?
+                (boardSize / pageable.getPageSize()) : (boardSize % pageable.getPageSize()) + 1;
+        return new FindSearchBoardsResponseDto(findSearchBoardsDtos, totalPageCount);
     }
     @Transactional
     public FindUploadBoardImagesResponseDto uploadBoardImages(List<MultipartFile> files) {
@@ -182,7 +175,7 @@ public class BoardService {
         if (!files.isEmpty()) {
             files.forEach(GlobalService::uploadFile);
 
-            imgFilePath = files.stream().map(f -> getImgFilePath(f))
+            imgFilePath = files.stream().map(GlobalService::getImgFilePath)
                     .collect(Collectors.joining(","));
         }
         return FindUploadBoardImagesResponseDto.builder()
