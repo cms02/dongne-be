@@ -10,6 +10,8 @@ import com.dongne.dongnebe.domain.board.dto.request.FindSearchBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.entity.QBoard;
 import com.dongne.dongnebe.domain.board.enums.BoardType;
+import com.dongne.dongnebe.domain.category.channel.dto.FindHotChannelsDto;
+import com.dongne.dongnebe.domain.category.channel.dto.request.FindHotChannelsRequestDto;
 import com.dongne.dongnebe.domain.category.channel.entity.Channel;
 import com.dongne.dongnebe.domain.category.channel.entity.QChannel;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
@@ -48,6 +50,24 @@ public class ChannelQueryRepository {
                         )
                 )
                 .fetchOne();
+    }
+
+    public List<FindHotChannelsDto> findHotChannels(FindHotChannelsRequestDto findHotChannelsRequestDto) {
+        QChannel c = channel;
+        QBoard b = board;
+        return queryFactory
+                .select(Projections.fields(FindHotChannelsDto.class,
+                        c.channelId,
+                        c.name.as("channelName")
+                ))
+                .from(b)
+                .join(b.channel, c)
+                .where(b.subCategory.subCategoryId.eq(findHotChannelsRequestDto.getSubCategoryId())
+                        .and(c.channelId.isNotNull()))
+                .groupBy(c.channelId)
+                .orderBy(c.count().desc())
+                .limit(findHotChannelsRequestDto.getDataCount())
+                .fetch();
     }
 
 }
