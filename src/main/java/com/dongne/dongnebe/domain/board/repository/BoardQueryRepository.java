@@ -15,11 +15,9 @@ import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -166,22 +164,10 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
-    public List<FindSearchBoardsDto> findSearchBoards(FindSearchBoardsRequestDto findSearchBoardsRequestDto, Pageable pageable) {
+    public List<Board> findSearchBoards(FindSearchBoardsRequestDto findSearchBoardsRequestDto, Pageable pageable) {
         QBoard b = board;
         return queryFactory
-                .select(Projections.fields(FindSearchBoardsDto.class,
-                        b.boardId,
-                        b.title,
-                        b.boardLikes.size().longValue().as("boardLikesCount"),
-                        b.channel.name.as("channelName"),
-                        b.user.userId,
-                        b.user.nickname,
-                        b.user.point,
-                        b.createDate,
-                        b.fileImg
-                        )
-                )
-                .from(b)
+                .selectFrom(b)
                 .where(b.city.cityCode.eq(findSearchBoardsRequestDto.getCityCode())
                         .and(b.zone.zoneCode.eq(findSearchBoardsRequestDto.getZoneCode()))
                         .and(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId()))

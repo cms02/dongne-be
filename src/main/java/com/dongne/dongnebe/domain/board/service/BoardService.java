@@ -163,7 +163,7 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public FindSearchBoardsResponseDto findSearchBoards(FindSearchBoardsRequestDto findSearchBoardsRequestDto, Pageable pageable) {
-        List<FindSearchBoardsDto> findSearchBoardsDtos = boardQueryRepository.findSearchBoards(findSearchBoardsRequestDto, pageable);
+        List<Board> findSearchBoardsDtos = boardQueryRepository.findSearchBoards(findSearchBoardsRequestDto, pageable);
         int boardSize = boardQueryRepository.findSearchBoardsSize(findSearchBoardsRequestDto);
         int totalPageCount = (boardSize % pageable.getPageSize()) == 0 ?
                 (boardSize / pageable.getPageSize()) : (boardSize % pageable.getPageSize()) + 1;
