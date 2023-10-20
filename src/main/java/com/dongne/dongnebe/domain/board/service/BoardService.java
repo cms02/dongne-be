@@ -177,7 +177,7 @@ public class BoardService {
         return new FindSearchBoardsResponseDto(findSearchBoardsDtos);
     }
     @Transactional
-    public FindUploadBoardImagesResponseDto uploadBoardImages(List<MultipartFile> files, Authentication authentication) {
+    public FindUploadBoardImagesResponseDto uploadBoardImages(List<MultipartFile> files) {
         String imgFilePath= null;
         if (!files.isEmpty()) {
             files.forEach(GlobalService::uploadFile);

@@ -15,4 +15,5 @@ public class FindSearchBoardsRequestDto {
     private String title;
     private String userId;
     private Long subCategoryId;
+    private Long channelId;
 }

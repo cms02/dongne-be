@@ -175,6 +175,7 @@ public class BoardQueryRepository {
                         b.channel.name.as("channelName")))
                 .from(b)
                 .where(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId())
+                        .and(channelIdEq(findSearchBoardsRequestDto.getChannelId()))
                         .and(titleEq(findSearchBoardsRequestDto.getTitle()))
                         .and(userIdEq(findSearchBoardsRequestDto.getUserId()))
                 )
@@ -186,6 +187,10 @@ public class BoardQueryRepository {
 
     private BooleanExpression subCategoryIdEq(Long subCategoryId) {
         return subCategoryId == null ? null : board.subCategory.subCategoryId.eq(subCategoryId);
+    }
+
+    private BooleanExpression channelIdEq(Long channelId) {
+        return channelId == null ? null : board.channel.channelId.eq(channelId);
     }
 
     private BooleanExpression titleEq(String title) {

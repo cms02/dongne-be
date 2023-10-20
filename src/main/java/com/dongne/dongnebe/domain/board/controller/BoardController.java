@@ -19,9 +19,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/api/board/upload")
-    public ResponseEntity<ResponseDto> uploadBoardImages(@RequestPart(value = "files", required = false) List<MultipartFile> files,
-                                                  Authentication authentication) {
-        FindUploadBoardImagesResponseDto result = boardService.uploadBoardImages(files, authentication);
+    public ResponseEntity<ResponseDto> uploadBoardImages(@RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        FindUploadBoardImagesResponseDto result = boardService.uploadBoardImages(files);
         return ResponseEntity.ok().body(result);
     }
 
