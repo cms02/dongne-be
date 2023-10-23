@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class SubCategoryDto {
     private Long subCategoryId;
     private String name;
+    private Long boardCount;
 }

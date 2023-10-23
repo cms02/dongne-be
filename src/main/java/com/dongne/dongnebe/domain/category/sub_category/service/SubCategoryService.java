@@ -1,13 +1,16 @@
 package com.dongne.dongnebe.domain.category.sub_category.service;
 
 
+import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.dto.response.SubCategoryResponseDto;
 import com.dongne.dongnebe.domain.category.sub_category.repository.SubCategoryQueryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +28,16 @@ public class SubCategoryService {
                         .name(s.getName())
                         .build())
                 .collect(Collectors.toList());
+        return SubCategoryResponseDto.builder()
+                .subCategoryDtos(subCategoryDtos)
+                .responseMessage("Find SubCategories")
+                .statusCode(HttpStatus.OK.value())
+                .build();
+    }
+
+    @Transactional(readOnly = true)
+    public SubCategoryResponseDto findAllSubCategories(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+        List<SubCategoryDto> subCategoryDtos = subCategoryQueryRepository.findAllSubCategories(findDefaultBoardsRequestDto, pageable);
         return SubCategoryResponseDto.builder()
                 .subCategoryDtos(subCategoryDtos)
                 .responseMessage("Find SubCategories")

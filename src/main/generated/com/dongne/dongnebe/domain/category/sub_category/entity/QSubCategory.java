@@ -22,6 +22,8 @@ public class QSubCategory extends EntityPathBase<SubCategory> {
 
     public static final QSubCategory subCategory = new QSubCategory("subCategory");
 
+    public final ListPath<com.dongne.dongnebe.domain.board.entity.Board, com.dongne.dongnebe.domain.board.entity.QBoard> boardList = this.<com.dongne.dongnebe.domain.board.entity.Board, com.dongne.dongnebe.domain.board.entity.QBoard>createList("boardList", com.dongne.dongnebe.domain.board.entity.Board.class, com.dongne.dongnebe.domain.board.entity.QBoard.class, PathInits.DIRECT2);
+
     public final com.dongne.dongnebe.domain.category.main_category.entity.QMainCategory mainCategory;
 
     public final StringPath name = createString("name");
