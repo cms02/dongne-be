@@ -22,6 +22,8 @@ public class QChannel extends EntityPathBase<Channel> {
 
     public static final QChannel channel = new QChannel("channel");
 
+    public final ListPath<com.dongne.dongnebe.domain.board.entity.Board, com.dongne.dongnebe.domain.board.entity.QBoard> boardList = this.<com.dongne.dongnebe.domain.board.entity.Board, com.dongne.dongnebe.domain.board.entity.QBoard>createList("boardList", com.dongne.dongnebe.domain.board.entity.Board.class, com.dongne.dongnebe.domain.board.entity.QBoard.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> channelId = createNumber("channelId", Long.class);
 
     public final StringPath name = createString("name");

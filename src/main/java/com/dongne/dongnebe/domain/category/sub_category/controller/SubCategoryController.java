@@ -22,7 +22,7 @@ public class SubCategoryController {
 
     @PostMapping("/api/sub-categories")
     public ResponseEntity<ResponseDto> findAllSubCategories(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
-        SubCategoryResponseDto result = subCategoryService.findAllSubCategories(findDefaultBoardsRequestDto, pageable);
+        SubCategoryResponseDto result = subCategoryService.findAllSubCategories(findDefaultBoardsRequestDto);
         return ResponseEntity.ok().body(result);
     }
 

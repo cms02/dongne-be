@@ -5,6 +5,7 @@ import com.dongne.dongnebe.domain.board.dto.response.*;
 import com.dongne.dongnebe.domain.board.service.BoardService;
 import com.dongne.dongnebe.domain.category.channel.dto.FindHotChannelsDto;
 import com.dongne.dongnebe.domain.category.channel.dto.request.FindHotChannelsRequestDto;
+import com.dongne.dongnebe.domain.category.channel.dto.response.ChannelResponseDto;
 import com.dongne.dongnebe.domain.category.channel.dto.response.FindHotChannelsResponseDto;
 import com.dongne.dongnebe.domain.category.channel.service.ChannelService;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
@@ -25,6 +26,13 @@ public class ChannelController {
     @PostMapping("/api/channel/hot")
     public ResponseEntity<ResponseDto> findHotChannels(@RequestBody FindHotChannelsRequestDto findHotChannelsRequestDto) {
         FindHotChannelsResponseDto result = channelService.findHotChannels(findHotChannelsRequestDto);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping("/api/channel/{subCategoryId}")
+    public ResponseEntity<ResponseDto> findAllChannels(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
+                                                       @PathVariable("subCategoryId") Long subCategoryId) {
+        ChannelResponseDto result = channelService.findAllChannels(findDefaultBoardsRequestDto, subCategoryId);
         return ResponseEntity.ok().body(result);
     }
 

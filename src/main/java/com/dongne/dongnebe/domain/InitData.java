@@ -2685,7 +2685,7 @@ public class InitData {
             if (channelRepository.findAll().isEmpty()) {
                 channelRepository.save(
                         Channel.builder()
-                                .subCategory(SubCategory.builder().subCategoryId(1L).build())
+                                .subCategory(SubCategory.builder().subCategoryId(25L).build())
                                 .name("개발자모여라")
                                 .build());
 

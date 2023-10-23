@@ -6,7 +6,6 @@ import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.dto.response.SubCategoryResponseDto;
 import com.dongne.dongnebe.domain.category.sub_category.repository.SubCategoryQueryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +35,8 @@ public class SubCategoryService {
     }
 
     @Transactional(readOnly = true)
-    public SubCategoryResponseDto findAllSubCategories(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
-        List<SubCategoryDto> subCategoryDtos = subCategoryQueryRepository.findAllSubCategories(findDefaultBoardsRequestDto, pageable);
+    public SubCategoryResponseDto findAllSubCategories(@RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto) {
+        List<SubCategoryDto> subCategoryDtos = subCategoryQueryRepository.findAllSubCategories(findDefaultBoardsRequestDto);
         return SubCategoryResponseDto.builder()
                 .subCategoryDtos(subCategoryDtos)
                 .responseMessage("Find SubCategories")

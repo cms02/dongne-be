@@ -7,8 +7,10 @@ import com.dongne.dongnebe.domain.board.dto.response.*;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
+import com.dongne.dongnebe.domain.category.channel.dto.ChannelDto;
 import com.dongne.dongnebe.domain.category.channel.dto.FindHotChannelsDto;
 import com.dongne.dongnebe.domain.category.channel.dto.request.FindHotChannelsRequestDto;
+import com.dongne.dongnebe.domain.category.channel.dto.response.ChannelResponseDto;
 import com.dongne.dongnebe.domain.category.channel.dto.response.FindHotChannelsResponseDto;
 import com.dongne.dongnebe.domain.category.channel.entity.Channel;
 import com.dongne.dongnebe.domain.category.channel.repository.ChannelQueryRepository;
@@ -52,5 +54,11 @@ public class ChannelService {
 
         List<FindHotChannelsDto> topNChannelsDtos = channelQueryRepository.findHotChannels(findHotChannelsRequestDto);
         return new FindHotChannelsResponseDto(topNChannelsDtos);
+    }
+
+    @Transactional(readOnly = true)
+    public ChannelResponseDto findAllChannels(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Long subCategoryId) {
+        List<ChannelDto> channelDtos = channelQueryRepository.findAllChannels(findDefaultBoardsRequestDto, subCategoryId);
+        return new ChannelResponseDto(channelDtos);
     }
 }

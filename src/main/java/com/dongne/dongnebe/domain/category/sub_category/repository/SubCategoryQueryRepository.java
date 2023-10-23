@@ -6,16 +6,12 @@ import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -37,7 +33,7 @@ public class SubCategoryQueryRepository {
                 .fetch();
     }
 
-    public List<SubCategoryDto> findAllSubCategories(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+    public List<SubCategoryDto> findAllSubCategories(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto) {
         StringPath aliasBoardCount = Expressions.stringPath("boardCount");
         QSubCategory s = subCategory;
         QBoard b = board;
