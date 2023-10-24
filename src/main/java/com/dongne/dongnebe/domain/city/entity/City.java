@@ -1,12 +1,13 @@
 package com.dongne.dongnebe.domain.city.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.dongne.dongnebe.domain.board.entity.Board;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "city")
@@ -24,4 +25,7 @@ public class City {
         this.cityCode = cityCode;
         this.name = name;
     }
+
+    @OneToMany(mappedBy = "city")
+    private List<Board> boardList = new ArrayList<>();
 }

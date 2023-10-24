@@ -2864,6 +2864,117 @@ public class InitData {
                                         .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
                                         .build()
                         ));
+
+                IntStream.range(1000, 1100)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26140").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+
+                IntStream.range(1100, 1150)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글" + index)
+                                        .content("유령회원의글" + index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28200").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+                IntStream.range(1150, 1180)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("31").build())
+                                        .zone(Zone.builder().zoneCode("31140").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+
+                IntStream.range(1180, 1240)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("36").build())
+                                        .zone(Zone.builder().zoneCode("36110").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+
+                IntStream.range(1240, 1250)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("41").build())
+                                        .zone(Zone.builder().zoneCode("41115").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+
+                IntStream.range(1250, 1255)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("42").build())
+                                        .zone(Zone.builder().zoneCode("42750").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+
+                IntStream.range(1255, 1259)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("43").build())
+                                        .zone(Zone.builder().zoneCode("43745").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+
+                IntStream.range(1259, 1260)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title("유령회원의글"+index)
+                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .city(City.builder().cityCode("50").build())
+                                        .zone(Zone.builder().zoneCode("50110").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
             }
         }
     }
