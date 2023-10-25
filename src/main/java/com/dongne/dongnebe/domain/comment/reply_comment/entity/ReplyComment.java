@@ -27,6 +27,7 @@ public class ReplyComment extends BaseEntity {
     @Column(name = "reply_comment_id")
     private Long replyCommentId;
 
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)

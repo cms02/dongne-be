@@ -22,6 +22,11 @@ public class QReplyCommentLikes extends EntityPathBase<ReplyCommentLikes> {
 
     public static final QReplyCommentLikes replyCommentLikes = new QReplyCommentLikes("replyCommentLikes");
 
+    public final com.dongne.dongnebe.global.entity.QBaseEntity _super = new com.dongne.dongnebe.global.entity.QBaseEntity(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
+
     public final com.dongne.dongnebe.domain.comment.reply_comment.entity.QReplyComment replyComment;
 
     public final NumberPath<Long> replyCommentLikesId = createNumber("replyCommentLikesId", Long.class);

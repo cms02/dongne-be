@@ -28,6 +28,7 @@ public class BoardComment extends BaseEntity {
     @Column(name = "board_comment_id")
     private Long boardCommentId;
 
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)

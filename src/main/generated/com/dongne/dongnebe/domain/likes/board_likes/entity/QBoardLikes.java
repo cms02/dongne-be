@@ -22,9 +22,14 @@ public class QBoardLikes extends EntityPathBase<BoardLikes> {
 
     public static final QBoardLikes boardLikes = new QBoardLikes("boardLikes");
 
+    public final com.dongne.dongnebe.global.entity.QBaseEntity _super = new com.dongne.dongnebe.global.entity.QBaseEntity(this);
+
     public final com.dongne.dongnebe.domain.board.entity.QBoard board;
 
     public final NumberPath<Long> boardLikesId = createNumber("boardLikesId", Long.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
 
     public final com.dongne.dongnebe.domain.user.entity.QUser user;
 

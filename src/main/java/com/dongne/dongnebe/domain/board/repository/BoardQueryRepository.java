@@ -3,7 +3,6 @@ package com.dongne.dongnebe.domain.board.repository;
 import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
 import com.dongne.dongnebe.domain.board.dto.FindEventBoardsByPeriodDto;
 import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
-import com.dongne.dongnebe.domain.board.dto.FindSearchBoardsDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindBestBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindHotBoardsRequestDto;
@@ -17,7 +16,6 @@ import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
 import com.querydsl.core.types.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -34,19 +32,6 @@ import static io.micrometer.common.util.StringUtils.isEmpty;
 @RequiredArgsConstructor
 public class BoardQueryRepository {
     private final JPAQueryFactory queryFactory;
-
-    public List<Board> findLatestBoards(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
-        QBoard b = board;
-        return queryFactory
-                .selectFrom(b)
-                .where(
-                        b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()).and(
-                                b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(sortCondition(pageable))
-                .fetch();
-    }
 
     public int findSearchBoardsSize(FindSearchBoardsRequestDto findSearchBoardsRequestDto) {
         QBoard b = board;
@@ -213,4 +198,14 @@ public class BoardQueryRepository {
         }
         return null;
     }
+
+    public List<Long> findMyBoardIds(String userId) {
+        QBoard b = board;
+        return queryFactory.select(b.boardId)
+                .from(b)
+                .where(b.user.userId.eq(userId)
+                        .and(b.isDeleted.eq(Boolean.FALSE)))
+                .fetch();
+    }
+
 }

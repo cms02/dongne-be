@@ -1,8 +1,8 @@
 package com.dongne.dongnebe.domain.likes.reply_comment_likes.entity;
 
-import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment;
 import com.dongne.dongnebe.domain.user.entity.User;
+import com.dongne.dongnebe.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "reply_comment_likes")
 @Getter
 @NoArgsConstructor
-public class ReplyCommentLikes {
+public class ReplyCommentLikes extends BaseEntity {
 
     @Id
     @GeneratedValue

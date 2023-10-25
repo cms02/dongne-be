@@ -2,6 +2,7 @@ package com.dongne.dongnebe.domain.comment.board_comment.repository;
 
 import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindHotBoardsRequestDto;
+import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.board.entity.QBoard;
 import com.dongne.dongnebe.domain.board.enums.BoardType;
 import com.dongne.dongnebe.domain.comment.board_comment.dto.FindHotBoardCommentsDto;
@@ -75,5 +76,31 @@ public class BoardCommentQueryRepository {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+    }
+
+    public List<Board> findBoardCommentsByBoardIds(List<Long> myBoardIds, Pageable pageable) {
+        QBoardComment c = QBoardComment.boardComment;
+        QBoard b = QBoard.board;
+        return queryFactory
+                .select(b)
+                .from(c)
+                .where(c.board.boardId.in(myBoardIds)
+                        .and(b.isDeleted.eq(Boolean.FALSE)))
+                .orderBy(c.createDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    public int findBoardCommentsSize(List<Long> myBoardIds) {
+        QBoardComment c = QBoardComment.boardComment;
+        QBoard b = QBoard.board;
+        return queryFactory
+                .select(b)
+                .from(c)
+                .where(c.board.boardId.in(myBoardIds)
+                        .and(b.isDeleted.eq(Boolean.FALSE)))
+                .fetch()
+                .size();
     }
 }

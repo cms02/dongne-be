@@ -3,6 +3,7 @@ package com.dongne.dongnebe.domain.likes.board_comment_likes.entity;
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.comment.board_comment.entity.BoardComment;
 import com.dongne.dongnebe.domain.user.entity.User;
+import com.dongne.dongnebe.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "board_comment_likes")
 @Getter
 @NoArgsConstructor
-public class BoardCommentLikes {
+public class BoardCommentLikes extends BaseEntity {
 
     @Id
     @GeneratedValue

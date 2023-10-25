@@ -3,6 +3,7 @@ package com.dongne.dongnebe.global.service;
 import com.dongne.dongnebe.global.exception.user.ForbiddenException;
 import com.dongne.dongnebe.global.exception.user.ProfileUploadException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,11 @@ import java.util.UUID;
 @Component
 public class GlobalService {
     private static String uploadFolder;
+
+    public static int getTotalPageCount(int boardSize, Pageable pageable) {
+        return (boardSize % pageable.getPageSize()) == 0 ?
+                (boardSize / pageable.getPageSize()) : (boardSize / pageable.getPageSize()) + 1;
+    }
 
     @Value("${file.path}")
     public void setUploadFolder(String value) {

@@ -43,7 +43,7 @@ public class Board extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "file_img")
+    @Column(name = "file_img", columnDefinition = "TEXT")
     private String fileImg;
 
     @Enumerated(EnumType.STRING)

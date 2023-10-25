@@ -14,7 +14,9 @@ import com.dongne.dongnebe.domain.category.main_category.entity.MainCategory;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
+import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
 import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
+import com.dongne.dongnebe.domain.user.dto.response.FindUserReactionResponseDto;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
@@ -31,9 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.dongne.dongnebe.global.service.GlobalService.*;
@@ -45,6 +45,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardQueryRepository boardQueryRepository;
     private final BoardLikesQueryRepository boardLikesQueryRepository;
+    private final BoardCommentQueryRepository boardCommentQueryRepository;
     private final UserRepository userRepository;
     private final ChannelRepository channelRepository;
     private final ChannelQueryRepository channelQueryRepository;
@@ -165,8 +166,7 @@ public class BoardService {
     public FindSearchBoardsResponseDto findSearchBoards(FindSearchBoardsRequestDto findSearchBoardsRequestDto, Pageable pageable) {
         List<Board> findSearchBoardsDtos = boardQueryRepository.findSearchBoards(findSearchBoardsRequestDto, pageable);
         int boardSize = boardQueryRepository.findSearchBoardsSize(findSearchBoardsRequestDto);
-        int totalPageCount = (boardSize % pageable.getPageSize()) == 0 ?
-                (boardSize / pageable.getPageSize()) : (boardSize % pageable.getPageSize()) + 1;
+        int totalPageCount = getTotalPageCount(boardSize, pageable);
         return new FindSearchBoardsResponseDto(findSearchBoardsDtos, totalPageCount);
     }
     @Transactional
@@ -183,5 +183,21 @@ public class BoardService {
                 .statusCode(HttpStatus.OK.value())
                 .fileImg(imgFilePath)
                 .build();
+    }
+
+    public FindUserReactionResponseDto findBoardCommentReaction(Pageable pageable, Authentication authentication) {
+        List<Long> myBoardIds = boardQueryRepository.findMyBoardIds(authentication.getName());
+        List<Board> reactionCommentBoards = boardCommentQueryRepository.findBoardCommentsByBoardIds(myBoardIds, pageable);
+        int boardSize = boardCommentQueryRepository.findBoardCommentsSize(myBoardIds);
+        int totalPageCount = getTotalPageCount(boardSize, pageable);
+        return new FindUserReactionResponseDto(reactionCommentBoards, totalPageCount);
+    }
+
+    public FindUserReactionResponseDto findBoardLikesReaction(Pageable pageable, Authentication authentication) {
+        List<Long> myBoardIds = boardQueryRepository.findMyBoardIds(authentication.getName());
+        List<Board> reactionLikesBoards = boardLikesQueryRepository.findBoardLikesByBoardIds(myBoardIds, pageable);
+        int boardSize = boardLikesQueryRepository.findBoardLikesSize(myBoardIds);
+        int totalPageCount = getTotalPageCount(boardSize, pageable);
+        return new FindUserReactionResponseDto(reactionLikesBoards, totalPageCount);
     }
 }

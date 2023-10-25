@@ -1,5 +1,7 @@
 package com.dongne.dongnebe.domain.user.controller;
 
+import com.dongne.dongnebe.domain.board.dto.response.FindSearchBoardsResponseDto;
+import com.dongne.dongnebe.domain.board.service.BoardService;
 import com.dongne.dongnebe.domain.user.dto.UserRankingDto;
 import com.dongne.dongnebe.domain.user.dto.request.*;
 import com.dongne.dongnebe.domain.user.dto.response.*;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
     private final UserService userService;
+    private final BoardService boardService;
 
     @PostMapping("/api/user/sign-up")
     public ResponseEntity<ResponseDto> signUpUser(@RequestBody @Valid SignUpRequestDto requestDto) {
@@ -93,6 +96,18 @@ public class UserController {
     public ResponseEntity<ResponseDto> findUserRanking(@RequestBody UserRankingRequestDto userRankingRequestDto,
                                                        Pageable pageable) {
         UserRankingResponseDto result = userService.findUserRanking(userRankingRequestDto, pageable);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/api/user/board-comment/reaction")
+    public ResponseEntity<ResponseDto> findBoardCommentReaction(Pageable pageable, Authentication authentication) {
+        FindUserReactionResponseDto result = boardService.findBoardCommentReaction(pageable, authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/api/user/board-likes/reaction")
+    public ResponseEntity<ResponseDto> findBoardLikesReaction(Pageable pageable, Authentication authentication) {
+        FindUserReactionResponseDto result = boardService.findBoardLikesReaction(pageable, authentication);
         return ResponseEntity.ok().body(result);
     }
 }
