@@ -179,7 +179,7 @@ public class BoardQueryRepository {
     }
 
     private BooleanExpression titleLike(String title) {
-        return isEmpty(title) ? null : board.title.like(title);
+        return isEmpty(title) ? null : board.title.contains(title);
     }
 
     private BooleanExpression userIdEq(String userId) {
