@@ -23,6 +23,7 @@ public class FindSearchBoardsDto {
     private Long point;
     private String createDate;
     private String fileImg;
+    private Long boardCommentCount;
 
     public FindSearchBoardsDto(Board board) {
         this.boardId = board.getBoardId();
@@ -34,6 +35,7 @@ public class FindSearchBoardsDto {
         this.point = board.getUser().getPoint();
         this.createDate = GlobalService.formatLocalDateTimeToString(board.getCreateDate());
         this.fileImg = board.getFileImg();
+        this.boardCommentCount = (long) board.getBoardComments().size();
     }
 
 }

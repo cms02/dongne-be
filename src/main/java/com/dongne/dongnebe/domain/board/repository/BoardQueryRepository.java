@@ -1,7 +1,5 @@
 package com.dongne.dongnebe.domain.board.repository;
 
-import com.dongne.dongnebe.domain.board.dto.FindBestBoardsByPeriodDto;
-import com.dongne.dongnebe.domain.board.dto.FindEventBoardsByPeriodDto;
 import com.dongne.dongnebe.domain.board.dto.FindHotBoardsDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindBestBoardsRequestDto;
 import com.dongne.dongnebe.domain.board.dto.request.FindDefaultBoardsRequestDto;
@@ -12,10 +10,11 @@ import com.dongne.dongnebe.domain.board.entity.QBoard;
 import com.dongne.dongnebe.domain.board.enums.BoardType;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory;
-import com.dongne.dongnebe.domain.comment.board_comment.entity.QBoardComment;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
-import com.querydsl.core.types.*;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -125,18 +124,10 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
-    public List<FindEventBoardsByPeriodDto> findEventBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
+    public List<Board> findEventBoardsByPeriod(FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Pageable pageable) {
         QBoard b = board;
         return queryFactory
-                .select(Projections.fields(FindEventBoardsByPeriodDto.class,
-                        b.boardId,
-                        b.title,
-                        b.user.userId,
-                        b.user.nickname,
-                        b.user.point,
-                        b.fileImg,
-                        b.viewCnt
-                ))
+                .select(b)
                 .from(b)
                 .where(b.isDeleted.eq(Boolean.FALSE).and(b.boardType.eq(BoardType.EVENT)).and(b.deadlineAt.after(LocalDateTime.now()))
                         .and(b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()))

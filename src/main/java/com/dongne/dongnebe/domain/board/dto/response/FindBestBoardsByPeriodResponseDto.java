@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,11 @@ public class FindBestBoardsByPeriodResponseDto extends ResponseDto {
 
     public FindBestBoardsByPeriodResponseDto(List<Board> boardList) {
         super(HttpStatus.OK.value(), "Find Best Boards");
-        this.findBestBoardsByPeriodDtos = boardList.stream().map(FindBestBoardsByPeriodDto::new).collect(Collectors.toList());
+        List<FindBestBoardsByPeriodDto> list = new ArrayList<>();
+        for (Board board : boardList) {
+            FindBestBoardsByPeriodDto findBestBoardsByPeriodDto = new FindBestBoardsByPeriodDto(board);
+            list.add(findBestBoardsByPeriodDto);
+        }
+        this.findBestBoardsByPeriodDtos = list;
     }
 }
