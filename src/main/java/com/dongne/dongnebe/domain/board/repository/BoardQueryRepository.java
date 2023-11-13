@@ -12,6 +12,7 @@ import com.dongne.dongnebe.domain.board.entity.QBoard;
 import com.dongne.dongnebe.domain.board.enums.BoardType;
 import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory;
+import com.dongne.dongnebe.domain.comment.board_comment.entity.QBoardComment;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.QBoardLikes;
 import com.dongne.dongnebe.domain.user.dto.FindLatestBoardsByUserDto;
 import com.querydsl.core.types.*;
@@ -48,29 +49,22 @@ public class BoardQueryRepository {
                 .size();
     }
 
-    public List<FindBestBoardsByPeriodDto> findBestBoardsByPeriod(FindBestBoardsRequestDto findBestBoardsRequestDto, Pageable pageable) {
+    public List<Board> findBestBoardsByPeriod(FindBestBoardsRequestDto findBestBoardsRequestDto, Pageable pageable) {
         QBoard b = board;
         QBoardLikes l = QBoardLikes.boardLikes;
-        List<FindBestBoardsByPeriodDto> result = queryFactory
-                .select(Projections.fields(FindBestBoardsByPeriodDto.class,
-                        b.boardId,
-                        b.title,
-                        l.count().as("boardLikesCount"),
-                        b.channel.name.as("channelName")))
+        return queryFactory
+                .select(b)
                 .from(b)
-                .where(
-                        b.city.cityCode.eq(findBestBoardsRequestDto.getCityCode()).and(
-                                b.zone.zoneCode.eq(findBestBoardsRequestDto.getZoneCode())).and(
-                                b.createDate.gt(LocalDateTime.now().minusDays(findBestBoardsRequestDto.getPeriod().getValue()))
-                        ))
                 .join(b.boardLikes, l)
-                .groupBy(b.boardId, b.channel.name)
+                .where(
+                        b.city.cityCode.eq(findBestBoardsRequestDto.getCityCode())
+                                .and(b.zone.zoneCode.eq(findBestBoardsRequestDto.getZoneCode()))
+                                .and(b.createDate.gt(LocalDateTime.now().minusDays(findBestBoardsRequestDto.getPeriod().getValue()))))
+                .groupBy(b)
                 .orderBy(l.count().desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
-        return result;
     }
 
     public List<SubCategoryDto> findTopNSubCategoryIds(FindHotBoardsRequestDto findHotBoardsRequestDto) {

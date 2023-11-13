@@ -135,8 +135,8 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public FindBestBoardsByPeriodResponseDto findBestBoardsByPeriod(FindBestBoardsRequestDto findBestBoardsRequestDto, Pageable pageable) {
-        List<FindBestBoardsByPeriodDto> findBestBoardsByPeriodDtos = boardQueryRepository.findBestBoardsByPeriod(findBestBoardsRequestDto, pageable);
-        return new FindBestBoardsByPeriodResponseDto(findBestBoardsByPeriodDtos);
+        List<Board> findBestBoards = boardQueryRepository.findBestBoardsByPeriod(findBestBoardsRequestDto, pageable);
+        return new FindBestBoardsByPeriodResponseDto(findBestBoards);
     }
 
     @Transactional(readOnly = true)
