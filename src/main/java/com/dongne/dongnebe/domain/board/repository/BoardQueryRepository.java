@@ -38,8 +38,9 @@ public class BoardQueryRepository {
         return queryFactory
                 .selectFrom(b)
                 .where(
-                        b.city.cityCode.eq(findSearchBoardsRequestDto.getCityCode()).and(
-                                b.zone.zoneCode.eq(findSearchBoardsRequestDto.getZoneCode())))
+                        b.city.cityCode.eq(findSearchBoardsRequestDto.getCityCode())
+                                .and(b.zone.zoneCode.eq(findSearchBoardsRequestDto.getZoneCode()))
+                                .and(b.subCategory.subCategoryId.eq(findSearchBoardsRequestDto.getSubCategoryId())))
                 .fetch()
                 .size();
     }
