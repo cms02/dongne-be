@@ -40,7 +40,10 @@ public class BoardQueryRepository {
                 .where(
                         b.city.cityCode.eq(findSearchBoardsRequestDto.getCityCode())
                                 .and(b.zone.zoneCode.eq(findSearchBoardsRequestDto.getZoneCode()))
-                                .and(b.subCategory.subCategoryId.eq(findSearchBoardsRequestDto.getSubCategoryId())))
+                                .and(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId()))
+                                .and(channelIdEq(findSearchBoardsRequestDto.getChannelId()))
+                                .and(titleLike(findSearchBoardsRequestDto.getTitle()))
+                                .and(userIdEq(findSearchBoardsRequestDto.getUserId())))
                 .fetch()
                 .size();
     }
@@ -158,7 +161,7 @@ public class BoardQueryRepository {
                         .and(b.zone.zoneCode.eq(findSearchBoardsRequestDto.getZoneCode()))
                         .and(subCategoryIdEq(findSearchBoardsRequestDto.getSubCategoryId()))
                         .and(channelIdEq(findSearchBoardsRequestDto.getChannelId()))
-                        .and(titleEq(findSearchBoardsRequestDto.getTitle()))
+                        .and(titleLike(findSearchBoardsRequestDto.getTitle()))
                         .and(userIdEq(findSearchBoardsRequestDto.getUserId()))
                 )
                 .orderBy(sortCondition(pageable))
@@ -175,8 +178,8 @@ public class BoardQueryRepository {
         return channelId == null ? null : board.channel.channelId.eq(channelId);
     }
 
-    private BooleanExpression titleEq(String title) {
-        return isEmpty(title) ? null : board.title.eq(title);
+    private BooleanExpression titleLike(String title) {
+        return isEmpty(title) ? null : board.title.like(title);
     }
 
     private BooleanExpression userIdEq(String userId) {
