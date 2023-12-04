@@ -13,6 +13,10 @@ import static com.dongne.dongnebe.global.service.GlobalService.formatLocalDateTi
 @SuperBuilder
 public class FindOneBoardResponseDto extends ResponseDto {
     private Long boardId;
+    private Long subCategoryId;
+    private String subCategoryName;
+    private Long channelId;
+    private String channelName;
     private String boardType;
     private String title;
     private String content;
@@ -25,13 +29,16 @@ public class FindOneBoardResponseDto extends ResponseDto {
     private Long viewCnt;
     private Long boardCommentCount;
     private Long boardLikesCount;
-    private String channelName;
     private Boolean isLiked;
 
 
     public FindOneBoardResponseDto(Board board, Boolean isLiked) {
         super(HttpStatus.OK.value(), "Find One Board");
         this.boardId = board.getBoardId();
+        this.subCategoryId = board.getSubCategory().getSubCategoryId();
+        this.subCategoryName = board.getSubCategory().getName();
+        this.channelId = board.getChannel() == null ? null : board.getChannel().getChannelId();
+        this.channelName = board.getChannel() == null ? null : board.getChannel().getName();
         this.boardType = board.getBoardType().getValue();
         this.title = board.getTitle();
         this.content = board.getContent();
@@ -44,7 +51,6 @@ public class FindOneBoardResponseDto extends ResponseDto {
         this.viewCnt = board.getViewCnt();
         this.boardCommentCount = (long) board.getBoardComments().size();
         this.boardLikesCount = (long) board.getBoardLikes().size();
-        this.channelName = board.getChannel() == null ? null : board.getChannel().getName();
         this.isLiked = isLiked;
     }
 
