@@ -119,8 +119,6 @@ public class UserService {
         validatePermission(userId, authentication);
         User user = findUser(userId);
 
-        /*파일이 없다면 기본 프로필 적용*/
-
         if (requestDto.getIsProfileChanged()) {
             uploadFile(file);
             user.updateProfileImg(getImgFilePath(file));

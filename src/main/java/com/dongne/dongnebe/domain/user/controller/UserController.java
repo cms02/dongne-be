@@ -62,7 +62,7 @@ public class UserController {
 
     @PatchMapping("/api/user-basic/{userId}")
     public ResponseEntity<ResponseDto> updateUserBasic(@PathVariable String userId,
-                                                        @RequestPart MultipartFile file,
+                                                        @RequestPart(required = false) MultipartFile file,
                                                         @RequestPart @Valid BasicRequestDto basicRequestDto,
                                                         Authentication authentication) {
         ResponseDto result = userService.updateUserBasic(userId, file, basicRequestDto, authentication);
