@@ -24,6 +24,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.dongne.dongnebe.domain.board.entity.QBoard.board;
 import static io.micrometer.common.util.StringUtils.isEmpty;
@@ -197,4 +198,47 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
+    public Board findPreBoardByBoardId(Long subCategoryId, Long boardId) {
+        QBoard b = board;
+        return queryFactory.selectFrom(b)
+                .where(b.subCategory.subCategoryId.eq(subCategoryId)
+                        .and(b.isDeleted.eq(Boolean.FALSE))
+                        .and(b.boardId.lt(boardId)))
+                        .orderBy(b.createDate.desc())
+                .limit(1)
+                .fetchOne();
+    }
+
+    public Board findPreEventBoardByBoardId(Long boardId) {
+        QBoard b = board;
+        return queryFactory.selectFrom(b)
+                .where(b.boardType.eq(BoardType.EVENT)
+                        .and(b.isDeleted.eq(Boolean.FALSE))
+                        .and(b.boardId.lt(boardId)))
+                .orderBy(b.createDate.desc())
+                .limit(1)
+                .fetchOne();
+    }
+
+    public Board findNextBoardByBoardId(Long subCategoryId, Long boardId) {
+        QBoard b = board;
+        return queryFactory.selectFrom(b)
+                .where(b.subCategory.subCategoryId.eq(subCategoryId)
+                        .and(b.isDeleted.eq(Boolean.FALSE))
+                        .and(b.boardId.gt(boardId)))
+                .orderBy(b.createDate.asc())
+                .limit(1)
+                .fetchOne();
+    }
+
+    public Board findNextEventBoardByBoardId(Long boardId) {
+        QBoard b = board;
+        return queryFactory.selectFrom(b)
+                .where(b.boardType.eq(BoardType.EVENT)
+                        .and(b.isDeleted.eq(Boolean.FALSE))
+                        .and(b.boardId.gt(boardId)))
+                .orderBy(b.createDate.asc())
+                .limit(1)
+                .fetchOne();
+    }
 }

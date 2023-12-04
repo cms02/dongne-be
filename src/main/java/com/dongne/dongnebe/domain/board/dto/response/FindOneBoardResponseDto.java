@@ -30,13 +30,17 @@ public class FindOneBoardResponseDto extends ResponseDto {
     private Long boardCommentCount;
     private Long boardLikesCount;
     private Boolean isLiked;
+    private Long preBoardId;
+    private String preBoardTitle;
+    private Long nextBoardId;
+    private String nextBoardTitle;
 
 
-    public FindOneBoardResponseDto(Board board, Boolean isLiked) {
+    public FindOneBoardResponseDto(Board board, Boolean isLiked, Board preBoard, Board nextBoard) {
         super(HttpStatus.OK.value(), "Find One Board");
         this.boardId = board.getBoardId();
-        this.subCategoryId = board.getSubCategory().getSubCategoryId();
-        this.subCategoryName = board.getSubCategory().getName();
+        this.subCategoryId = board.getSubCategory() == null ? null : board.getSubCategory().getSubCategoryId();
+        this.subCategoryName = board.getSubCategory() == null ? null : board.getSubCategory().getName();
         this.channelId = board.getChannel() == null ? null : board.getChannel().getChannelId();
         this.channelName = board.getChannel() == null ? null : board.getChannel().getName();
         this.boardType = board.getBoardType().getValue();
@@ -52,6 +56,10 @@ public class FindOneBoardResponseDto extends ResponseDto {
         this.boardCommentCount = (long) board.getBoardComments().size();
         this.boardLikesCount = (long) board.getBoardLikes().size();
         this.isLiked = isLiked;
+        this.preBoardId = preBoard == null ? null : preBoard.getBoardId();
+        this.preBoardTitle = preBoard == null ? null : preBoard.getTitle();
+        this.nextBoardId = nextBoard == null ? null : nextBoard.getBoardId();
+        this.nextBoardTitle = nextBoard == null ? null : nextBoard.getTitle();
     }
 
 }

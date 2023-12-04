@@ -129,7 +129,19 @@ public class BoardService {
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
         board.plusViewCnt();
         boolean isLiked = boardLikesQueryRepository.findBoardLikesByBoardIdAndUserId(board.getBoardId(), authentication.getName()).isPresent();
-        return new FindOneBoardResponseDto(board, isLiked);
+
+        Long subCategoryId = board.getSubCategory() == null ? null : board.getSubCategory().getSubCategoryId();
+        Board preBoard;
+        Board nextBoard;
+        if (subCategoryId == null) {
+            preBoard = boardQueryRepository.findPreEventBoardByBoardId(boardId);
+            nextBoard = boardQueryRepository.findNextEventBoardByBoardId(boardId);
+        } else {
+            preBoard = boardQueryRepository.findPreBoardByBoardId(subCategoryId, boardId);
+            nextBoard = boardQueryRepository.findNextBoardByBoardId(subCategoryId, boardId);
+        }
+
+        return new FindOneBoardResponseDto(board, isLiked, preBoard, nextBoard);
     }
 
 
