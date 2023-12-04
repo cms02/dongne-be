@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WriteReplyCommentRequestDto {
-    private Long replyCommentId;
+    private Long boardCommentId;
     private String content;
 }

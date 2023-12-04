@@ -40,7 +40,7 @@ public class ReplyCommentService {
         replyCommentRepository.save(ReplyComment.builder()
                 .content(writeReplyCommentRequestDto.getContent())
                 .user(User.builder().userId(authentication.getName()).build())
-                .boardComment(BoardComment.builder().boardCommentId(writeReplyCommentRequestDto.getReplyCommentId()).build())
+                .boardComment(BoardComment.builder().boardCommentId(writeReplyCommentRequestDto.getBoardCommentId()).build())
                 .build());
         return ResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
