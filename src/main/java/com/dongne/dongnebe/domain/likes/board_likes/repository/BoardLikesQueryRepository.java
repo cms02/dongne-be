@@ -50,4 +50,13 @@ public class BoardLikesQueryRepository {
                 .fetch()
                 .size();
     }
+
+    public Optional<BoardLikes> findByBoardIdAndUserId(Long boardId, String userId) {
+        QBoardLikes l = QBoardLikes.boardLikes;
+        return Optional.ofNullable(queryFactory
+                .selectFrom(l)
+                .where(l.board.boardId.eq(boardId)
+                        .and(l.user.userId.eq(userId)))
+                .fetchOne());
+    }
 }

@@ -2,10 +2,12 @@ package com.dongne.dongnebe.domain.likes.board_likes.service;
 
 import com.dongne.dongnebe.domain.board.entity.Board;
 import com.dongne.dongnebe.domain.likes.board_likes.entity.BoardLikes;
+import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
 import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
+import com.dongne.dongnebe.global.exception.common.ResourceAlreadyExistException;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,16 +15,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
 
 @Service
 @RequiredArgsConstructor
 public class BoardLikesService {
     private final BoardLikesRepository boardLikesRepository;
+    private final BoardLikesQueryRepository boardLikesQueryRepository;
     private final UserRepository userRepository;
 
     @Transactional
     public ResponseDto checkBoardLikes(Long boardId, Authentication authentication) {
+        Optional<BoardLikes> findBoardLikes = boardLikesQueryRepository.findByBoardIdAndUserId(boardId, authentication.getName());
+        if (findBoardLikes.isPresent()) {
+            throw new ResourceAlreadyExistException("Board Likes Id Already Exist");
+        }
 
         boardLikesRepository.save(BoardLikes.builder()
                 .user(User.builder().userId(authentication.getName()).build())
