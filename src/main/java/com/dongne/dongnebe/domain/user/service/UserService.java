@@ -101,6 +101,12 @@ public class UserService {
         // authenticate 매서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
+        /*
+        * 위의 인증 과정이 성공하게 되면 스프링 시큐리티에서 내부적으로
+        * SecurityContextHolder.getContext().setAuthenticatition(authentication) 을 호출
+        * SecurityContext 에 Authentication 객체를 저장한다.
+        * */
+
         String accessToken = jwtTokenProvider.responseAccessToken(user);
         String refreshToken = jwtTokenProvider.responseRefreshToken(user);
         redisService.setValues(user.getUserId(), refreshToken,
