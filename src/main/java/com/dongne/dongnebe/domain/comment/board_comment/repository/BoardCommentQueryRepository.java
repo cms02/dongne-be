@@ -30,7 +30,8 @@ public class BoardCommentQueryRepository {
         QBoardComment c = QBoardComment.boardComment;
         return queryFactory
                 .selectFrom(c)
-                .where(c.board.boardId.eq(boardId))
+                .where(c.board.boardId.eq(boardId).and(
+                        c.isDeleted.eq(Boolean.FALSE)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(c.boardCommentId.asc())
@@ -54,7 +55,9 @@ public class BoardCommentQueryRepository {
                         b.city.cityCode.eq(findHotBoardsRequestDto.getCityCode())).and(
                         b.zone.zoneCode.eq(findHotBoardsRequestDto.getZoneCode())).and(
                         b.boardType.eq(BoardType.NORMAL)).and(
-                        b.createDate.gt(LocalDateTime.now().minusDays(1)))
+                        b.createDate.gt(LocalDateTime.now().minusDays(1))).and(
+                                c.isDeleted.eq(Boolean.FALSE)
+                        )
                 )
                 .groupBy(c.boardCommentId, c.board.boardId)
                 .orderBy(l.boardCommentLikesId.count().desc(),c.board.boardId.desc())

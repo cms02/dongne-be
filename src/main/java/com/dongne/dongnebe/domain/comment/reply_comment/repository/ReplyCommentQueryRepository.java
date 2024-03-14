@@ -18,7 +18,9 @@ public class ReplyCommentQueryRepository {
         QReplyComment c = QReplyComment.replyComment;
         return queryFactory
                 .selectFrom(c)
-                .where(c.boardComment.boardCommentId.eq(boardCommentId))
+                .where(c.boardComment.boardCommentId.eq(boardCommentId).and(
+                        c.isDeleted.eq(Boolean.FALSE)
+                ))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(c.replyCommentId.asc())
