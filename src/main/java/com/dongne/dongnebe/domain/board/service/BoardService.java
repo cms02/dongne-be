@@ -15,6 +15,7 @@ import com.dongne.dongnebe.domain.category.sub_category.dto.SubCategoryDto;
 import com.dongne.dongnebe.domain.category.sub_category.entity.SubCategory;
 import com.dongne.dongnebe.domain.city.entity.City;
 import com.dongne.dongnebe.domain.comment.board_comment.repository.BoardCommentQueryRepository;
+import com.dongne.dongnebe.domain.likes.board_likes.entity.BoardLikes;
 import com.dongne.dongnebe.domain.likes.board_likes.repository.BoardLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.dto.response.FindUserReactionResponseDto;
 import com.dongne.dongnebe.domain.user.entity.User;
@@ -128,7 +129,14 @@ public class BoardService {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
         board.plusViewCnt();
-        boolean isLiked = boardLikesQueryRepository.findBoardLikesByBoardIdAndUserId(board.getBoardId(), authentication.getName()).isPresent();
+
+        Optional<BoardLikes> boardLikesByBoardIdAndUserId = boardLikesQueryRepository.findBoardLikesByBoardIdAndUserId(board.getBoardId(), authentication.getName());
+        Long boardLikesId;
+        if (boardLikesByBoardIdAndUserId.isPresent()) {
+            boardLikesId = boardLikesByBoardIdAndUserId.get().getBoardLikesId();
+        } else {
+            boardLikesId = null;
+        }
 
         Long subCategoryId = board.getSubCategory() == null ? null : board.getSubCategory().getSubCategoryId();
         Board preBoard;
@@ -141,7 +149,7 @@ public class BoardService {
             nextBoard = boardQueryRepository.findNextBoardByBoardId(subCategoryId, boardId);
         }
 
-        return new FindOneBoardResponseDto(board, isLiked, preBoard, nextBoard);
+        return new FindOneBoardResponseDto(board, boardLikesId, preBoard, nextBoard);
     }
 
 

@@ -34,9 +34,10 @@ public class FindOneBoardResponseDto extends ResponseDto {
     private String preBoardTitle;
     private Long nextBoardId;
     private String nextBoardTitle;
+    private Long boardLikesId;
 
 
-    public FindOneBoardResponseDto(Board board, Boolean isLiked, Board preBoard, Board nextBoard) {
+    public FindOneBoardResponseDto(Board board, Long boardLikesId , Board preBoard, Board nextBoard) {
         super(HttpStatus.OK.value(), "Find One Board");
         this.boardId = board.getBoardId();
         this.subCategoryId = board.getSubCategory() == null ? null : board.getSubCategory().getSubCategoryId();
@@ -55,7 +56,8 @@ public class FindOneBoardResponseDto extends ResponseDto {
         this.viewCnt = board.getViewCnt();
         this.boardCommentCount = (long) board.getBoardComments().size();
         this.boardLikesCount = (long) board.getBoardLikes().size();
-        this.isLiked = isLiked;
+        this.isLiked = boardLikesId == null? false : true;
+        this.boardLikesId = boardLikesId;
         this.preBoardId = preBoard == null ? null : preBoard.getBoardId();
         this.preBoardTitle = preBoard == null ? null : preBoard.getTitle();
         this.nextBoardId = nextBoard == null ? null : nextBoard.getBoardId();
