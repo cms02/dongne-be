@@ -198,45 +198,52 @@ public class BoardQueryRepository {
                 .fetch();
     }
 
-    public Board findPreBoardByBoardId(Long subCategoryId, Long boardId) {
+    public Board findPreBoardByBoardId(Long subCategoryId, Long boardId, FindDefaultBoardsRequestDto findDefaultBoardsRequestDto ) {
         QBoard b = board;
         return queryFactory.selectFrom(b)
-                .where(b.subCategory.subCategoryId.eq(subCategoryId)
-                        .and(b.isDeleted.eq(Boolean.FALSE))
-                        .and(b.boardId.lt(boardId)))
+                .where(b.isDeleted.eq(Boolean.FALSE)
+                        .and(b.boardId.lt(boardId))
+                        .and(b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()))
+                        .and(b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
                         .orderBy(b.createDate.desc())
                 .limit(1)
                 .fetchOne();
     }
 
-    public Board findPreEventBoardByBoardId(Long boardId) {
+    public Board findPreEventBoardByBoardId(Long boardId, FindDefaultBoardsRequestDto findDefaultBoardsRequestDto) {
         QBoard b = board;
         return queryFactory.selectFrom(b)
                 .where(b.boardType.eq(BoardType.EVENT)
                         .and(b.isDeleted.eq(Boolean.FALSE))
-                        .and(b.boardId.lt(boardId)))
+                        .and(b.boardId.lt(boardId))
+                        .and(b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()))
+                        .and(b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
                 .orderBy(b.createDate.desc())
                 .limit(1)
                 .fetchOne();
     }
 
-    public Board findNextBoardByBoardId(Long subCategoryId, Long boardId) {
+    public Board findNextBoardByBoardId(Long subCategoryId, Long boardId, FindDefaultBoardsRequestDto findDefaultBoardsRequestDto) {
         QBoard b = board;
         return queryFactory.selectFrom(b)
-                .where(b.subCategory.subCategoryId.eq(subCategoryId)
-                        .and(b.isDeleted.eq(Boolean.FALSE))
-                        .and(b.boardId.gt(boardId)))
+                .where(b.isDeleted.eq(Boolean.FALSE)
+                        .and(b.boardId.gt(boardId))
+                        .and(b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()))
+                        .and(b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode())))
                 .orderBy(b.createDate.asc())
                 .limit(1)
                 .fetchOne();
     }
 
-    public Board findNextEventBoardByBoardId(Long boardId) {
+    public Board findNextEventBoardByBoardId(Long boardId, FindDefaultBoardsRequestDto findDefaultBoardsRequestDto) {
         QBoard b = board;
         return queryFactory.selectFrom(b)
                 .where(b.boardType.eq(BoardType.EVENT)
                         .and(b.isDeleted.eq(Boolean.FALSE))
-                        .and(b.boardId.gt(boardId)))
+                        .and(b.boardId.gt(boardId))
+                        .and(b.city.cityCode.eq(findDefaultBoardsRequestDto.getCityCode()))
+                        .and(b.zone.zoneCode.eq(findDefaultBoardsRequestDto.getZoneCode()))
+                )
                 .orderBy(b.createDate.asc())
                 .limit(1)
                 .fetchOne();

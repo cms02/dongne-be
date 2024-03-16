@@ -125,7 +125,7 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public FindOneBoardResponseDto findOneBoard(Long boardId, Authentication authentication) {
+    public FindOneBoardResponseDto findOneBoard(Long boardId, FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Authentication authentication) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
         board.plusViewCnt();
@@ -142,11 +142,11 @@ public class BoardService {
         Board preBoard;
         Board nextBoard;
         if (subCategoryId == null) {
-            preBoard = boardQueryRepository.findPreEventBoardByBoardId(boardId);
-            nextBoard = boardQueryRepository.findNextEventBoardByBoardId(boardId);
+            preBoard = boardQueryRepository.findPreEventBoardByBoardId(boardId, findDefaultBoardsRequestDto);
+            nextBoard = boardQueryRepository.findNextEventBoardByBoardId(boardId, findDefaultBoardsRequestDto);
         } else {
-            preBoard = boardQueryRepository.findPreBoardByBoardId(subCategoryId, boardId);
-            nextBoard = boardQueryRepository.findNextBoardByBoardId(subCategoryId, boardId);
+            preBoard = boardQueryRepository.findPreBoardByBoardId(subCategoryId, boardId, findDefaultBoardsRequestDto);
+            nextBoard = boardQueryRepository.findNextBoardByBoardId(subCategoryId, boardId, findDefaultBoardsRequestDto);
         }
 
         return new FindOneBoardResponseDto(board, boardLikesId, preBoard, nextBoard);
