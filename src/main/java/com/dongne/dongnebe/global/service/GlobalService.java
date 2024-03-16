@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -32,6 +33,24 @@ public class GlobalService {
     public static void validatePermission(String userId, Authentication authentication) {
         if (!authentication.getName().equals(userId)) {
             throw new ForbiddenException("Access Is Forbidden");
+        }
+    }
+
+    public static void uploadFile(List<String> imgFilePaths, MultipartFile file) {
+        if (!file.isEmpty()) {
+            String imgFilePath = getImgFilePath(file);
+            imgFilePaths.add(imgFilePath);
+            Path path;
+            try {
+                path = Paths.get(imgFilePath);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(e);
+            }
+            try {
+                Files.write(path, file.getBytes());
+            } catch (IOException e) {
+                throw new ProfileUploadException(e.getMessage());
+            }
         }
     }
 

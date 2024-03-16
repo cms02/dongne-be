@@ -192,10 +192,13 @@ public class BoardService {
     @Transactional
     public FindUploadBoardImagesResponseDto uploadBoardImages(List<MultipartFile> files) {
         String imgFilePath= null;
+        List<String> imgFilePaths = new ArrayList<>();
         if (!files.isEmpty()) {
-            files.forEach(GlobalService::uploadFile);
+            for (MultipartFile file : files) {
+                uploadFile(imgFilePaths, file);
+            }
 
-            imgFilePath = files.stream().map(GlobalService::getImgFilePath)
+            imgFilePath = imgFilePaths.stream()
                     .collect(Collectors.joining(","));
         }
         return FindUploadBoardImagesResponseDto.builder()
