@@ -10,6 +10,7 @@ import com.dongne.dongnebe.domain.comment.reply_comment.dto.response.FindReplyCo
 import com.dongne.dongnebe.domain.comment.reply_comment.entity.ReplyComment;
 import com.dongne.dongnebe.domain.comment.reply_comment.repository.ReplyCommentQueryRepository;
 import com.dongne.dongnebe.domain.comment.reply_comment.repository.ReplyCommentRepository;
+import com.dongne.dongnebe.domain.likes.reply_comment_likes.entity.ReplyCommentLikes;
 import com.dongne.dongnebe.domain.likes.reply_comment_likes.repository.ReplyCommentLikesQueryRepository;
 import com.dongne.dongnebe.domain.user.entity.User;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.dongne.dongnebe.global.service.GlobalService.validatePermission;
@@ -79,14 +81,19 @@ public class ReplyCommentService {
         List<FindReplyCommentDto> replyCommentDtos = replyComments.stream()
                 .map(c -> FindReplyCommentDto.builder()
                         .replyComment(c)
-                        .isLiked(checkUserReplyCommentLikes(authentication, c))
+                        .replyCommentLikesId(getReplyCommentLikesId(authentication, c))
                         .build())
                 .collect(Collectors.toList());
 
         return new FindReplyCommentsResponseDto(replyCommentDtos);
     }
 
-    private boolean checkUserReplyCommentLikes(Authentication authentication, ReplyComment replyComment) {
-        return replyCommentLikesQueryRepository.findBoardCommentLikesByBoardCommentIdAndUserId(replyComment.getReplyCommentId(), authentication.getName()).isPresent();
+    private Long getReplyCommentLikesId(Authentication authentication, ReplyComment replyComment) {
+        Optional<ReplyCommentLikes> boardCommentLikesByBoardCommentIdAndUserId = replyCommentLikesQueryRepository.findBoardCommentLikesByBoardCommentIdAndUserId(replyComment.getReplyCommentId(), authentication.getName());
+        if (boardCommentLikesByBoardCommentIdAndUserId.isPresent()) {
+            return boardCommentLikesByBoardCommentIdAndUserId.get().getReplyCommentLikesId();
+        } else {
+            return null;
+        }
     }
 }

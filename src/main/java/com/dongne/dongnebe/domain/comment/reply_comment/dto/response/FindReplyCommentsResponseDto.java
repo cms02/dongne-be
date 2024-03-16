@@ -14,7 +14,7 @@ public class FindReplyCommentsResponseDto extends ResponseDto {
     private List<FindReplyCommentDto> findReplyCommentDtos;
 
     public FindReplyCommentsResponseDto(List<FindReplyCommentDto> findReplyCommentDtos) {
-        super(HttpStatus.OK.value(), "Find Board Comments");
+        super(HttpStatus.OK.value(), "Find Reply Comments");
         this.findReplyCommentDtos = findReplyCommentDtos;
     }
 }
