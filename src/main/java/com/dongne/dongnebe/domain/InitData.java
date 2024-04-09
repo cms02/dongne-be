@@ -2352,13 +2352,14 @@ public class InitData {
 
                 String encPwd = passwordEncoder.encode("password");
 
+                /* 서울(100) */
                 IntStream.range(0, NAMES.length)
                         .forEach(index -> userRepository.save(
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
                                         .username(NAMES[index])
-                                        .nickname(NAMES[index] + "짱짱맨")
+                                        .nickname(NAMES[index] + "짱짱맨(서울)")
                                         .city(City.builder().cityCode("11").build())
                                         .zone(Zone.builder().zoneCode("11170").build())
                                         .role(Role.USER)
@@ -2366,19 +2367,246 @@ public class InitData {
                                         .build()
                         ));
 
-                IntStream.range(100, 1000)
+                /* 부산(190) */
+                IntStream.range(100, 190)
                         .forEach(index -> userRepository.save(
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
                                         .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨")
-                                        .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11140").build())
+                                        .nickname("유령회원" + index + "짱짱맨(부산)")
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
                                         .role(Role.USER)
                                         .point(index * 100L)
                                         .build()
                         ));
+
+                /* 대구(80) */
+                IntStream.range(190, 270)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(대구)")
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 인천(70) */
+                IntStream.range(270, 340)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(인천)")
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 광주(60) */
+                IntStream.range(340, 400)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(광주)")
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 대전(50) */
+                IntStream.range(400, 450)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(대전)")
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 울산(40) */
+                IntStream.range(450, 490)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(울산)")
+                                        .city(City.builder().cityCode("31").build())
+                                        .zone(Zone.builder().zoneCode("31110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 세종(50) */
+                IntStream.range(490, 540)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(세종)")
+                                        .city(City.builder().cityCode("36").build())
+                                        .zone(Zone.builder().zoneCode("36110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 경기(160) */
+                IntStream.range(540, 700)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(경기)")
+                                        .city(City.builder().cityCode("41").build())
+                                        .zone(Zone.builder().zoneCode("41111").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 강원(30) */
+                IntStream.range(700, 730)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(강원)")
+                                        .city(City.builder().cityCode("42").build())
+                                        .zone(Zone.builder().zoneCode("42110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 충북(30) */
+                IntStream.range(700, 730)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(충북)")
+                                        .city(City.builder().cityCode("43").build())
+                                        .zone(Zone.builder().zoneCode("43111").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 충남(30) */
+                IntStream.range(730, 760)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(충남)")
+                                        .city(City.builder().cityCode("44").build())
+                                        .zone(Zone.builder().zoneCode("44131").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 전북(30) */
+                IntStream.range(760, 790)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(전북)")
+                                        .city(City.builder().cityCode("45").build())
+                                        .zone(Zone.builder().zoneCode("45111").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 전남(30) */
+                IntStream.range(790, 820)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(전남)")
+                                        .city(City.builder().cityCode("46").build())
+                                        .zone(Zone.builder().zoneCode("46110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 경북(60) */
+                IntStream.range(820, 880)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(경북)")
+                                        .city(City.builder().cityCode("47").build())
+                                        .zone(Zone.builder().zoneCode("47111").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 경남(60) */
+                IntStream.range(820, 880)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(경남)")
+                                        .city(City.builder().cityCode("48").build())
+                                        .zone(Zone.builder().zoneCode("48121").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                /* 제주(120) */
+                IntStream.range(880, 1000)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨(제주)")
+                                        .city(City.builder().cityCode("50").build())
+                                        .zone(Zone.builder().zoneCode("50110").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
             }
 
         }
