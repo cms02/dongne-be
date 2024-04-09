@@ -35,6 +35,7 @@ server:
   port: 8787
 file:
   path: src/main/resources/static/image/
+#  path: /cms/lab/dongne-upload-files/
 jwt:
   secret:
     key: ddoonnggnnee

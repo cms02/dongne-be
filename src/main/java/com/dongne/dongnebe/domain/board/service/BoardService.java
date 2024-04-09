@@ -59,7 +59,7 @@ public class BoardService {
         if (!isEmpty(writeBoardRequestDto.getChannelName())){
             channel = channelQueryRepository.findChannelBySubCategoryIdAndName(writeBoardRequestDto.getSubCategoryId(), writeBoardRequestDto.getChannelName());
             if (channel == null) {
-                channel = makeChannel(writeBoardRequestDto.getSubCategoryId(), writeBoardRequestDto.getChannelName());
+                channel = makeChannel(writeBoardRequestDto.getSubCategoryId(), writeBoardRequestDto.getChannelName(), writeBoardRequestDto.getZoneCode());
             }
         }
 
@@ -90,11 +90,12 @@ public class BoardService {
                 .build();
     }
 
-    private Channel makeChannel(Long subCategoryId, String channelName) {
+    private Channel makeChannel(Long subCategoryId, String channelName, String zoneCode) {
         return channelRepository.save(
                 Channel.builder()
                         .subCategory(SubCategory.builder().subCategoryId(subCategoryId).build())
                         .name(channelName)
+                        .zone(Zone.builder().zoneCode(zoneCode).build())
                         .build()
         );
     }

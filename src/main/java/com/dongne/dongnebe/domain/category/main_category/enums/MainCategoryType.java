@@ -14,5 +14,5 @@ public enum MainCategoryType {
     WORK("직장과 삶"),
     LIFE("생활문화");
 
-    private String value;
+    private final String value;
 }

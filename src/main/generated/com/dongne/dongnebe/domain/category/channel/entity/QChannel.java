@@ -30,6 +30,8 @@ public class QChannel extends EntityPathBase<Channel> {
 
     public final com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory subCategory;
 
+    public final com.dongne.dongnebe.domain.zone.entity.QZone zone;
+
     public QChannel(String variable) {
         this(Channel.class, forVariable(variable), INITS);
     }
@@ -49,6 +51,7 @@ public class QChannel extends EntityPathBase<Channel> {
     public QChannel(Class<? extends Channel> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.subCategory = inits.isInitialized("subCategory") ? new com.dongne.dongnebe.domain.category.sub_category.entity.QSubCategory(forProperty("subCategory"), inits.get("subCategory")) : null;
+        this.zone = inits.isInitialized("zone") ? new com.dongne.dongnebe.domain.zone.entity.QZone(forProperty("zone"), inits.get("zone")) : null;
     }
 
 }

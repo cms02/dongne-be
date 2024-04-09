@@ -45,7 +45,7 @@ import java.util.stream.IntStream;
 public class InitData {
 
     private static final String UPLOAD_FOLDER = "src/main/resources/static/image/";
-    private static final String DEFAULT_IMG_NAME = "defualt_event.jpg";
+    private static final String DEFAULT_IMG_NAME = "default_event.jpg";
 
     private final InitCityService initCityService;
     private final InitZoneService initZoneService;
@@ -2348,35 +2348,38 @@ public class InitData {
 
         @Transactional
         public void initUser() {
-            String encPwd = passwordEncoder.encode("password");
+            if (userRepository.findAll().isEmpty()) {
 
-            IntStream.range(0, NAMES.length)
-                    .forEach(index -> userRepository.save(
-                            User.builder()
-                                    .userId("user" + index)
-                                    .password(encPwd)
-                                    .username(NAMES[index])
-                                    .nickname(NAMES[index] + "짱짱맨")
-                                    .city(City.builder().cityCode("11").build())
-                                    .zone(Zone.builder().zoneCode("11170").build())
-                                    .role(Role.USER)
-                                    .point(index * 100L)
-                                    .build()
-                    ));
+                String encPwd = passwordEncoder.encode("password");
 
-            IntStream.range(100, 1000)
-                    .forEach(index -> userRepository.save(
-                            User.builder()
-                                    .userId("user" + index)
-                                    .password(encPwd)
-                                    .username("유령회원" + index)
-                                    .nickname("유령회원" + index + "짱짱맨")
-                                    .city(City.builder().cityCode("11").build())
-                                    .zone(Zone.builder().zoneCode("11140").build())
-                                    .role(Role.USER)
-                                    .point(index * 100L)
-                                    .build()
-                    ));
+                IntStream.range(0, NAMES.length)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username(NAMES[index])
+                                        .nickname(NAMES[index] + "짱짱맨")
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+
+                IntStream.range(100, 1000)
+                        .forEach(index -> userRepository.save(
+                                User.builder()
+                                        .userId("user" + index)
+                                        .password(encPwd)
+                                        .username("유령회원" + index)
+                                        .nickname("유령회원" + index + "짱짱맨")
+                                        .city(City.builder().cityCode("11").build())
+                                        .zone(Zone.builder().zoneCode("11140").build())
+                                        .role(Role.USER)
+                                        .point(index * 100L)
+                                        .build()
+                        ));
+            }
 
         }
     }
@@ -2687,24 +2690,28 @@ public class InitData {
                         Channel.builder()
                                 .subCategory(SubCategory.builder().subCategoryId(25L).build())
                                 .name("개발자모여라")
+                                .zone(Zone.builder().zoneCode("11170").build())
                                 .build());
 
                 channelRepository.save(
                         Channel.builder()
                                 .subCategory(SubCategory.builder().subCategoryId(15L).build())
                                 .name("무서운이야기")
+                                .zone(Zone.builder().zoneCode("11170").build())
                                 .build());
 
                 channelRepository.save(
                         Channel.builder()
                                 .subCategory(SubCategory.builder().subCategoryId(28L).build())
                                 .name("포메견주모여요")
+                                .zone(Zone.builder().zoneCode("11170").build())
                                 .build());
 
                 channelRepository.save(
                         Channel.builder()
                                 .subCategory(SubCategory.builder().subCategoryId(13L).build())
                                 .name("이건좀아니죠")
+                                .zone(Zone.builder().zoneCode("11170").build())
                                 .build());
             }
         }
