@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # MySQL 서비스 정의
+  mysql:
+    image: mysql:latest
+    container_name: mysql-dongne
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: cms
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306" # 호스트 포트:컨테이너 포트
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+
+  # Redis 서비스 정의
+  redis:
+    image: redis:latest
+    container_name: redis-dongne
+    restart: always
+    ports:
+      - "6379:6379" # 호스트 포트:컨테이너 포트
+
+  # Spring Boot 어플리케이션 서비스 정의
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot-dongne
+    restart: always
+    ports:
+      - "8080:8080" # 호스트 포트:컨테이너 포트
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: cms
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    depends_on:
+      - mysql
+      - redis
