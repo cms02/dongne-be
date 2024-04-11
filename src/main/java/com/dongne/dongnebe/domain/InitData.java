@@ -73,7 +73,7 @@ public class InitData {
             "류철우", "홍희철", "김가람", "이나라", "박다은", "최라은", "추민석", "방주현", "최재성", "김덕환"
     };
 
-    private static final String[] BOARD_TITLE = {
+    private static final String[] BOARD_TITLE_DEV = {
             "10가지 실전 자바 팁",
             "웹 개발에서 가장 중요한 보안 요소",
             "초보자를 위한 프로그래밍 기초 강좌",
@@ -173,35 +173,7 @@ public class InitData {
             "클라우드 기반 머신러닝 플랫폼",
             "웹 개발에서의 접근성 디자인 가이드",
             "빅데이터 처리를 위한 분산 파일 시스템",
-            "소프트웨어 품질 테스팅 전략",
-//            "머신러닝과 딥러닝을 활용한 이미지 분석",
-//            "사용자 데이터 분석과 행동 예측",
-//            "클라우드 보안을 위한 모바일 장치 관리",
-//            "데이터베이스 마이그레이션과 업그레이드",
-//            "사이버 위협 대응을 위한 침해 사고 분석",
-//            "애자일 개발에서의 소프트웨어 테스팅",
-//            "웹 보안을 위한 취약점 스캐닝 도구",
-//            "머신러닝을 활용한 사기 탐지 시스템",
-//            "소프트웨어 개발에서의 버그 추적 및 관리",
-//            "사용자 중심의 인터랙션 디자인 원칙",
-//            "클라우드 기반 대규모 데이터 처리",
-//            "데이터 마이닝을 활용한 고객 세분화 분석",
-//            "소프트웨어 테스트 자동화 도구",
-//            "사용자 경험 디자인을 위한 웹 분석",
-//            "머신러닝을 활용한 자동 번역 시스템",
-//            "웹 개발에서의 보안 강화를 위한 가이드",
-//            "모바일 앱 개발에서의 퍼포먼스 최적화",
-//            "사이버 위협 예방을 위한 네트워크 보안",
-//            "빅데이터 분석을 위한 데이터 시각화",
-//            "소프트웨어 개발 생명주기 관리",
-//            "사용자 경험 디자인을 위한 콘텐츠 전략",
-//            "클라우드 기반 IoT 시스템 개발",
-//            "웹 개발에서의 반응형 이미지 처리",
-//            "머신러닝을 활용한 이벤트 예측 모델",
-//            "사용자 데이터 분석과 개인화 서비스",
-//            "소프트웨어 보안을 위한 코드 리뷰",
-//            "사용자 중심의 인터페이스 디자인 툴",
-//            "클라우드 보안을 위한 네트워크 구성"
+            "소프트웨어 품질 테스팅 전략"
     };
 
     private static final String[] BOARD_TITLE_HORROR = {
@@ -2353,15 +2325,15 @@ public class InitData {
                 String encPwd = passwordEncoder.encode("password");
 
                 /* 서울(100) */
-                IntStream.range(0, NAMES.length)
+                IntStream.range(0, 100)
                         .forEach(index -> userRepository.save(
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username(NAMES[index])
-                                        .nickname(NAMES[index] + "짱짱맨(서울)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(서울)")
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .role(Role.USER)
                                         .point(index * 100L)
                                         .build()
@@ -2373,8 +2345,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(부산)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(부산)")
                                         .city(City.builder().cityCode("26").build())
                                         .zone(Zone.builder().zoneCode("26110").build())
                                         .role(Role.USER)
@@ -2388,8 +2360,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(대구)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(대구)")
                                         .city(City.builder().cityCode("27").build())
                                         .zone(Zone.builder().zoneCode("27110").build())
                                         .role(Role.USER)
@@ -2403,8 +2375,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(인천)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(인천)")
                                         .city(City.builder().cityCode("28").build())
                                         .zone(Zone.builder().zoneCode("28110").build())
                                         .role(Role.USER)
@@ -2418,8 +2390,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(광주)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(광주)")
                                         .city(City.builder().cityCode("29").build())
                                         .zone(Zone.builder().zoneCode("29110").build())
                                         .role(Role.USER)
@@ -2433,8 +2405,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(대전)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(대전)")
                                         .city(City.builder().cityCode("30").build())
                                         .zone(Zone.builder().zoneCode("30110").build())
                                         .role(Role.USER)
@@ -2448,8 +2420,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(울산)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(울산)")
                                         .city(City.builder().cityCode("31").build())
                                         .zone(Zone.builder().zoneCode("31110").build())
                                         .role(Role.USER)
@@ -2463,8 +2435,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(세종)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(세종)")
                                         .city(City.builder().cityCode("36").build())
                                         .zone(Zone.builder().zoneCode("36110").build())
                                         .role(Role.USER)
@@ -2478,8 +2450,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(경기)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(경기)")
                                         .city(City.builder().cityCode("41").build())
                                         .zone(Zone.builder().zoneCode("41111").build())
                                         .role(Role.USER)
@@ -2493,8 +2465,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(강원)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(강원)")
                                         .city(City.builder().cityCode("42").build())
                                         .zone(Zone.builder().zoneCode("42110").build())
                                         .role(Role.USER)
@@ -2508,8 +2480,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(충북)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(충북)")
                                         .city(City.builder().cityCode("43").build())
                                         .zone(Zone.builder().zoneCode("43111").build())
                                         .role(Role.USER)
@@ -2523,8 +2495,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(충남)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(충남)")
                                         .city(City.builder().cityCode("44").build())
                                         .zone(Zone.builder().zoneCode("44131").build())
                                         .role(Role.USER)
@@ -2538,8 +2510,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(전북)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(전북)")
                                         .city(City.builder().cityCode("45").build())
                                         .zone(Zone.builder().zoneCode("45111").build())
                                         .role(Role.USER)
@@ -2553,8 +2525,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(전남)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(전남)")
                                         .city(City.builder().cityCode("46").build())
                                         .zone(Zone.builder().zoneCode("46110").build())
                                         .role(Role.USER)
@@ -2568,8 +2540,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(경북)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(경북)")
                                         .city(City.builder().cityCode("47").build())
                                         .zone(Zone.builder().zoneCode("47111").build())
                                         .role(Role.USER)
@@ -2583,8 +2555,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(경남)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(경남)")
                                         .city(City.builder().cityCode("48").build())
                                         .zone(Zone.builder().zoneCode("48121").build())
                                         .role(Role.USER)
@@ -2598,8 +2570,8 @@ public class InitData {
                                 User.builder()
                                         .userId("user" + index)
                                         .password(encPwd)
-                                        .username("유령회원" + index)
-                                        .nickname("유령회원" + index + "짱짱맨(제주)")
+                                        .username(NAMES[index % 100])
+                                        .nickname(NAMES[index % 100] + "짱짱맨(제주)")
                                         .city(City.builder().cityCode("50").build())
                                         .zone(Zone.builder().zoneCode("50110").build())
                                         .role(Role.USER)
@@ -2914,34 +2886,55 @@ public class InitData {
         @Transactional
         public void initChannel() {
             if (channelRepository.findAll().isEmpty()) {
-                channelRepository.save(
-                        Channel.builder()
-                                .subCategory(SubCategory.builder().subCategoryId(25L).build())
-                                .name("개발자모여라")
-                                .zone(Zone.builder().zoneCode("11170").build())
-                                .build());
 
-                channelRepository.save(
-                        Channel.builder()
-                                .subCategory(SubCategory.builder().subCategoryId(15L).build())
-                                .name("무서운이야기")
-                                .zone(Zone.builder().zoneCode("11170").build())
-                                .build());
-
-                channelRepository.save(
-                        Channel.builder()
-                                .subCategory(SubCategory.builder().subCategoryId(28L).build())
-                                .name("포메견주모여요")
-                                .zone(Zone.builder().zoneCode("11170").build())
-                                .build());
-
-                channelRepository.save(
-                        Channel.builder()
-                                .subCategory(SubCategory.builder().subCategoryId(13L).build())
-                                .name("이건좀아니죠")
-                                .zone(Zone.builder().zoneCode("11170").build())
-                                .build());
+                saveChannelByZoneCode("11110");
+                saveChannelByZoneCode("26110");
+                saveChannelByZoneCode("27110");
+                saveChannelByZoneCode("28110");
+                saveChannelByZoneCode("29110");
+                saveChannelByZoneCode("30110");
+                saveChannelByZoneCode("31110");
+                saveChannelByZoneCode("36110");
+                saveChannelByZoneCode("41111");
+                saveChannelByZoneCode("42110");
+                saveChannelByZoneCode("43111");
+                saveChannelByZoneCode("44131");
+                saveChannelByZoneCode("45111");
+                saveChannelByZoneCode("46110");
+                saveChannelByZoneCode("47111");
+                saveChannelByZoneCode("48121");
+                saveChannelByZoneCode("50110");
             }
+        }
+
+        private void saveChannelByZoneCode(String zoneCode) {
+            channelRepository.save(
+                    Channel.builder()
+                            .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                            .name("개발자모여라")
+                            .zone(Zone.builder().zoneCode(zoneCode).build())
+                            .build());
+
+            channelRepository.save(
+                    Channel.builder()
+                            .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                            .name("무서운이야기")
+                            .zone(Zone.builder().zoneCode(zoneCode).build())
+                            .build());
+
+            channelRepository.save(
+                    Channel.builder()
+                            .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                            .name("포메견주모여요")
+                            .zone(Zone.builder().zoneCode(zoneCode).build())
+                            .build());
+
+            channelRepository.save(
+                    Channel.builder()
+                            .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                            .name("이건좀아니죠")
+                            .zone(Zone.builder().zoneCode(zoneCode).build())
+                            .build());
         }
     }
     @Component
@@ -2953,263 +2946,800 @@ public class InitData {
         @Transactional
         public void initBoard() {
             if (boardRepository.findAll().isEmpty()) {
-                IntStream.range(0, NAMES.length / 2)
+
+                /* ---------- 서울 게시글 ----------*/
+                IntStream.range(0, 10)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE[index])
-                                        .content(BOARD_TITLE[index] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(25L).build())
 //                                .channel(Channel.builder().channelId(1L).build()) 채널 X
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
 
-                IntStream.range(NAMES.length / 2, NAMES.length)
+                IntStream.range(10, 20)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE[index])
-                                        .content(BOARD_TITLE[index] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(25L).build())
                                         .channel(Channel.builder().channelId(1L).build())
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
 
-                IntStream.range(0, 15)
+                IntStream.range(20, 30)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_HORROR[index])
-                                        .content(BOARD_TITLE_HORROR[index] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(15L).build())
-//                                .channel(Channel.builder().channelId(1L).build()) 채널 X
+//                                .channel(Channel.builder().channelId(2L).build()) 채널 X
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
 
-                IntStream.range(15, 30)
+                IntStream.range(30, 40)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_HORROR[index])
-                                        .content(BOARD_TITLE_HORROR[index] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(15L).build())
                                         .channel(Channel.builder().channelId(2L).build())
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
 
-                IntStream.range(30, 45)
+                IntStream.range(40, 50)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_DOG[index-30])
-                                        .content(BOARD_TITLE_DOG[index-30] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(28L).build())
-//                                        .channel(Channel.builder().channelId(2L).build())
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
-                IntStream.range(45, 60)
+                IntStream.range(50, 60)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_DOG[index-30])
-                                        .content(BOARD_TITLE_DOG[index-30] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(28L).build())
                                         .channel(Channel.builder().channelId(3L).build())
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
 
-                IntStream.range(60, 75)
+                IntStream.range(60, 70)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_ISSUE[index-60])
-                                        .content(BOARD_TITLE_ISSUE[index-60] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(13L).build())
-//                                        .channel(Channel.builder().channelId(4L).build())
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
 
-                IntStream.range(75, 90)
+                IntStream.range(70, 90)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_ISSUE[index-60])
-                                        .content(BOARD_TITLE_ISSUE[index-60] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.NORMAL)
                                         .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
                                         .subCategory(SubCategory.builder().subCategoryId(13L).build())
                                         .channel(Channel.builder().channelId(4L).build())
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .build()
                         ));
 
                 IntStream.range(90, 100)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title(BOARD_TITLE_EVENT[index - 90])
-                                        .content(BOARD_TITLE_EVENT[index - 90] + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_EVENT[index % 10])
+                                        .content(BOARD_TITLE_EVENT[index % 10] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.EVENT)
                                         .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11170").build())
+                                        .zone(Zone.builder().zoneCode("11110").build())
                                         .deadlineAt(LocalDateTime.now().plusDays(5L))
                                         .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
                                         .build()
                         ));
+                /* ---------- 서울 게시글 ----------*/
 
-                IntStream.range(100, 1000)
+                /* ---------- 부산 게시글 ----------*/
+                IntStream.range(100, 110)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(110, 120)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .channel(Channel.builder().channelId(5L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(120, 130)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(130, 140)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .channel(Channel.builder().channelId(6L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(140, 150)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .build()
+                        ));
+                IntStream.range(150, 160)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .channel(Channel.builder().channelId(7L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("261110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(160, 170)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(170, 180)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .channel(Channel.builder().channelId(8L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("26").build())
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(180, 190)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_EVENT[index % 10])
+                                        .content(BOARD_TITLE_EVENT[index % 10] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.EVENT)
                                         .user(User.builder().userId("user" + index).build())
-                                        .city(City.builder().cityCode("11").build())
-                                        .zone(Zone.builder().zoneCode("11140").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
-                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
-                                        .build()
-                        ));
-
-                IntStream.range(1000, 1100)
-                        .forEach(index -> boardRepository.save(
-                                Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
-                                        .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
                                         .city(City.builder().cityCode("26").build())
-                                        .zone(Zone.builder().zoneCode("26140").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .zone(Zone.builder().zoneCode("26110").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(5L))
                                         .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
                                         .build()
                         ));
+                /* ---------- 부산 게시글 ----------*/
 
-                IntStream.range(1100, 1150)
+                /* ---------- 대구 게시글 ----------*/
+                IntStream.range(190, 200)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title("유령회원의글" + index)
-                                        .content("유령회원의글" + index + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(200, 210)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .channel(Channel.builder().channelId(9L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(210, 220)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(220, 230)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .channel(Channel.builder().channelId(10L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(230, 240)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+                IntStream.range(240, 250)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .channel(Channel.builder().channelId(11L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(250, 260)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(260, 265)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .channel(Channel.builder().channelId(12L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(265, 270)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_EVENT[index % 10])
+                                        .content(BOARD_TITLE_EVENT[index % 10] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("27").build())
+                                        .zone(Zone.builder().zoneCode("27110").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(5L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+                /* ---------- 대구 게시글 ----------*/
+
+                /* ---------- 인천 게시글 ----------*/
+                IntStream.range(270, 280)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .user(User.builder().userId("user" + index).build())
                                         .city(City.builder().cityCode("28").build())
-                                        .zone(Zone.builder().zoneCode("28200").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
-                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
-                                        .build()
-                        ));
-                IntStream.range(1150, 1180)
-                        .forEach(index -> boardRepository.save(
-                                Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
-                                        .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
-                                        .city(City.builder().cityCode("31").build())
-                                        .zone(Zone.builder().zoneCode("31140").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
-                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .zone(Zone.builder().zoneCode("28110").build())
                                         .build()
                         ));
 
-                IntStream.range(1180, 1240)
+                IntStream.range(280, 290)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
-                                        .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
-                                        .city(City.builder().cityCode("36").build())
-                                        .zone(Zone.builder().zoneCode("36110").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
-                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .channel(Channel.builder().channelId(13L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
                                         .build()
                         ));
 
-                IntStream.range(1240, 1250)
+                IntStream.range(290, 300)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
-                                        .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
-                                        .city(City.builder().cityCode("41").build())
-                                        .zone(Zone.builder().zoneCode("41115").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
-                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
                                         .build()
                         ));
 
-                IntStream.range(1250, 1255)
+                IntStream.range(300, 310)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
-                                        .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
-                                        .city(City.builder().cityCode("42").build())
-                                        .zone(Zone.builder().zoneCode("42750").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
-                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .channel(Channel.builder().channelId(14L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
                                         .build()
                         ));
 
-                IntStream.range(1255, 1259)
+                IntStream.range(310, 315)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
-                                        .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
-                                        .city(City.builder().cityCode("43").build())
-                                        .zone(Zone.builder().zoneCode("43745").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
-                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
+                                        .build()
+                        ));
+                IntStream.range(315, 320)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .channel(Channel.builder().channelId(15L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
                                         .build()
                         ));
 
-                IntStream.range(1259, 1260)
+                IntStream.range(320, 325)
                         .forEach(index -> boardRepository.save(
                                 Board.builder()
-                                        .title("유령회원의글"+index)
-                                        .content("유령회원의글"+index + "에 관련된 글 입니다.")
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(325, 330)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .channel(Channel.builder().channelId(16L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(330, 340)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_EVENT[index % 10])
+                                        .content(BOARD_TITLE_EVENT[index % 10] + "에 관련된 글 입니다.")
                                         .boardType(BoardType.EVENT)
-                                        .user(User.builder().userId("user" + index / 100L).build())
-                                        .city(City.builder().cityCode("50").build())
-                                        .zone(Zone.builder().zoneCode("50110").build())
-                                        .deadlineAt(LocalDateTime.now().plusDays(3L))
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("28").build())
+                                        .zone(Zone.builder().zoneCode("28110").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(5L))
                                         .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
                                         .build()
                         ));
+                /* ---------- 인천 게시글 ----------*/
+
+                /* ---------- 광주 게시글 ----------*/
+                IntStream.range(340, 350)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(350, 360)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .channel(Channel.builder().channelId(17L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(360, 370)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(370, 375)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .channel(Channel.builder().channelId(18L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(375, 380)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+                IntStream.range(380, 385)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .channel(Channel.builder().channelId(19L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(385, 390)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(390, 395)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .channel(Channel.builder().channelId(20L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(395, 400)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_EVENT[index % 10])
+                                        .content(BOARD_TITLE_EVENT[index % 10] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("29").build())
+                                        .zone(Zone.builder().zoneCode("29110").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(5L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+                /* ---------- 광주 게시글 ----------*/
+
+                /* ---------- 대전 게시글 ----------*/
+                IntStream.range(400, 410)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(410, 420)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DEV[index % 100])
+                                        .content(BOARD_TITLE_DEV[index % 100] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(5L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(25L).build())
+                                        .channel(Channel.builder().channelId(21L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(420, 425)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(425, 430)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_HORROR[index % 30])
+                                        .content(BOARD_TITLE_HORROR[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(2L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(15L).build())
+                                        .channel(Channel.builder().channelId(22L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(430, 435)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+                IntStream.range(435, 440)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_DOG[index % 30])
+                                        .content(BOARD_TITLE_DOG[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(3L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(28L).build())
+                                        .channel(Channel.builder().channelId(23L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(440, 445)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(445, 447)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_ISSUE[index % 30])
+                                        .content(BOARD_TITLE_ISSUE[index % 30] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.NORMAL)
+                                        .mainCategory(MainCategory.builder().mainCategoryId(4L).build())
+                                        .subCategory(SubCategory.builder().subCategoryId(13L).build())
+                                        .channel(Channel.builder().channelId(24L).build())
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .build()
+                        ));
+
+                IntStream.range(447, 450)
+                        .forEach(index -> boardRepository.save(
+                                Board.builder()
+                                        .title(BOARD_TITLE_EVENT[index % 10])
+                                        .content(BOARD_TITLE_EVENT[index % 10] + "에 관련된 글 입니다.")
+                                        .boardType(BoardType.EVENT)
+                                        .user(User.builder().userId("user" + index).build())
+                                        .city(City.builder().cityCode("30").build())
+                                        .zone(Zone.builder().zoneCode("30110").build())
+                                        .deadlineAt(LocalDateTime.now().plusDays(5L))
+                                        .fileImg(UPLOAD_FOLDER + DEFAULT_IMG_NAME)
+                                        .build()
+                        ));
+                /* ---------- 대전 게시글 ----------*/
+
+
+
+
+
+
             }
         }
     }
@@ -3223,7 +3753,7 @@ public class InitData {
         @Transactional
         public void initBoardComment() {
             if (boardCommentRepository.findAll().isEmpty()) {
-                for (int i = 0; i < BOARD_TITLE.length; i++) {
+                for (int i = 0; i < BOARD_TITLE_DEV.length; i++) {
                     Set<Integer> numbers = new HashSet<>();
                     Random random = new Random();
                     while (numbers.size() < random.nextInt(21)) {/*댓글은 21개 미만 랜덤으로*/
@@ -3358,7 +3888,7 @@ public class InitData {
         @Transactional
         public void initBoardLikes() {
             if (boardLikesRepository.findAll().isEmpty()) {
-                for (int i = 0; i < BOARD_TITLE.length; i++) {
+                for (int i = 0; i < BOARD_TITLE_DEV.length; i++) {
                     Set<Integer> numbers = new HashSet<>();
                     Random random = new Random();
                     while (numbers.size() < random.nextInt(31)) {/*좋아요은 31개 미만 랜덤으로*/
