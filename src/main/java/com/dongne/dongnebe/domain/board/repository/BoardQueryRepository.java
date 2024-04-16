@@ -24,7 +24,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static com.dongne.dongnebe.domain.board.entity.QBoard.board;
 import static io.micrometer.common.util.StringUtils.isEmpty;
