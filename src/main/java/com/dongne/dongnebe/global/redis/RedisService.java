@@ -1,4 +1,4 @@
-package com.dongne.dongnebe.domain.user.redis;
+package com.dongne.dongnebe.global.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
