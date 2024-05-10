@@ -61,6 +61,14 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
+    @GetMapping("/api/v2/board/{boardId}")
+    public ResponseEntity<ResponseDto> findOneBoardV2(@PathVariable Long boardId,
+                                                    @RequestBody FindDefaultBoardsRequestDto findDefaultBoardsRequestDto,
+                                                    Authentication authentication) {
+        FindOneBoardResponseDto result = boardService.findOneBoardV2(boardId, findDefaultBoardsRequestDto, authentication);
+        return ResponseEntity.ok().body(result);
+    }
+
     @PostMapping("/api/board/best")
     public ResponseEntity<ResponseDto> findBestBoardsByPeriod(@RequestBody FindBestBoardsRequestDto findBestBoardsRequestDto,
                                                            Pageable pageable) {

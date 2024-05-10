@@ -31,4 +31,14 @@ public class RedisService {
     public void deleteValues(String key) {
         redisTemplate.delete(key);
     }
+
+    public boolean hasUserViewedBoardToday(Long boardId, String userId) {
+        String key = "user:" + userId + ":board:" + boardId;
+        return redisTemplate.hasKey(key);
+    }
+
+    public void markUserViewedBoardToday(Long boardId, String userId) {
+        String key = "user:" + userId + ":board:" + boardId;
+        redisTemplate.opsForValue().set(key, "viewed", 24, TimeUnit.HOURS);
+    }
 }

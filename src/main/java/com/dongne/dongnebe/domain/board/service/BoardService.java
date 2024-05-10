@@ -5,8 +5,11 @@ import com.dongne.dongnebe.domain.board.dto.*;
 import com.dongne.dongnebe.domain.board.dto.request.*;
 import com.dongne.dongnebe.domain.board.dto.response.*;
 import com.dongne.dongnebe.domain.board.entity.Board;
+import com.dongne.dongnebe.domain.board.entity.BoardTodayLog;
 import com.dongne.dongnebe.domain.board.repository.BoardQueryRepository;
 import com.dongne.dongnebe.domain.board.repository.BoardRepository;
+import com.dongne.dongnebe.domain.board.repository.BoardTodayLogQueryRepository;
+import com.dongne.dongnebe.domain.board.repository.BoardTodayLogRepository;
 import com.dongne.dongnebe.domain.category.channel.entity.Channel;
 import com.dongne.dongnebe.domain.category.channel.repository.ChannelQueryRepository;
 import com.dongne.dongnebe.domain.category.channel.repository.ChannelRepository;
@@ -23,6 +26,7 @@ import com.dongne.dongnebe.domain.user.repository.UserRepository;
 import com.dongne.dongnebe.domain.zone.entity.Zone;
 import com.dongne.dongnebe.global.dto.response.ResponseDto;
 import com.dongne.dongnebe.global.exception.common.ResourceNotFoundException;
+import com.dongne.dongnebe.global.redis.RedisService;
 import com.dongne.dongnebe.global.service.GlobalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +54,9 @@ public class BoardService {
     private final UserRepository userRepository;
     private final ChannelRepository channelRepository;
     private final ChannelQueryRepository channelQueryRepository;
+    private final BoardTodayLogQueryRepository boardTodayLogQueryRepository;
+    private final BoardTodayLogRepository boardTodayLogRepository;
+    private final RedisService redisService;
 
 
     @Transactional
@@ -125,11 +132,55 @@ public class BoardService {
                 .build();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public FindOneBoardResponseDto findOneBoard(Long boardId, FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Authentication authentication) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
-        board.plusViewCnt();
+        if (!hasUserViewedToday(board, authentication)) {
+            boardTodayLogRepository.save(BoardTodayLog.builder()
+                    .boardId(board.getBoardId())
+                    .userId(authentication.getName())
+                    .build());
+
+            board.plusViewCnt();
+        }
+
+        Optional<BoardLikes> boardLikesByBoardIdAndUserId = boardLikesQueryRepository.findBoardLikesByBoardIdAndUserId(board.getBoardId(), authentication.getName());
+        Long boardLikesId;
+        if (boardLikesByBoardIdAndUserId.isPresent()) {
+            boardLikesId = boardLikesByBoardIdAndUserId.get().getBoardLikesId();
+        } else {
+            boardLikesId = null;
+        }
+
+        Long subCategoryId = board.getSubCategory() == null ? null : board.getSubCategory().getSubCategoryId();
+        Board preBoard;
+        Board nextBoard;
+        if (subCategoryId == null) {
+            preBoard = boardQueryRepository.findPreEventBoardByBoardId(boardId, findDefaultBoardsRequestDto);
+            nextBoard = boardQueryRepository.findNextEventBoardByBoardId(boardId, findDefaultBoardsRequestDto);
+        } else {
+            preBoard = boardQueryRepository.findPreBoardByBoardId(subCategoryId, boardId, findDefaultBoardsRequestDto);
+            nextBoard = boardQueryRepository.findNextBoardByBoardId(subCategoryId, boardId, findDefaultBoardsRequestDto);
+        }
+
+        return new FindOneBoardResponseDto(board, boardLikesId, preBoard, nextBoard);
+    }
+
+    private boolean hasUserViewedToday(Board board, Authentication authentication) {
+        List<BoardTodayLog> boardTodayLogList = boardTodayLogQueryRepository.findByBoardIdAndUserId(board.getBoardId(), authentication.getName());
+        return boardTodayLogList.size() != 0;
+    }
+
+    @Transactional
+    public FindOneBoardResponseDto findOneBoardV2(Long boardId, FindDefaultBoardsRequestDto findDefaultBoardsRequestDto, Authentication authentication) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new ResourceNotFoundException("Board Id Not Found"));
+
+        if (!redisService.hasUserViewedBoardToday(boardId, authentication.getName())) {
+            board.plusViewCnt();
+            redisService.markUserViewedBoardToday(boardId, authentication.getName());
+        }
 
         Optional<BoardLikes> boardLikesByBoardIdAndUserId = boardLikesQueryRepository.findBoardLikesByBoardIdAndUserId(board.getBoardId(), authentication.getName());
         Long boardLikesId;
